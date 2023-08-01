@@ -11,7 +11,8 @@ import SwiftUI
 struct VamaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
+        //.windowStyle(.hiddenTitleBar)
     }
 }

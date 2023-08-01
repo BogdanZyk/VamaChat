@@ -11,6 +11,13 @@
 		5A44A6662A77ED0E00C04810 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6652A77ED0E00C04810 /* ContentView.swift */; };
 		5A44A6682A77ED1000C04810 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A6672A77ED1000C04810 /* Assets.xcassets */; };
 		5A44A66B2A77ED1000C04810 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A66A2A77ED1000C04810 /* Preview Assets.xcassets */; };
+		5A44A6782A77EE3600C04810 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6772A77EE3600C04810 /* View.swift */; };
+		5A44A67D2A77EECE00C04810 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A67C2A77EECE00C04810 /* MainView.swift */; };
+		5A44A67F2A77EEE100C04810 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A67E2A77EEE100C04810 /* TabButton.swift */; };
+		5A44A6812A77F0F300C04810 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6802A77F0F300C04810 /* Router.swift */; };
+		5A44A6832A77F16C00C04810 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6822A77F16C00C04810 /* MainTab.swift */; };
+		5A44A6862A77F64F00C04810 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6852A77F64F00C04810 /* BlurView.swift */; };
+		5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6882A77FF7300C04810 /* ChatsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +27,13 @@
 		5A44A6672A77ED1000C04810 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A44A66A2A77ED1000C04810 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5A44A66C2A77ED1000C04810 /* Vama.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vama.entitlements; sourceTree = "<group>"; };
+		5A44A6772A77EE3600C04810 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		5A44A67C2A77EECE00C04810 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		5A44A67E2A77EEE100C04810 /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
+		5A44A6802A77F0F300C04810 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		5A44A6822A77F16C00C04810 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
+		5A44A6852A77F64F00C04810 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		5A44A6882A77FF7300C04810 /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +66,10 @@
 		5A44A6622A77ED0E00C04810 /* Vama */ = {
 			isa = PBXGroup;
 			children = (
-				5A44A6632A77ED0E00C04810 /* VamaApp.swift */,
-				5A44A6652A77ED0E00C04810 /* ContentView.swift */,
+				5A44A67A2A77EE9F00C04810 /* App */,
+				5A44A6792A77EE9200C04810 /* Services */,
+				5A44A6752A77EE0200C04810 /* Utils */,
+				5A44A6722A77EDEF00C04810 /* Core */,
 				5A44A6672A77ED1000C04810 /* Assets.xcassets */,
 				5A44A66C2A77ED1000C04810 /* Vama.entitlements */,
 				5A44A6692A77ED1000C04810 /* Preview Content */,
@@ -67,6 +83,91 @@
 				5A44A66A2A77ED1000C04810 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5A44A6722A77EDEF00C04810 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				5A44A6742A77EDF500C04810 /* View */,
+				5A44A6732A77EDF100C04810 /* Models */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		5A44A6732A77EDF100C04810 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5A44A6822A77F16C00C04810 /* MainTab.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5A44A6742A77EDF500C04810 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A44A6872A77FF3900C04810 /* ChatsView */,
+				5A44A6842A77F63C00C04810 /* ViewComponents */,
+				5A44A67B2A77EEC700C04810 /* MainView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5A44A6752A77EE0200C04810 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5A44A6762A77EE0A00C04810 /* Extensions */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		5A44A6762A77EE0A00C04810 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5A44A6772A77EE3600C04810 /* View.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5A44A6792A77EE9200C04810 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5A44A67A2A77EE9F00C04810 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				5A44A6632A77ED0E00C04810 /* VamaApp.swift */,
+				5A44A6652A77ED0E00C04810 /* ContentView.swift */,
+				5A44A6802A77F0F300C04810 /* Router.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		5A44A67B2A77EEC700C04810 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				5A44A67C2A77EECE00C04810 /* MainView.swift */,
+				5A44A67E2A77EEE100C04810 /* TabButton.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		5A44A6842A77F63C00C04810 /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				5A44A6852A77F64F00C04810 /* BlurView.swift */,
+			);
+			path = ViewComponents;
+			sourceTree = "<group>";
+		};
+		5A44A6872A77FF3900C04810 /* ChatsView */ = {
+			isa = PBXGroup;
+			children = (
+				5A44A6882A77FF7300C04810 /* ChatsView.swift */,
+			);
+			path = ChatsView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,7 +241,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A44A6662A77ED0E00C04810 /* ContentView.swift in Sources */,
+				5A44A6862A77F64F00C04810 /* BlurView.swift in Sources */,
+				5A44A67D2A77EECE00C04810 /* MainView.swift in Sources */,
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
+				5A44A6782A77EE3600C04810 /* View.swift in Sources */,
+				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
+				5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */,
+				5A44A67F2A77EEE100C04810 /* TabButton.swift in Sources */,
+				5A44A6832A77F16C00C04810 /* MainTab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
