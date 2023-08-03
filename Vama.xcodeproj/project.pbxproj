@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6632A77ED0E00C04810 /* VamaApp.swift */; };
-		5A44A6662A77ED0E00C04810 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6652A77ED0E00C04810 /* ContentView.swift */; };
 		5A44A6682A77ED1000C04810 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A6672A77ED1000C04810 /* Assets.xcassets */; };
 		5A44A66B2A77ED1000C04810 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A66A2A77ED1000C04810 /* Preview Assets.xcassets */; };
 		5A44A6782A77EE3600C04810 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6772A77EE3600C04810 /* View.swift */; };
@@ -34,12 +33,15 @@
 		5A48729B2A7BF2A000610359 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48729A2A7BF2A000610359 /* ChatViewModel.swift */; };
 		5A48729E2A7BF41400610359 /* DialogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48729D2A7BF41400610359 /* DialogViewModel.swift */; };
 		5A4872A12A7BF63400610359 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 5A4872A02A7BF63400610359 /* Algorithms */; };
+		5ABC15882A7C4E7A0063128F /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15872A7C4E7A0063128F /* AuthView.swift */; };
+		5ABC158A2A7C4EE60063128F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15892A7C4EE60063128F /* ContentView.swift */; };
+		5ABC158C2A7C50A20063128F /* DialogView+BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */; };
+		5ABC158E2A7C5A620063128F /* MessageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC158D2A7C5A620063128F /* MessageAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5A44A6602A77ED0E00C04810 /* Vama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A44A6632A77ED0E00C04810 /* VamaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VamaApp.swift; sourceTree = "<group>"; };
-		5A44A6652A77ED0E00C04810 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5A44A6672A77ED1000C04810 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A44A66A2A77ED1000C04810 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5A44A66C2A77ED1000C04810 /* Vama.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vama.entitlements; sourceTree = "<group>"; };
@@ -64,6 +66,10 @@
 		5A4872962A7BD83200610359 /* MessageMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageMedia.swift; sourceTree = "<group>"; };
 		5A48729A2A7BF2A000610359 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		5A48729D2A7BF41400610359 /* DialogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewModel.swift; sourceTree = "<group>"; };
+		5ABC15872A7C4E7A0063128F /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		5ABC15892A7C4EE60063128F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+BottomBarView.swift"; sourceTree = "<group>"; };
+		5ABC158D2A7C5A620063128F /* MessageAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				5A44A67A2A77EE9F00C04810 /* App */,
-				5A44A6792A77EE9200C04810 /* Services */,
 				5A44A6752A77EE0200C04810 /* Utils */,
 				5A44A6722A77EDEF00C04810 /* Core */,
 				5A44A6672A77ED1000C04810 /* Assets.xcassets */,
@@ -141,6 +146,7 @@
 		5A44A6742A77EDF500C04810 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5ABC15862A7C4E2C0063128F /* AuthView */,
 				5A4872772A7BA6A500610359 /* DialogView */,
 				5A44A6872A77FF3900C04810 /* ChatsView */,
 				5A44A6842A77F63C00C04810 /* ViewComponents */,
@@ -167,19 +173,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		5A44A6792A77EE9200C04810 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		5A44A67A2A77EE9F00C04810 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				5A44A6632A77ED0E00C04810 /* VamaApp.swift */,
-				5A44A6652A77ED0E00C04810 /* ContentView.swift */,
 				5A44A6802A77F0F300C04810 /* Router.swift */,
+				5ABC15892A7C4EE60063128F /* ContentView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -227,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				5A48727A2A7BA6DE00610359 /* MessageRow.swift */,
+				5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -260,6 +260,7 @@
 			children = (
 				5A48727C2A7BA9B400610359 /* Message.swift */,
 				5A4872962A7BD83200610359 /* MessageMedia.swift */,
+				5ABC158D2A7C5A620063128F /* MessageAction.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -286,6 +287,14 @@
 				5A48729D2A7BF41400610359 /* DialogViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5ABC15862A7C4E2C0063128F /* AuthView */ = {
+			isa = PBXGroup;
+			children = (
+				5ABC15872A7C4E7A0063128F /* AuthView.swift */,
+			);
+			path = AuthView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,11 +375,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A44A6662A77ED0E00C04810 /* ContentView.swift in Sources */,
 				5A44A6862A77F64F00C04810 /* BlurView.swift in Sources */,
 				5A4872792A7BA6B100610359 /* DialogView.swift in Sources */,
+				5ABC158A2A7C4EE60063128F /* ContentView.swift in Sources */,
 				5A44A67D2A77EECE00C04810 /* MainView.swift in Sources */,
 				5A4872822A7BB4B800610359 /* String.swift in Sources */,
+				5ABC158C2A7C50A20063128F /* DialogView+BottomBarView.swift in Sources */,
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
 				5A4872892A7BC9BE00610359 /* User.swift in Sources */,
@@ -380,9 +390,11 @@
 				5A4872912A7BCC9F00610359 /* LazyNukeImage.swift in Sources */,
 				5A48729E2A7BF41400610359 /* DialogViewModel.swift in Sources */,
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
+				5ABC15882A7C4E7A0063128F /* AuthView.swift in Sources */,
 				5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */,
 				5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */,
 				5A48727D2A7BA9B400610359 /* Message.swift in Sources */,
+				5ABC158E2A7C5A620063128F /* MessageAction.swift in Sources */,
 				5A44A67F2A77EEE100C04810 /* TabButton.swift in Sources */,
 				5A4872972A7BD83200610359 /* MessageMedia.swift in Sources */,
 				5A4872852A7BC91300610359 /* ChatRowView.swift in Sources */,

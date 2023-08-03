@@ -28,13 +28,16 @@ struct DialogView: View {
                 .flippedUpsideDown()
             }
             .animation(.easeOut(duration: 0.2), value: viewModel.sendCounter)
+            
         }
         .safeAreaInset(edge: .bottom, alignment: .center, spacing: 0) {
-            bottomBar
+            BottomBarView()
         }
         .fileImporter(isPresented: $viewModel.showFileExporter, allowedContentTypes: [.image]){result in
             print(result.map({$0.pathExtension}))
         }
+        .environmentObject(viewModel)
+        .animation(.easeOut(duration: 0.2), value: viewModel.bottomBarActionType.id)
     }
 }
 
