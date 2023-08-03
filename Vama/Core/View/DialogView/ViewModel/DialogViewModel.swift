@@ -42,9 +42,16 @@ class DialogViewModel: ObservableObject{
     func send(){
         print("Send message \(textMessage)")
         let message = Message(id: UUID().uuidString, chatId: "1", message: textMessage, sender: .mock)
-        messages.insert(.init(message: message), at: 0)
+        messages.insert(.init(message: message, loadState: .sending), at: 0)
         sendCounter += 1
         textMessage = ""
+        updateLoaderMessageState()
+    }
+    
+    func updateLoaderMessageState(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+            self.messages[0].loadState = .completed
+        }
     }
 }
 
@@ -52,7 +59,7 @@ class DialogViewModel: ObservableObject{
 struct DialogMessage: Identifiable{
     var id: String{ message.id }
     let message: Message
-    let loadState: LoadState = .sending
+    var loadState: LoadState = .completed
     
     enum LoadState {
         case sending, completed, error
