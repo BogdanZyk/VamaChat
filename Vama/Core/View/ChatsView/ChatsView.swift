@@ -24,7 +24,7 @@ struct ChatsView: View {
                                 Text("User Name")
                                     .font(.body.bold())
                                 Text("Message \(index)")
-                                    .font(.caption.weight(.medium))
+                                    .font(.caption.weight(.light))
                             }
                         }
                         .hLeading()

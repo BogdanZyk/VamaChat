@@ -23,6 +23,12 @@
 		5A48727D2A7BA9B400610359 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48727C2A7BA9B400610359 /* Message.swift */; };
 		5A48727F2A7BAA5100610359 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48727E2A7BAA5100610359 /* Date.swift */; };
 		5A4872822A7BB4B800610359 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872812A7BB4B800610359 /* String.swift */; };
+		5A4872852A7BC91300610359 /* ChatRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872842A7BC91300610359 /* ChatRowView.swift */; };
+		5A4872872A7BC98C00610359 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872862A7BC98C00610359 /* Conversation.swift */; };
+		5A4872892A7BC9BE00610359 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872882A7BC9BE00610359 /* User.swift */; };
+		5A48728B2A7BCA8D00610359 /* StorageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48728A2A7BCA8D00610359 /* StorageItem.swift */; };
+		5A48728E2A7BCC5400610359 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A48728D2A7BCC5400610359 /* NukeUI */; };
+		5A4872912A7BCC9F00610359 /* LazyNukeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872902A7BCC9F00610359 /* LazyNukeImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +50,11 @@
 		5A48727C2A7BA9B400610359 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5A48727E2A7BAA5100610359 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		5A4872812A7BB4B800610359 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		5A4872842A7BC91300610359 /* ChatRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRowView.swift; sourceTree = "<group>"; };
+		5A4872862A7BC98C00610359 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		5A4872882A7BC9BE00610359 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5A48728A2A7BCA8D00610359 /* StorageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageItem.swift; sourceTree = "<group>"; };
+		5A4872902A7BCC9F00610359 /* LazyNukeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyNukeImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A48728E2A7BCC5400610359 /* NukeUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +121,9 @@
 			children = (
 				5A44A6822A77F16C00C04810 /* MainTab.swift */,
 				5A48727C2A7BA9B400610359 /* Message.swift */,
+				5A4872862A7BC98C00610359 /* Conversation.swift */,
+				5A4872882A7BC9BE00610359 /* User.swift */,
+				5A48728A2A7BCA8D00610359 /* StorageItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -171,6 +186,7 @@
 		5A44A6842A77F63C00C04810 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				5A48728F2A7BCC8500610359 /* NulkeUIImage */,
 				5A44A6852A77F64F00C04810 /* BlurView.swift */,
 			);
 			path = ViewComponents;
@@ -179,6 +195,7 @@
 		5A44A6872A77FF3900C04810 /* ChatsView */ = {
 			isa = PBXGroup;
 			children = (
+				5A4872832A7BC90000610359 /* Components */,
 				5A44A6882A77FF7300C04810 /* ChatsView.swift */,
 			);
 			path = ChatsView;
@@ -201,6 +218,22 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		5A4872832A7BC90000610359 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				5A4872842A7BC91300610359 /* ChatRowView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		5A48728F2A7BCC8500610359 /* NulkeUIImage */ = {
+			isa = PBXGroup;
+			children = (
+				5A4872902A7BCC9F00610359 /* LazyNukeImage.swift */,
+			);
+			path = NulkeUIImage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -217,6 +250,9 @@
 			dependencies = (
 			);
 			name = Vama;
+			packageProductDependencies = (
+				5A48728D2A7BCC5400610359 /* NukeUI */,
+			);
 			productName = Vama;
 			productReference = 5A44A6602A77ED0E00C04810 /* Vama.app */;
 			productType = "com.apple.product-type.application";
@@ -245,6 +281,9 @@
 				Base,
 			);
 			mainGroup = 5A44A6572A77ED0E00C04810;
+			packageReferences = (
+				5A48728C2A7BCC5400610359 /* XCRemoteSwiftPackageReference "NukeUI" */,
+			);
 			productRefGroup = 5A44A6612A77ED0E00C04810 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -278,11 +317,16 @@
 				5A4872822A7BB4B800610359 /* String.swift in Sources */,
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
+				5A4872892A7BC9BE00610359 /* User.swift in Sources */,
+				5A48728B2A7BCA8D00610359 /* StorageItem.swift in Sources */,
 				5A44A6782A77EE3600C04810 /* View.swift in Sources */,
+				5A4872872A7BC98C00610359 /* Conversation.swift in Sources */,
+				5A4872912A7BCC9F00610359 /* LazyNukeImage.swift in Sources */,
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
 				5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */,
 				5A48727D2A7BA9B400610359 /* Message.swift in Sources */,
 				5A44A67F2A77EEE100C04810 /* TabButton.swift in Sources */,
+				5A4872852A7BC91300610359 /* ChatRowView.swift in Sources */,
 				5A48727F2A7BAA5100610359 /* Date.swift in Sources */,
 				5A44A6832A77F16C00C04810 /* MainTab.swift in Sources */,
 			);
@@ -480,6 +524,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5A48728C2A7BCC5400610359 /* XCRemoteSwiftPackageReference "NukeUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/NukeUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5A48728D2A7BCC5400610359 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A48728C2A7BCC5400610359 /* XCRemoteSwiftPackageReference "NukeUI" */;
+			productName = NukeUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5A44A6582A77ED0E00C04810 /* Project object */;
 }
