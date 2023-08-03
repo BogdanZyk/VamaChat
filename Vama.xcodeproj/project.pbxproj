@@ -29,6 +29,8 @@
 		5A48728B2A7BCA8D00610359 /* StorageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48728A2A7BCA8D00610359 /* StorageItem.swift */; };
 		5A48728E2A7BCC5400610359 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A48728D2A7BCC5400610359 /* NukeUI */; };
 		5A4872912A7BCC9F00610359 /* LazyNukeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872902A7BCC9F00610359 /* LazyNukeImage.swift */; };
+		5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872932A7BCEA600610359 /* AvatarView.swift */; };
+		5A4872972A7BD83200610359 /* MessageMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872962A7BD83200610359 /* MessageMedia.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		5A4872882A7BC9BE00610359 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5A48728A2A7BCA8D00610359 /* StorageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageItem.swift; sourceTree = "<group>"; };
 		5A4872902A7BCC9F00610359 /* LazyNukeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyNukeImage.swift; sourceTree = "<group>"; };
+		5A4872932A7BCEA600610359 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		5A4872962A7BD83200610359 /* MessageMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageMedia.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,9 +123,9 @@
 		5A44A6732A77EDF100C04810 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5A4872982A7BEF5100610359 /* Chat */,
+				5A4872952A7BD82100610359 /* Message */,
 				5A44A6822A77F16C00C04810 /* MainTab.swift */,
-				5A48727C2A7BA9B400610359 /* Message.swift */,
-				5A4872862A7BC98C00610359 /* Conversation.swift */,
 				5A4872882A7BC9BE00610359 /* User.swift */,
 				5A48728A2A7BCA8D00610359 /* StorageItem.swift */,
 			);
@@ -186,6 +190,7 @@
 		5A44A6842A77F63C00C04810 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				5A4872922A7BCE8B00610359 /* ImageView */,
 				5A48728F2A7BCC8500610359 /* NulkeUIImage */,
 				5A44A6852A77F64F00C04810 /* BlurView.swift */,
 			);
@@ -232,6 +237,31 @@
 				5A4872902A7BCC9F00610359 /* LazyNukeImage.swift */,
 			);
 			path = NulkeUIImage;
+			sourceTree = "<group>";
+		};
+		5A4872922A7BCE8B00610359 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				5A4872932A7BCEA600610359 /* AvatarView.swift */,
+			);
+			path = ImageView;
+			sourceTree = "<group>";
+		};
+		5A4872952A7BD82100610359 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				5A48727C2A7BA9B400610359 /* Message.swift */,
+				5A4872962A7BD83200610359 /* MessageMedia.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		5A4872982A7BEF5100610359 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				5A4872862A7BC98C00610359 /* Conversation.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,9 +353,11 @@
 				5A4872872A7BC98C00610359 /* Conversation.swift in Sources */,
 				5A4872912A7BCC9F00610359 /* LazyNukeImage.swift in Sources */,
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
+				5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */,
 				5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */,
 				5A48727D2A7BA9B400610359 /* Message.swift in Sources */,
 				5A44A67F2A77EEE100C04810 /* TabButton.swift in Sources */,
+				5A4872972A7BD83200610359 /* MessageMedia.swift in Sources */,
 				5A4872852A7BC91300610359 /* ChatRowView.swift in Sources */,
 				5A48727F2A7BAA5100610359 /* Date.swift in Sources */,
 				5A44A6832A77F16C00C04810 /* MainTab.swift in Sources */,

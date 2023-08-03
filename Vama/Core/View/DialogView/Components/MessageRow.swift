@@ -24,8 +24,10 @@ struct MessageRow: View {
                     Text("\(message.createdAt, formatter: Date.hoursAndMinuteFormatter)")
                         .font(.system(size: 10, weight: .light))
                 }
-                Text(message.text)
-                    .font(.system(size: 14, weight: .light))
+                if let message = message.message{
+                    Text(message)
+                        .font(.system(size: 14, weight: .light))
+                }
             }
         }
         .foregroundColor(.white)

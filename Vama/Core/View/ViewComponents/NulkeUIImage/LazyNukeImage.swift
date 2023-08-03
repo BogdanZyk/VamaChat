@@ -37,7 +37,7 @@ struct LazyNukeImage: View{
                 LazyImage(source: url) { state in
                     if let image = state.image {
                         image
-                            .aspectRatio(contentMode: resizingMode)
+                        .aspectRatio(contentMode: resizingMode)
                     }else  if state.isLoading{
                         Color.gray
                     }else if let _ = state.error{

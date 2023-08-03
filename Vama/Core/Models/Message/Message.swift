@@ -11,22 +11,23 @@ struct Message: Identifiable, Hashable{
     
     let id: String
     let chatId: String
-    var text: String
-    var senderId: String
-    var recipientId: String
+    let message: String?
+    let sender: ShortUser
+    let createdAt: Date = Date()
+    var replies: [Message] = []
+    var media: [MessageMedia] = []
+    var pinned: Bool = false
     var viewed: Bool = false
-    var createdAt: Date = Date()
-    var imagesPaths: [String] = []
     
     func getRecipientType(currentUserId: String?) -> RecipientType{
-        senderId == currentUserId ? .sent : .received
+        sender.id == currentUserId ? .sent : .received
     }
 }
 
 extension Message{
     static let mocks: [Message] = [
-        .init(id: UUID().uuidString, chatId: "1", text: "Hello!", senderId: "1", recipientId: "2"),
-        .init(id: UUID().uuidString, chatId: "1", text: "Hi!", senderId: "2", recipientId: "1")
+        .init(id: UUID().uuidString, chatId: "1", message: "Hello!", sender: .mock),
+        .init(id: UUID().uuidString, chatId: "1", message: "Hi!", sender: .mock)
     ]
 }
 
@@ -36,13 +37,14 @@ extension Message: Codable{
     enum CodingKeys: String, CodingKey {
         case id
         case chatId
-        case text
-        case senderId
-        case recipientId
+        case message
+        case sender
         case createdAt
         case viewed
-        case imagesPaths
+        case media
+        case pinned
     }
 }
+
 
 

@@ -85,4 +85,6 @@ struct ShortUser: Identifiable, Codable, Hashable{
         self.name = user.userName
         self.image = user.profileImage?.fullPath
     }
+    
+    static let mock = ShortUser(user: .mock)
 }
