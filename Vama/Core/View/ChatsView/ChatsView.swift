@@ -53,8 +53,16 @@ struct ChatsView_Previews: PreviewProvider {
 
 extension ChatsView{
     private var searchView: some View{
-        TextField("Search", text: $searchText)
-            .textFieldStyle(.roundedBorder)
-            .padding(.top, 10)
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
+            TextField("Search", text: $searchText)
+                .textFieldStyle(.plain)
+        }
+        .padding(.vertical, 6)
+        .padding(.horizontal, 12)
+        .background(Color.primary.opacity(0.15))
+        .cornerRadius(10)
+        .padding(10)
     }
 }

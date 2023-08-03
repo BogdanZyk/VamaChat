@@ -22,6 +22,7 @@
 		5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48727A2A7BA6DE00610359 /* MessageRow.swift */; };
 		5A48727D2A7BA9B400610359 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48727C2A7BA9B400610359 /* Message.swift */; };
 		5A48727F2A7BAA5100610359 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48727E2A7BAA5100610359 /* Date.swift */; };
+		5A4872822A7BB4B800610359 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872812A7BB4B800610359 /* String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		5A48727A2A7BA6DE00610359 /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
 		5A48727C2A7BA9B400610359 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5A48727E2A7BAA5100610359 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		5A4872812A7BB4B800610359 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			children = (
 				5A44A6772A77EE3600C04810 /* View.swift */,
 				5A48727E2A7BAA5100610359 /* Date.swift */,
+				5A4872812A7BB4B800610359 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				5A44A6862A77F64F00C04810 /* BlurView.swift in Sources */,
 				5A4872792A7BA6B100610359 /* DialogView.swift in Sources */,
 				5A44A67D2A77EECE00C04810 /* MainView.swift in Sources */,
+				5A4872822A7BB4B800610359 /* String.swift in Sources */,
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
 				5A44A6782A77EE3600C04810 /* View.swift in Sources */,

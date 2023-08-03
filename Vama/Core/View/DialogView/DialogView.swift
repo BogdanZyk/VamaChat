@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DialogView: View {
+    @State var showFileExporter: Bool = false
+    @State var textMessage: String = ""
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             navBarView
@@ -23,6 +25,12 @@ struct DialogView: View {
                 }
                 .flippedUpsideDown()
             }
+        }
+        .safeAreaInset(edge: .bottom, alignment: .center, spacing: 0) {
+            bottomBar
+        }
+        .fileImporter(isPresented: $showFileExporter, allowedContentTypes: [.image]){result in
+            print(result.map({$0.pathExtension}))
         }
     }
 }
@@ -50,6 +58,40 @@ extension DialogView{
             .padding(.top, 10)
             Divider()
         }
-       
+    }
+    
+    private var bottomBar: some View{
+        VStack(alignment: .leading, spacing: 12) {
+            Divider()
+            HStack(alignment: .bottom, spacing: 15){
+                Button {
+                    showFileExporter.toggle()
+                } label: {
+                    Image(systemName: "paperclip")
+                        .font(.title3)
+                }
+                .buttonStyle(.plain)
+                TextField("Message...", text: $textMessage, axis: .vertical)
+                    .textFieldStyle(.plain)
+                
+                sendButton
+            }
+            .padding(.horizontal)
+            .padding(.bottom)
+        }
+    }
+    
+    private var sendButton: some View{
+        Button {
+            print("Send message \(textMessage)")
+            textMessage = ""
+        } label: {
+            Image(systemName: "paperplane.fill")
+                .font(.title2)
+                .foregroundColor((textMessage.isEmptyStrWithSpace ? .gray : .blue))
+        }
+        .disabled(textMessage.isEmptyStrWithSpace)
+        .keyboardShortcut(.defaultAction)
+        .buttonStyle(.plain)
     }
 }
