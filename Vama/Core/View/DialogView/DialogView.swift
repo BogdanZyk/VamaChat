@@ -15,10 +15,23 @@ struct DialogView: View {
             navBarView
             ScrollViewReader { proxy in
                 ScrollView(.vertical, showsIndicators: true) {
-                    VStack(alignment: .leading, spacing: 10){
-                        ForEach(1...30, id: \.self) { _ in
-                            MessageRow(message: .mocks.first!, recipientType: .received)
-                                .flippedUpsideDown()
+                    LazyVStack(spacing: 6, pinnedViews: .sectionFooters){
+                        ForEach(1...3, id: \.self){index in
+                            Section {
+                                ForEach(1...30, id: \.self) { _ in
+                                    MessageRow(message: .mocks.first!, recipientType: .received)
+                                        .flippedUpsideDown()
+                                }
+                            } footer: {
+                                Text(Date().toFormatDate().capitalized)
+                                    .font(.footnote.weight(.medium))
+                                    .foregroundColor(.secondary)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .background(Material.ultraThinMaterial, in: Capsule())
+                                    .padding(.vertical, 5)
+                                    .flippedUpsideDown()
+                            }
                         }
                     }
                     .padding()

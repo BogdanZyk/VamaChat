@@ -19,6 +19,7 @@ struct MainView: View {
                 switch router.currentTab{
                 case .chats:
                     ChatsView()
+                       
                 case .profile:
                     Text("Profile")
                        
@@ -28,6 +29,7 @@ struct MainView: View {
                 }
             }
             .navigationSplitViewColumnWidth(min: 220, ideal: 220, max: 380)
+            
         } detail: {
             NavigationStack {
                 ZStack {
@@ -51,7 +53,6 @@ struct MainView: View {
                 }
             }
         }
-        
         
 //        NavigationView {
 //
