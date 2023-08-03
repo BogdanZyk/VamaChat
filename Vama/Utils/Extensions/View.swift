@@ -58,4 +58,10 @@ extension View{
         self.animation(nil, value: UUID())
     }
     
+    func flippedUpsideDown() -> some View {
+        self
+            .rotationEffect(.init(radians: .pi))
+            .scaleEffect(x: -1, y: 1, anchor: .center)
+    }
+    
 }

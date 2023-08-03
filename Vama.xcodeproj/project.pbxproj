@@ -18,6 +18,10 @@
 		5A44A6832A77F16C00C04810 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6822A77F16C00C04810 /* MainTab.swift */; };
 		5A44A6862A77F64F00C04810 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6852A77F64F00C04810 /* BlurView.swift */; };
 		5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6882A77FF7300C04810 /* ChatsView.swift */; };
+		5A4872792A7BA6B100610359 /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872782A7BA6B100610359 /* DialogView.swift */; };
+		5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48727A2A7BA6DE00610359 /* MessageRow.swift */; };
+		5A48727D2A7BA9B400610359 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48727C2A7BA9B400610359 /* Message.swift */; };
+		5A48727F2A7BAA5100610359 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48727E2A7BAA5100610359 /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		5A44A6822A77F16C00C04810 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		5A44A6852A77F64F00C04810 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		5A44A6882A77FF7300C04810 /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
+		5A4872782A7BA6B100610359 /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
+		5A48727A2A7BA6DE00610359 /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
+		5A48727C2A7BA9B400610359 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		5A48727E2A7BAA5100610359 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				5A44A6822A77F16C00C04810 /* MainTab.swift */,
+				5A48727C2A7BA9B400610359 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -105,6 +114,7 @@
 		5A44A6742A77EDF500C04810 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5A4872772A7BA6A500610359 /* DialogView */,
 				5A44A6872A77FF3900C04810 /* ChatsView */,
 				5A44A6842A77F63C00C04810 /* ViewComponents */,
 				5A44A67B2A77EEC700C04810 /* MainView */,
@@ -124,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				5A44A6772A77EE3600C04810 /* View.swift */,
+				5A48727E2A7BAA5100610359 /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -168,6 +179,23 @@
 				5A44A6882A77FF7300C04810 /* ChatsView.swift */,
 			);
 			path = ChatsView;
+			sourceTree = "<group>";
+		};
+		5A4872772A7BA6A500610359 /* DialogView */ = {
+			isa = PBXGroup;
+			children = (
+				5A4872802A7BABA200610359 /* Components */,
+				5A4872782A7BA6B100610359 /* DialogView.swift */,
+			);
+			path = DialogView;
+			sourceTree = "<group>";
+		};
+		5A4872802A7BABA200610359 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				5A48727A2A7BA6DE00610359 /* MessageRow.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,12 +270,16 @@
 			files = (
 				5A44A6662A77ED0E00C04810 /* ContentView.swift in Sources */,
 				5A44A6862A77F64F00C04810 /* BlurView.swift in Sources */,
+				5A4872792A7BA6B100610359 /* DialogView.swift in Sources */,
 				5A44A67D2A77EECE00C04810 /* MainView.swift in Sources */,
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
+				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
 				5A44A6782A77EE3600C04810 /* View.swift in Sources */,
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
 				5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */,
+				5A48727D2A7BA9B400610359 /* Message.swift in Sources */,
 				5A44A67F2A77EEE100C04810 /* TabButton.swift in Sources */,
+				5A48727F2A7BAA5100610359 /* Date.swift in Sources */,
 				5A44A6832A77F16C00C04810 /* MainTab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

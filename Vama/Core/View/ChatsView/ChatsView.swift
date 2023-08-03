@@ -14,7 +14,7 @@ struct ChatsView: View {
         VStack(spacing: 10) {
             searchView
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(alignment: .leading, spacing: 10){
+                LazyVStack(alignment: .leading, spacing: 5){
                     ForEach(1...50, id: \.self) { index in
                         HStack(alignment: .center){
                             Circle()

@@ -34,10 +34,7 @@ struct MainView: View {
                     switch router.currentTab{
                     case .chats:
                         if let index = router.selectedChat {
-                            NavigationLink(value: "item") {
-                                Text("Selected row \(index)")
-                                    .navigationTitle("item")
-                            }
+                            DialogView()
                         } else {
                             Text("Choose chat")
                         }
