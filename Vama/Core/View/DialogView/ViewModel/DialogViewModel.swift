@@ -18,16 +18,16 @@ class DialogViewModel: ObservableObject{
     @Published var textMessage: String = ""
     @Published var sendCounter: Int = 0
     
-    let chatId: String
+    let chatData: ChatConversation
     
     
-    init(chatId: String) {
-        self.chatId = chatId
+    init(chatData: ChatConversation) {
+        self.chatData = chatData
         fetchMessages()
     }
     
     private func fetchMessages(){
-        print("fetch messages \(chatId)")
+        print("fetch messages \(chatData.id)")
         
         self.messages = Message.mocks.map({.init(message: $0)})
         

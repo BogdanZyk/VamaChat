@@ -23,7 +23,7 @@
 		5A48727F2A7BAA5100610359 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48727E2A7BAA5100610359 /* Date.swift */; };
 		5A4872822A7BB4B800610359 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872812A7BB4B800610359 /* String.swift */; };
 		5A4872852A7BC91300610359 /* ChatRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872842A7BC91300610359 /* ChatRowView.swift */; };
-		5A4872872A7BC98C00610359 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872862A7BC98C00610359 /* Conversation.swift */; };
+		5A4872872A7BC98C00610359 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872862A7BC98C00610359 /* Chat.swift */; };
 		5A4872892A7BC9BE00610359 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872882A7BC9BE00610359 /* User.swift */; };
 		5A48728B2A7BCA8D00610359 /* StorageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48728A2A7BCA8D00610359 /* StorageItem.swift */; };
 		5A48728E2A7BCC5400610359 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A48728D2A7BCC5400610359 /* NukeUI */; };
@@ -37,6 +37,8 @@
 		5ABC158A2A7C4EE60063128F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15892A7C4EE60063128F /* ContentView.swift */; };
 		5ABC158C2A7C50A20063128F /* DialogView+BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */; };
 		5ABC158E2A7C5A620063128F /* MessageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC158D2A7C5A620063128F /* MessageAction.swift */; };
+		5ABC15922A7C60860063128F /* DialogView+NavbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15912A7C60860063128F /* DialogView+NavbarView.swift */; };
+		5ABC15942A7C687D0063128F /* ChatConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15932A7C687D0063128F /* ChatConversation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,7 +60,7 @@
 		5A48727E2A7BAA5100610359 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		5A4872812A7BB4B800610359 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		5A4872842A7BC91300610359 /* ChatRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRowView.swift; sourceTree = "<group>"; };
-		5A4872862A7BC98C00610359 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		5A4872862A7BC98C00610359 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		5A4872882A7BC9BE00610359 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5A48728A2A7BCA8D00610359 /* StorageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageItem.swift; sourceTree = "<group>"; };
 		5A4872902A7BCC9F00610359 /* LazyNukeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyNukeImage.swift; sourceTree = "<group>"; };
@@ -70,6 +72,8 @@
 		5ABC15892A7C4EE60063128F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+BottomBarView.swift"; sourceTree = "<group>"; };
 		5ABC158D2A7C5A620063128F /* MessageAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAction.swift; sourceTree = "<group>"; };
+		5ABC15912A7C60860063128F /* DialogView+NavbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+NavbarView.swift"; sourceTree = "<group>"; };
+		5ABC15932A7C687D0063128F /* ChatConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatConversation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +231,7 @@
 			children = (
 				5A48727A2A7BA6DE00610359 /* MessageRow.swift */,
 				5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */,
+				5ABC15912A7C60860063128F /* DialogView+NavbarView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -268,7 +273,8 @@
 		5A4872982A7BEF5100610359 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				5A4872862A7BC98C00610359 /* Conversation.swift */,
+				5A4872862A7BC98C00610359 /* Chat.swift */,
+				5ABC15932A7C687D0063128F /* ChatConversation.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -384,9 +390,10 @@
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
 				5A4872892A7BC9BE00610359 /* User.swift in Sources */,
+				5ABC15922A7C60860063128F /* DialogView+NavbarView.swift in Sources */,
 				5A48728B2A7BCA8D00610359 /* StorageItem.swift in Sources */,
 				5A44A6782A77EE3600C04810 /* View.swift in Sources */,
-				5A4872872A7BC98C00610359 /* Conversation.swift in Sources */,
+				5A4872872A7BC98C00610359 /* Chat.swift in Sources */,
 				5A4872912A7BCC9F00610359 /* LazyNukeImage.swift in Sources */,
 				5A48729E2A7BF41400610359 /* DialogViewModel.swift in Sources */,
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
@@ -394,6 +401,7 @@
 				5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */,
 				5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */,
 				5A48727D2A7BA9B400610359 /* Message.swift in Sources */,
+				5ABC15942A7C687D0063128F /* ChatConversation.swift in Sources */,
 				5ABC158E2A7C5A620063128F /* MessageAction.swift in Sources */,
 				5A44A67F2A77EEE100C04810 /* TabButton.swift in Sources */,
 				5A4872972A7BD83200610359 /* MessageMedia.swift in Sources */,

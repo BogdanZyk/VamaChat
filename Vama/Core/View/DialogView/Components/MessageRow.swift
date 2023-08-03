@@ -11,6 +11,7 @@ import SwiftUI
 struct MessageRow: View {
     let dialogMessage: DialogMessage
     let recipientType: RecipientType
+    let onActionMessage: (MessageContextAction, Message) -> Void
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             AvatarView(image: dialogMessage.message.sender.image, size: .init(width: 30, height: 30))
@@ -32,17 +33,15 @@ struct MessageRow: View {
         .foregroundColor(.white)
         .hLeading()
         .contentShape(Rectangle())
-        .contextMenu {
-            Button("Remove", action: {})
-        }
+        .contextMenu{contextMenuContent}
     }
 }
 
 struct MessageRow_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 4) {
-            MessageRow(dialogMessage: .init(message: Message.mocks.first!), recipientType: .received)
-            MessageRow(dialogMessage: .init(message: Message.mocks.first!), recipientType: .sent)
+            MessageRow(dialogMessage: .init(message: Message.mocks.first!), recipientType: .received){_, _ in}
+            MessageRow(dialogMessage: .init(message: Message.mocks.first!), recipientType: .sent){_, _ in}
         }
         .padding()
     }
@@ -71,5 +70,20 @@ extension MessageRow{
             }
         }
         .font(.caption)
+    }
+    
+    private var contextMenuContent: some View{
+        ForEach(MessageContextAction.allCases, id: \.self) { type in
+            Button {
+                onActionMessage(type, dialogMessage.message)
+            } label: {
+                HStack {
+                    Image(systemName: type.image)
+                    Text(type.title)
+                }
+                .foregroundColor(type == .remove ? .red : .primary)
+                .padding()
+            }
+        }
     }
 }

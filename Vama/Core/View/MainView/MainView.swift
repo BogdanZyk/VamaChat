@@ -36,8 +36,8 @@ struct MainView: View {
                 ZStack {
                     switch router.currentTab{
                     case .chats:
-                        if let id = chatVM.selectedChat?.id{
-                            DialogView(chatId: id)
+                        if let chatData = chatVM.selectedChat{
+                            DialogView(chatData: chatData)
                         } else {
                             Text("Choose chat")
                         }
