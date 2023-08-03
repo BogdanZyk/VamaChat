@@ -10,7 +10,7 @@ import Foundation
 final class MainRouter: ObservableObject {
     
     @Published var currentTab: MainTab = .chats
-    @Published var selectedChat: Int?
+
     
 }
 

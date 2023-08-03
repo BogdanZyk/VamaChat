@@ -6,43 +6,33 @@
 //
 
 import SwiftUI
+import Algorithms
 
 struct DialogView: View {
-    @State var showFileExporter: Bool = false
-    @State var textMessage: String = ""
+    
+    @StateObject private var viewModel: DialogViewModel
+    @State private var hiddenDownButton: Bool = false
+    
+    init(chatId: String){
+        self._viewModel = StateObject(wrappedValue: DialogViewModel(chatId: chatId))
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             navBarView
             ScrollViewReader { proxy in
                 ScrollView(.vertical, showsIndicators: true) {
-                    LazyVStack(spacing: 6, pinnedViews: .sectionFooters){
-                        ForEach(1...3, id: \.self){index in
-                            Section {
-                                ForEach(1...30, id: \.self) { _ in
-                                    MessageRow(message: .mocks.first!, recipientType: .received)
-                                        .flippedUpsideDown()
-                                }
-                            } footer: {
-                                Text(Date().toFormatDate().capitalized)
-                                    .font(.footnote.weight(.medium))
-                                    .foregroundColor(.secondary)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 5)
-                                    .background(Material.ultraThinMaterial, in: Capsule())
-                                    .padding(.vertical, 5)
-                                    .flippedUpsideDown()
-                            }
-                        }
-                    }
-                    .padding()
+                    messagesSection
+                        .padding()
                 }
                 .flippedUpsideDown()
             }
+            .animation(.easeOut(duration: 0.2), value: viewModel.sendCounter)
         }
         .safeAreaInset(edge: .bottom, alignment: .center, spacing: 0) {
             bottomBar
         }
-        .fileImporter(isPresented: $showFileExporter, allowedContentTypes: [.image]){result in
+        .fileImporter(isPresented: $viewModel.showFileExporter, allowedContentTypes: [.image]){result in
             print(result.map({$0.pathExtension}))
         }
     }
@@ -50,11 +40,56 @@ struct DialogView: View {
 
 struct DialogView_Previews: PreviewProvider {
     static var previews: some View {
-        DialogView()
+        DialogView(chatId: "")
     }
 }
 
+
 extension DialogView{
+    
+    private var messagesSection: some View{
+        LazyVStack(spacing: 6, pinnedViews: .sectionFooters){
+            let chunkedMessages = viewModel.messages.chunked(by: {$0.message.createdAt.isSameDay(as: $1.message.createdAt)})
+            ForEach(chunkedMessages.indices, id: \.self){ index in
+                Section {
+                    ForEach(chunkedMessages[index]) { dialogMessage in
+                        MessageRow(dialogMessage: dialogMessage, recipientType: dialogMessage.message.getRecipientType(currentUserId: "1"))
+                            .id(dialogMessage.message.id)
+                            .flippedUpsideDown()
+                            .onAppear{
+                                viewModel.viewMessage(dialogMessage.message.id)
+                                viewModel.loadNextPage(dialogMessage.message.id)
+                                hiddenOrUnhiddenDownButton(dialogMessage.message.id, hidden: true)
+                            }
+                            .onDisappear{
+                                hiddenOrUnhiddenDownButton(dialogMessage.message.id, hidden: false)
+                            }
+                        
+                    }
+                } footer: {
+                    if let date = chunkedMessages[index].first?.message.createdAt{
+                        messagesDateLabel(date)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func messagesDateLabel(_ date: Date) -> some View{
+        Text(date.toFormatDate().capitalized)
+            .font(.footnote.weight(.medium))
+            .foregroundColor(.secondary)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(Material.ultraThinMaterial, in: Capsule())
+            .padding(.vertical, 5)
+            .flippedUpsideDown()
+    }
+    
+}
+
+extension DialogView{
+    
 
     private var navBarView: some View{
         VStack(alignment: .leading) {
@@ -78,13 +113,13 @@ extension DialogView{
             Divider()
             HStack(alignment: .bottom, spacing: 15){
                 Button {
-                    showFileExporter.toggle()
+                    viewModel.showFileExporter.toggle()
                 } label: {
                     Image(systemName: "paperclip")
                         .font(.title3)
                 }
                 .buttonStyle(.plain)
-                TextField("Message...", text: $textMessage, axis: .vertical)
+                TextField("Message...", text: $viewModel.textMessage, axis: .vertical)
                     .textFieldStyle(.plain)
                 
                 sendButton
@@ -96,15 +131,23 @@ extension DialogView{
     
     private var sendButton: some View{
         Button {
-            print("Send message \(textMessage)")
-            textMessage = ""
+            viewModel.send()
         } label: {
             Image(systemName: "paperplane.fill")
                 .font(.title2)
-                .foregroundColor((textMessage.isEmptyStrWithSpace ? .gray : .blue))
+                .foregroundColor((viewModel.textMessage.isEmptyStrWithSpace ? .gray : .blue))
         }
-        .disabled(textMessage.isEmptyStrWithSpace)
+        .disabled(viewModel.textMessage.isEmptyStrWithSpace)
         .keyboardShortcut(.defaultAction)
         .buttonStyle(.plain)
+    }
+}
+
+
+extension DialogView{
+    private func hiddenOrUnhiddenDownButton(_ messageId: String, hidden: Bool){
+        if messageId == viewModel.messages.first?.id{
+            hiddenDownButton = hidden
+        }
     }
 }

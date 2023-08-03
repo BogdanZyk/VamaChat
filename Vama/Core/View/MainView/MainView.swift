@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject var router = MainRouter()
+    @StateObject var chatVM = ChatViewModel()
     var body: some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
             tabView
@@ -18,7 +19,7 @@ struct MainView: View {
             Group {
                 switch router.currentTab{
                 case .chats:
-                    ChatsView()
+                    ChatsView(chatVM: chatVM)
                        
                 case .profile:
                     Text("Profile")
@@ -35,8 +36,8 @@ struct MainView: View {
                 ZStack {
                     switch router.currentTab{
                     case .chats:
-                        if let index = router.selectedChat {
-                            DialogView()
+                        if let id = chatVM.selectedChat?.id{
+                            DialogView(chatId: id)
                         } else {
                             Text("Choose chat")
                         }

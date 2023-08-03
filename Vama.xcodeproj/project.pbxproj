@@ -31,6 +31,9 @@
 		5A4872912A7BCC9F00610359 /* LazyNukeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872902A7BCC9F00610359 /* LazyNukeImage.swift */; };
 		5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872932A7BCEA600610359 /* AvatarView.swift */; };
 		5A4872972A7BD83200610359 /* MessageMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872962A7BD83200610359 /* MessageMedia.swift */; };
+		5A48729B2A7BF2A000610359 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48729A2A7BF2A000610359 /* ChatViewModel.swift */; };
+		5A48729E2A7BF41400610359 /* DialogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48729D2A7BF41400610359 /* DialogViewModel.swift */; };
+		5A4872A12A7BF63400610359 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 5A4872A02A7BF63400610359 /* Algorithms */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +62,8 @@
 		5A4872902A7BCC9F00610359 /* LazyNukeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyNukeImage.swift; sourceTree = "<group>"; };
 		5A4872932A7BCEA600610359 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		5A4872962A7BD83200610359 /* MessageMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageMedia.swift; sourceTree = "<group>"; };
+		5A48729A2A7BF2A000610359 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		5A48729D2A7BF41400610359 /* DialogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A4872A12A7BF63400610359 /* Algorithms in Frameworks */,
 				5A48728E2A7BCC5400610359 /* NukeUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,6 +206,7 @@
 		5A44A6872A77FF3900C04810 /* ChatsView */ = {
 			isa = PBXGroup;
 			children = (
+				5A4872992A7BF29500610359 /* ViewModel */,
 				5A4872832A7BC90000610359 /* Components */,
 				5A44A6882A77FF7300C04810 /* ChatsView.swift */,
 			);
@@ -209,6 +216,7 @@
 		5A4872772A7BA6A500610359 /* DialogView */ = {
 			isa = PBXGroup;
 			children = (
+				5A48729C2A7BF40B00610359 /* ViewModel */,
 				5A4872802A7BABA200610359 /* Components */,
 				5A4872782A7BA6B100610359 /* DialogView.swift */,
 			);
@@ -264,6 +272,22 @@
 			path = Chat;
 			sourceTree = "<group>";
 		};
+		5A4872992A7BF29500610359 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5A48729A2A7BF2A000610359 /* ChatViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5A48729C2A7BF40B00610359 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5A48729D2A7BF41400610359 /* DialogViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -282,6 +306,7 @@
 			name = Vama;
 			packageProductDependencies = (
 				5A48728D2A7BCC5400610359 /* NukeUI */,
+				5A4872A02A7BF63400610359 /* Algorithms */,
 			);
 			productName = Vama;
 			productReference = 5A44A6602A77ED0E00C04810 /* Vama.app */;
@@ -313,6 +338,7 @@
 			mainGroup = 5A44A6572A77ED0E00C04810;
 			packageReferences = (
 				5A48728C2A7BCC5400610359 /* XCRemoteSwiftPackageReference "NukeUI" */,
+				5A48729F2A7BF63400610359 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 5A44A6612A77ED0E00C04810 /* Products */;
 			projectDirPath = "";
@@ -352,6 +378,7 @@
 				5A44A6782A77EE3600C04810 /* View.swift in Sources */,
 				5A4872872A7BC98C00610359 /* Conversation.swift in Sources */,
 				5A4872912A7BCC9F00610359 /* LazyNukeImage.swift in Sources */,
+				5A48729E2A7BF41400610359 /* DialogViewModel.swift in Sources */,
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
 				5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */,
 				5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */,
@@ -360,6 +387,7 @@
 				5A4872972A7BD83200610359 /* MessageMedia.swift in Sources */,
 				5A4872852A7BC91300610359 /* ChatRowView.swift in Sources */,
 				5A48727F2A7BAA5100610359 /* Date.swift in Sources */,
+				5A48729B2A7BF2A000610359 /* ChatViewModel.swift in Sources */,
 				5A44A6832A77F16C00C04810 /* MainTab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,6 +594,14 @@
 				minimumVersion = 0.8.3;
 			};
 		};
+		5A48729F2A7BF63400610359 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -573,6 +609,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5A48728C2A7BCC5400610359 /* XCRemoteSwiftPackageReference "NukeUI" */;
 			productName = NukeUI;
+		};
+		5A4872A02A7BF63400610359 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A48729F2A7BF63400610359 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
