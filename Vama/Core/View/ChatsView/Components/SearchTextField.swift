@@ -29,6 +29,12 @@ struct SearchTextField: View {
         .padding(10)
         .focused($isFocused)
         .onChange(of: isFocused, perform: onChangeFocus)
+        .onAppear{
+            /// fix auto focus
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+                isFocused = false
+            }
+        }
     }
 }
 
@@ -47,7 +53,7 @@ extension SearchTextField{
         } label: {
             Image(systemName: "xmark.circle.fill")
                 .foregroundColor(.white)
-                .font(.system(size: 16))
+                .font(.system(size: 14))
                 .opacity(0.7)
         }
         .buttonStyle(.plain)

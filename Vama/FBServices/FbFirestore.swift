@@ -18,8 +18,11 @@ class FbFirestoreService {
     
     func configure() {
         let settings = FirestoreSettings()
+        
+        settings.cacheSettings = MemoryCacheSettings(garbageCollectorSettings: MemoryLRUGCSettings())
+        
         // Use persistent disk cache, with 100 MB cache size
-        settings.cacheSettings = PersistentCacheSettings(sizeBytes: 100 * 1024 * 1024 as NSNumber)
+        //settings.cacheSettings = PersistentCacheSettings(sizeBytes: 100 * 1024 * 1024 as NSNumber)
         db.settings = settings
     }
 }

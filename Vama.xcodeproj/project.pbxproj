@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5A21B4DE2A7D454A00CF00BB /* FbFirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B4DD2A7D454A00CF00BB /* FbFirestore.swift */; };
+		5A21B4E02A7D4BBD00CF00BB /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B4DF2A7D4BBD00CF00BB /* SearchViewModel.swift */; };
+		5A21B4E22A7D50C500CF00BB /* NsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B4E12A7D50C500CF00BB /* NsApp.swift */; };
 		5A326A952A7CF4AE00629066 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5A326A942A7CF4AE00629066 /* FirebaseAuth */; };
 		5A326A972A7CF4AE00629066 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A326A962A7CF4AE00629066 /* FirebaseFirestore */; };
 		5A326A992A7CF4AE00629066 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5A326A982A7CF4AE00629066 /* FirebaseFirestoreSwift */; };
@@ -63,6 +65,8 @@
 
 /* Begin PBXFileReference section */
 		5A21B4DD2A7D454A00CF00BB /* FbFirestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbFirestore.swift; sourceTree = "<group>"; };
+		5A21B4DF2A7D4BBD00CF00BB /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		5A21B4E12A7D50C500CF00BB /* NsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NsApp.swift; sourceTree = "<group>"; };
 		5A326A9C2A7CF51000629066 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5A326A9E2A7CF58400629066 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A326AA02A7CF69A00629066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -274,6 +278,7 @@
 				5A4872812A7BB4B800610359 /* String.swift */,
 				5A326AB92A7D239700629066 /* Query.swift */,
 				5A326AC02A7D288400629066 /* Combine.swift */,
+				5A21B4E12A7D50C500CF00BB /* NsApp.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -388,6 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				5A48729A2A7BF2A000610359 /* ChatViewModel.swift */,
+				5A21B4DF2A7D4BBD00CF00BB /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -507,6 +513,7 @@
 				5A326AC32A7D334A00629066 /* SearchView.swift in Sources */,
 				5ABC15922A7C60860063128F /* DialogView+NavbarView.swift in Sources */,
 				5A48728B2A7BCA8D00610359 /* StorageItem.swift in Sources */,
+				5A21B4E22A7D50C500CF00BB /* NsApp.swift in Sources */,
 				5A44A6782A77EE3600C04810 /* View.swift in Sources */,
 				5A326AC12A7D288400629066 /* Combine.swift in Sources */,
 				5A4872872A7BC98C00610359 /* Chat.swift in Sources */,
@@ -515,6 +522,7 @@
 				5A326ABD2A7D255F00629066 /* ProfileView.swift in Sources */,
 				5A326AB02A7D001500629066 /* ErrorHandler.swift in Sources */,
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
+				5A21B4E02A7D4BBD00CF00BB /* SearchViewModel.swift in Sources */,
 				5ABC15882A7C4E7A0063128F /* AuthView.swift in Sources */,
 				5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */,
 				5A326A9F2A7CF58400629066 /* AppDelegate.swift in Sources */,
