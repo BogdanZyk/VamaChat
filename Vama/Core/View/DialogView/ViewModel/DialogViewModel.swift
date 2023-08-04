@@ -13,10 +13,9 @@ class DialogViewModel: ObservableObject{
     @Published private(set) var messages: [DialogMessage] = []
     @Published private(set) var bottomBarActionType: BottomBarActionType = .empty
     @Published private(set) var selectedMessages: [Message] = []
-    
     @Published var showFileExporter: Bool = false
     @Published var textMessage: String = ""
-    @Published var sendCounter: Int = 0
+    private(set) var lastMessageId: String?
     
     var chatData: ChatConversation
     
@@ -53,7 +52,7 @@ class DialogViewModel: ObservableObject{
         print("Send message \(textMessage)")
         let message = Message(id: UUID().uuidString, chatId: "1", message: textMessage, sender: .mock)
         messages.insert(.init(message: message, loadState: .sending), at: 0)
-        sendCounter += 1
+        lastMessageId = message.id
         textMessage = ""
         resetBottomBarAction()
         updateLoaderMessageState()

@@ -27,8 +27,14 @@ struct DialogView: View {
                     .padding()
             }
             .flippedUpsideDown()
+            .onChange(of: viewModel.lastMessageId) { id in
+                scrollTo(proxy, id: id)
+            }
+            .overlay(alignment: .bottomTrailing) {
+                downButton(proxy)
+            }
         }
-        .animation(.easeOut(duration: 0.2), value: viewModel.sendCounter)
+        .animation(.easeOut(duration: 0.2), value: viewModel.lastMessageId)
         .safeAreaInset(edge: .top, alignment: .center, spacing: 0){
             NavBarView()
         }
@@ -110,7 +116,37 @@ extension DialogView{
 extension DialogView{
     private func hiddenOrUnhiddenDownButton(_ messageId: String, hidden: Bool){
         if messageId == viewModel.messages.first?.id{
-            hiddenDownButton = hidden
+            withAnimation {
+                hiddenDownButton = hidden
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func downButton(_ proxy: ScrollViewProxy) -> some View{
+        if !hiddenDownButton{
+            Button {
+                guard let id = viewModel.messages.first?.id else { return }
+                scrollTo(proxy, id: id)
+            } label: {
+                Image(systemName: "chevron.down")
+                    .padding(10)
+                    .background(Color(nsColor: .windowBackgroundColor), in: Circle())
+                    .overlay {
+                        Circle()
+                            .stroke(lineWidth: 1)
+                    }
+                    .foregroundColor(.white)
+                    .padding(.bottom, 10)
+                    .padding(.trailing, 5)
+            }
+            .buttonStyle(.plain)
+        }
+    }
+    
+    private func scrollTo(_ proxy: ScrollViewProxy, id: String?){
+        withAnimation {
+            proxy.scrollTo(id)
         }
     }
 }
