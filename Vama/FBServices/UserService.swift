@@ -18,7 +18,7 @@ final class UserService{
     
     private init() {}
     
-    private let usersCollection = Firestore.firestore().collection("users")
+    private let usersCollection = FbFirestoreService.shared.db.collection("users")
     
     private func userDocument(for id: String) -> DocumentReference{
         usersCollection.document(id)
@@ -65,6 +65,18 @@ final class UserService{
     
     func removeUser(for id: String) async throws{
         try await userDocument(for: id).delete()
+    }
+    
+    
+    func findUsers(query: String) -> FBListenerResult<User>{
+        
+        let field = User.CodingKeys.username.rawValue
+        
+        return usersCollection
+            .order(by: field)
+            .whereField(field, isGreaterThanOrEqualTo: query)
+            .whereField(field, isLessThanOrEqualTo: query+"\u{F7FF}")
+            .addSnapshotListener(as: User.self)
     }
 }
 

@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Don't work in applicationDidFinishLaunching
     override init() {
         FirebaseApp.configure()
+        FbFirestoreService.shared.configure()
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {

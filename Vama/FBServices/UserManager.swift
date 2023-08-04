@@ -28,6 +28,26 @@ class UserManager: ObservableObject{
         userService.getFBUserId()
     }
     
+    func findUser(){
+        
+        let fbListenerResult = userService.findUsers(query: "test")
+        
+        //self.listener.listener = fbListenerResult.listener
+        
+        fbListenerResult.publisher.sink { completion in
+            switch completion{
+                
+            case .finished: break
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        } receiveValue: { users in
+            print(users)
+        }
+        .store(in: cancelBag)
+        
+    }
+    
     func refetchUser(){
         Task{
             do{

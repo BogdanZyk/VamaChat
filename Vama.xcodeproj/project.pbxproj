@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A21B4DE2A7D454A00CF00BB /* FbFirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B4DD2A7D454A00CF00BB /* FbFirestore.swift */; };
 		5A326A952A7CF4AE00629066 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5A326A942A7CF4AE00629066 /* FirebaseAuth */; };
 		5A326A972A7CF4AE00629066 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A326A962A7CF4AE00629066 /* FirebaseFirestore */; };
 		5A326A992A7CF4AE00629066 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5A326A982A7CF4AE00629066 /* FirebaseFirestoreSwift */; };
@@ -23,6 +24,8 @@
 		5A326ABD2A7D255F00629066 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326ABC2A7D255F00629066 /* ProfileView.swift */; };
 		5A326ABF2A7D256500629066 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326ABE2A7D256500629066 /* ProfileViewModel.swift */; };
 		5A326AC12A7D288400629066 /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326AC02A7D288400629066 /* Combine.swift */; };
+		5A326AC32A7D334A00629066 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326AC22A7D334A00629066 /* SearchView.swift */; };
+		5A326AC52A7D338900629066 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326AC42A7D338900629066 /* SearchTextField.swift */; };
 		5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6632A77ED0E00C04810 /* VamaApp.swift */; };
 		5A44A6682A77ED1000C04810 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A6672A77ED1000C04810 /* Assets.xcassets */; };
 		5A44A66B2A77ED1000C04810 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A66A2A77ED1000C04810 /* Preview Assets.xcassets */; };
@@ -59,6 +62,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A21B4DD2A7D454A00CF00BB /* FbFirestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbFirestore.swift; sourceTree = "<group>"; };
 		5A326A9C2A7CF51000629066 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5A326A9E2A7CF58400629066 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A326AA02A7CF69A00629066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 		5A326ABC2A7D255F00629066 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		5A326ABE2A7D256500629066 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		5A326AC02A7D288400629066 /* Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Combine.swift; sourceTree = "<group>"; };
+		5A326AC22A7D334A00629066 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		5A326AC42A7D338900629066 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		5A44A6602A77ED0E00C04810 /* Vama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A44A6632A77ED0E00C04810 /* VamaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VamaApp.swift; sourceTree = "<group>"; };
 		5A44A6672A77ED1000C04810 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -129,6 +135,7 @@
 			children = (
 				5A326AA92A7CFA7200629066 /* UserService.swift */,
 				5A326AB42A7D1D5500629066 /* UserManager.swift */,
+				5A21B4DD2A7D454A00CF00BB /* FbFirestore.swift */,
 			);
 			path = FBServices;
 			sourceTree = "<group>";
@@ -307,6 +314,7 @@
 				5A4872992A7BF29500610359 /* ViewModel */,
 				5A4872832A7BC90000610359 /* Components */,
 				5A44A6882A77FF7300C04810 /* ChatsView.swift */,
+				5A326AC22A7D334A00629066 /* SearchView.swift */,
 			);
 			path = ChatsView;
 			sourceTree = "<group>";
@@ -335,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				5A4872842A7BC91300610359 /* ChatRowView.swift */,
+				5A326AC42A7D338900629066 /* SearchTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -494,6 +503,8 @@
 				5A326ABA2A7D239800629066 /* Query.swift in Sources */,
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
 				5A4872892A7BC9BE00610359 /* User.swift in Sources */,
+				5A21B4DE2A7D454A00CF00BB /* FbFirestore.swift in Sources */,
+				5A326AC32A7D334A00629066 /* SearchView.swift in Sources */,
 				5ABC15922A7C60860063128F /* DialogView+NavbarView.swift in Sources */,
 				5A48728B2A7BCA8D00610359 /* StorageItem.swift in Sources */,
 				5A44A6782A77EE3600C04810 /* View.swift in Sources */,
@@ -518,6 +529,7 @@
 				5A4872972A7BD83200610359 /* MessageMedia.swift in Sources */,
 				5A4872852A7BC91300610359 /* ChatRowView.swift in Sources */,
 				5A48727F2A7BAA5100610359 /* Date.swift in Sources */,
+				5A326AC52A7D338900629066 /* SearchTextField.swift in Sources */,
 				5A4872A32A7CE7A100610359 /* ChatAction.swift in Sources */,
 				5A326AAA2A7CFA7200629066 /* UserService.swift in Sources */,
 				5A326AA22A7CF79300629066 /* AuthenticationManager.swift in Sources */,
