@@ -17,9 +17,11 @@ struct ChatsView: View {
             ScrollView(.vertical, showsIndicators: true) {
                 LazyVStack(alignment: .leading, spacing: 0){
                     ForEach(chatVM.chats) { chatData in
-                        ChatRowView(chatData: chatData, isSelected: chatData == chatVM.selectedChat) {
-                            chatVM.selectedChat = chatData
-                        }
+                        ChatRowView(
+                            chatData: chatData,
+                            isSelected: chatData == chatVM.selectedChat,
+                            onTap: chatVM.selectChat,
+                            onContextAction: chatVM.setChatAction)
                     }
                 }
             }

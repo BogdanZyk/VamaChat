@@ -10,7 +10,8 @@ import SwiftUI
 struct ChatRowView: View {
     let chatData: ChatConversation
     let isSelected: Bool
-    let onTap: () -> Void
+    let onTap: (ChatConversation) -> Void
+    let onContextAction: (ChatContextAction, String) -> Void
     private var isPrivateChat: Bool{
         chatData.chat.chatType == .chatPrivate
     }
@@ -60,14 +61,15 @@ struct ChatRowView: View {
             }
         }
         .onTapGesture {
-            onTap()
+            onTap(chatData)
         }
+        .contextMenu{contextMenuContent}
     }
 }
 
 struct ChatRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatRowView(chatData: .mocks.first!, isSelected: false, onTap: {})
+        ChatRowView(chatData: .mocks.first!, isSelected: false, onTap: {_ in}, onContextAction: {_, _ in})
     }
 }
 
@@ -81,5 +83,21 @@ extension ChatRowView{
     private var chatTitle: some View{
         Text(isPrivateChat ? (chatData.target?.name ?? "") : chatData.chat.title ?? "")
             .font(.body.bold())
+    }
+    
+    
+    private var contextMenuContent: some View{
+        ForEach(ChatContextAction.allCases, id: \.self) { type in
+            Button {
+                onContextAction(type, chatData.id)
+            } label: {
+                HStack {
+                    Image(systemName: type.image)
+                    Text(type.title)
+                }
+                .foregroundColor(type == .remove ? .red : .primary)
+                .padding()
+            }
+        }
     }
 }

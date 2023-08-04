@@ -38,6 +38,23 @@ final class ChatViewModel: ObservableObject{
         guard let index = chats.firstIndex(where: {$0.id == id}) else {return}
         chats[index].draftMessage = draftText
     }
+    
+    func selectChat(_ chat: ChatConversation){
+        selectedChat = chat
+    }
+    
+    func setChatAction(_ action: ChatContextAction, _ id: String){
+        switch action {
+        case .pin:
+            print("pin chat")
+        case .archive:
+            print("archive chat")
+        case .clear:
+            print("Clear chat")
+        case .remove:
+            print("Remove chat")
+        }
+    }
 }
 
 
