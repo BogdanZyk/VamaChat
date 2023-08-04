@@ -44,29 +44,31 @@ extension User{
 }
 
 
-//extension User{
-//
-//
-//    struct UserInfo{
-//        let id: String
-//        var userName: String
-//        var fullName: String
-//        var bio: String
-//
-//        func getDict() -> [String: Any]{
-//            [
-//                User.CodingKeys.userName.rawValue: userName,
-//                User.CodingKeys.fullName.rawValue: fullName,
-//                User.CodingKeys.bio.rawValue: bio,
-//            ]
-//        }
-//    }
-//
-////
-////    func getInfo() -> UserInfo{
-////        .init(id: id, userName: userName, fullName: fullName ?? "", bio: bio ?? "")
-////    }
-//}
+extension User{
+
+
+    struct UserInfo{
+        let id: String
+        var username: String
+        var firstName: String
+        var lastName: String
+        var bio: String
+
+        func getDict() -> [String: Any]{
+            [
+                User.CodingKeys.username.rawValue: username,
+                User.CodingKeys.firstName.rawValue: firstName,
+                User.CodingKeys.lastName.rawValue: lastName,
+                User.CodingKeys.bio.rawValue: bio,
+            ]
+        }
+    }
+
+
+    func getInfo() -> UserInfo{
+        .init(id: id, username: username, firstName: firstName ?? "", lastName: lastName ?? "", bio: bio ?? "")
+    }
+}
 
 
 extension User: Equatable{

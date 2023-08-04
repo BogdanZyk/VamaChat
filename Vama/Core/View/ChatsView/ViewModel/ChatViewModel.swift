@@ -12,7 +12,7 @@ final class ChatViewModel: ObservableObject{
     
     @Published var chats: [ChatConversation] = []
     @Published var selectedChat: ChatConversation?
-   
+    private let userService = UserService.share
     
     init(){
         fetchChats()

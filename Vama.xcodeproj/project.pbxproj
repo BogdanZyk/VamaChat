@@ -17,6 +17,12 @@
 		5A326AAA2A7CFA7200629066 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326AA92A7CFA7200629066 /* UserService.swift */; };
 		5A326AB02A7D001500629066 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326AAF2A7D001500629066 /* ErrorHandler.swift */; };
 		5A326AB22A7D004A00629066 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326AB12A7D004A00629066 /* AuthenticationViewModel.swift */; };
+		5A326AB52A7D1D5500629066 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326AB42A7D1D5500629066 /* UserManager.swift */; };
+		5A326AB82A7D22F100629066 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326AB72A7D22F100629066 /* AppError.swift */; };
+		5A326ABA2A7D239800629066 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326AB92A7D239700629066 /* Query.swift */; };
+		5A326ABD2A7D255F00629066 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326ABC2A7D255F00629066 /* ProfileView.swift */; };
+		5A326ABF2A7D256500629066 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326ABE2A7D256500629066 /* ProfileViewModel.swift */; };
+		5A326AC12A7D288400629066 /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326AC02A7D288400629066 /* Combine.swift */; };
 		5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6632A77ED0E00C04810 /* VamaApp.swift */; };
 		5A44A6682A77ED1000C04810 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A6672A77ED1000C04810 /* Assets.xcassets */; };
 		5A44A66B2A77ED1000C04810 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A66A2A77ED1000C04810 /* Preview Assets.xcassets */; };
@@ -60,6 +66,12 @@
 		5A326AA92A7CFA7200629066 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		5A326AAF2A7D001500629066 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		5A326AB12A7D004A00629066 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthenticationViewModel.swift; path = ../AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		5A326AB42A7D1D5500629066 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		5A326AB72A7D22F100629066 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		5A326AB92A7D239700629066 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		5A326ABC2A7D255F00629066 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		5A326ABE2A7D256500629066 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		5A326AC02A7D288400629066 /* Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Combine.swift; sourceTree = "<group>"; };
 		5A44A6602A77ED0E00C04810 /* Vama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A44A6632A77ED0E00C04810 /* VamaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VamaApp.swift; sourceTree = "<group>"; };
 		5A44A6672A77ED1000C04810 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -116,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				5A326AA92A7CFA7200629066 /* UserService.swift */,
+				5A326AB42A7D1D5500629066 /* UserManager.swift */,
 			);
 			path = FBServices;
 			sourceTree = "<group>";
@@ -145,6 +158,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		5A326AB62A7D22EA00629066 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				5A326AB72A7D22F100629066 /* AppError.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		5A326ABB2A7D255000629066 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				5A326ABC2A7D255F00629066 /* ProfileView.swift */,
+				5A326ABE2A7D256500629066 /* ProfileViewModel.swift */,
+			);
+			path = ProfileView;
+			sourceTree = "<group>";
+		};
 		5A44A6572A77ED0E00C04810 = {
 			isa = PBXGroup;
 			children = (
@@ -165,8 +195,8 @@
 			isa = PBXGroup;
 			children = (
 				5A326AA02A7CF69A00629066 /* Info.plist */,
-				5A326AA82A7CFA5900629066 /* FBServices */,
 				5A44A67A2A77EE9F00C04810 /* App */,
+				5A326AA82A7CFA5900629066 /* FBServices */,
 				5A44A6752A77EE0200C04810 /* Utils */,
 				5A44A6722A77EDEF00C04810 /* Core */,
 				5A44A6672A77ED1000C04810 /* Assets.xcassets */,
@@ -209,6 +239,7 @@
 		5A44A6742A77EDF500C04810 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5A326ABB2A7D255000629066 /* ProfileView */,
 				5ABC15862A7C4E2C0063128F /* AuthView */,
 				5A4872772A7BA6A500610359 /* DialogView */,
 				5A44A6872A77FF3900C04810 /* ChatsView */,
@@ -221,6 +252,7 @@
 		5A44A6752A77EE0200C04810 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5A326AB62A7D22EA00629066 /* Helpers */,
 				5A326AAE2A7D000900629066 /* Modifiers */,
 				5A44A6762A77EE0A00C04810 /* Extensions */,
 			);
@@ -233,6 +265,8 @@
 				5A44A6772A77EE3600C04810 /* View.swift */,
 				5A48727E2A7BAA5100610359 /* Date.swift */,
 				5A4872812A7BB4B800610359 /* String.swift */,
+				5A326AB92A7D239700629066 /* Query.swift */,
+				5A326AC02A7D288400629066 /* Combine.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -457,22 +491,27 @@
 				5A4872822A7BB4B800610359 /* String.swift in Sources */,
 				5ABC158C2A7C50A20063128F /* DialogView+BottomBarView.swift in Sources */,
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
+				5A326ABA2A7D239800629066 /* Query.swift in Sources */,
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
 				5A4872892A7BC9BE00610359 /* User.swift in Sources */,
 				5ABC15922A7C60860063128F /* DialogView+NavbarView.swift in Sources */,
 				5A48728B2A7BCA8D00610359 /* StorageItem.swift in Sources */,
 				5A44A6782A77EE3600C04810 /* View.swift in Sources */,
+				5A326AC12A7D288400629066 /* Combine.swift in Sources */,
 				5A4872872A7BC98C00610359 /* Chat.swift in Sources */,
 				5A4872912A7BCC9F00610359 /* LazyNukeImage.swift in Sources */,
 				5A48729E2A7BF41400610359 /* DialogViewModel.swift in Sources */,
+				5A326ABD2A7D255F00629066 /* ProfileView.swift in Sources */,
 				5A326AB02A7D001500629066 /* ErrorHandler.swift in Sources */,
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
 				5ABC15882A7C4E7A0063128F /* AuthView.swift in Sources */,
 				5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */,
 				5A326A9F2A7CF58400629066 /* AppDelegate.swift in Sources */,
+				5A326AB82A7D22F100629066 /* AppError.swift in Sources */,
 				5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */,
 				5A48727D2A7BA9B400610359 /* Message.swift in Sources */,
 				5ABC15942A7C687D0063128F /* ChatConversation.swift in Sources */,
+				5A326AB52A7D1D5500629066 /* UserManager.swift in Sources */,
 				5ABC158E2A7C5A620063128F /* MessageAction.swift in Sources */,
 				5A326AB22A7D004A00629066 /* AuthenticationViewModel.swift in Sources */,
 				5A44A67F2A77EEE100C04810 /* TabButton.swift in Sources */,
@@ -482,6 +521,7 @@
 				5A4872A32A7CE7A100610359 /* ChatAction.swift in Sources */,
 				5A326AAA2A7CFA7200629066 /* UserService.swift in Sources */,
 				5A326AA22A7CF79300629066 /* AuthenticationManager.swift in Sources */,
+				5A326ABF2A7D256500629066 /* ProfileViewModel.swift in Sources */,
 				5A48729B2A7BF2A000610359 /* ChatViewModel.swift in Sources */,
 				5A44A6832A77F16C00C04810 /* MainTab.swift in Sources */,
 			);

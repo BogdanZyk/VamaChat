@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var authManager: AuthenticationViewModel
+    @StateObject var userManager = UserManager()
     @StateObject var router = MainRouter()
     @StateObject var chatVM = ChatViewModel()
     var body: some View {
@@ -21,19 +22,11 @@ struct MainView: View {
                 switch router.currentTab{
                 case .chats:
                     ChatsView(chatVM: chatVM)
-                       
                 case .profile:
-                    VStack {
-                        Text("Profile")
-                        Button("Sing Out") {
-                            authManager.singOut()
-                        }
-                    }
-                    
-                       
+                    ProfileView()
                 case .settings:
                     Text("Settings")
-                        
+                    
                 }
             }
             .navigationSplitViewColumnWidth(min: 220, ideal: 220, max: 380)
@@ -84,6 +77,7 @@ struct MainView: View {
         //.ignoresSafeArea(.all)
         .frame(minWidth: getRect().width / 3, minHeight: getRect().height / 1.8)
         .environmentObject(router)
+        .environmentObject(userManager)
     }
 }
 
