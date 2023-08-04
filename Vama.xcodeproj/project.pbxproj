@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A326A952A7CF4AE00629066 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5A326A942A7CF4AE00629066 /* FirebaseAuth */; };
+		5A326A972A7CF4AE00629066 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5A326A962A7CF4AE00629066 /* FirebaseFirestore */; };
+		5A326A992A7CF4AE00629066 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5A326A982A7CF4AE00629066 /* FirebaseFirestoreSwift */; };
+		5A326A9B2A7CF4AE00629066 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5A326A9A2A7CF4AE00629066 /* FirebaseStorage */; };
+		5A326A9D2A7CF51000629066 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A326A9C2A7CF51000629066 /* GoogleService-Info.plist */; };
+		5A326A9F2A7CF58400629066 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A326A9E2A7CF58400629066 /* AppDelegate.swift */; };
 		5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6632A77ED0E00C04810 /* VamaApp.swift */; };
 		5A44A6682A77ED1000C04810 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A6672A77ED1000C04810 /* Assets.xcassets */; };
 		5A44A66B2A77ED1000C04810 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A66A2A77ED1000C04810 /* Preview Assets.xcassets */; };
@@ -43,6 +49,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A326A9C2A7CF51000629066 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5A326A9E2A7CF58400629066 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5A326AA02A7CF69A00629066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5A44A6602A77ED0E00C04810 /* Vama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A44A6632A77ED0E00C04810 /* VamaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VamaApp.swift; sourceTree = "<group>"; };
 		5A44A6672A77ED1000C04810 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,8 +92,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A326A992A7CF4AE00629066 /* FirebaseFirestoreSwift in Frameworks */,
 				5A4872A12A7BF63400610359 /* Algorithms in Frameworks */,
+				5A326A972A7CF4AE00629066 /* FirebaseFirestore in Frameworks */,
+				5A326A952A7CF4AE00629066 /* FirebaseAuth in Frameworks */,
 				5A48728E2A7BCC5400610359 /* NukeUI in Frameworks */,
+				5A326A9B2A7CF4AE00629066 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,11 +123,13 @@
 		5A44A6622A77ED0E00C04810 /* Vama */ = {
 			isa = PBXGroup;
 			children = (
+				5A326AA02A7CF69A00629066 /* Info.plist */,
 				5A44A67A2A77EE9F00C04810 /* App */,
 				5A44A6752A77EE0200C04810 /* Utils */,
 				5A44A6722A77EDEF00C04810 /* Core */,
 				5A44A6672A77ED1000C04810 /* Assets.xcassets */,
 				5A44A66C2A77ED1000C04810 /* Vama.entitlements */,
+				5A326A9C2A7CF51000629066 /* GoogleService-Info.plist */,
 				5A44A6692A77ED1000C04810 /* Preview Content */,
 			);
 			path = Vama;
@@ -185,6 +200,7 @@
 				5A44A6632A77ED0E00C04810 /* VamaApp.swift */,
 				5A44A6802A77F0F300C04810 /* Router.swift */,
 				5ABC15892A7C4EE60063128F /* ContentView.swift */,
+				5A326A9E2A7CF58400629066 /* AppDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -325,6 +341,10 @@
 			packageProductDependencies = (
 				5A48728D2A7BCC5400610359 /* NukeUI */,
 				5A4872A02A7BF63400610359 /* Algorithms */,
+				5A326A942A7CF4AE00629066 /* FirebaseAuth */,
+				5A326A962A7CF4AE00629066 /* FirebaseFirestore */,
+				5A326A982A7CF4AE00629066 /* FirebaseFirestoreSwift */,
+				5A326A9A2A7CF4AE00629066 /* FirebaseStorage */,
 			);
 			productName = Vama;
 			productReference = 5A44A6602A77ED0E00C04810 /* Vama.app */;
@@ -357,6 +377,7 @@
 			packageReferences = (
 				5A48728C2A7BCC5400610359 /* XCRemoteSwiftPackageReference "NukeUI" */,
 				5A48729F2A7BF63400610359 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				5A326A932A7CF4AE00629066 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 5A44A6612A77ED0E00C04810 /* Products */;
 			projectDirPath = "";
@@ -374,6 +395,7 @@
 			files = (
 				5A44A66B2A77ED1000C04810 /* Preview Assets.xcassets in Resources */,
 				5A44A6682A77ED1000C04810 /* Assets.xcassets in Resources */,
+				5A326A9D2A7CF51000629066 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +424,7 @@
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
 				5ABC15882A7C4E7A0063128F /* AuthView.swift in Sources */,
 				5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */,
+				5A326A9F2A7CF58400629066 /* AppDelegate.swift in Sources */,
 				5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */,
 				5A48727D2A7BA9B400610359 /* Message.swift in Sources */,
 				5ABC15942A7C687D0063128F /* ChatConversation.swift in Sources */,
@@ -546,6 +569,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Vama/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -573,6 +597,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Vama/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -610,6 +635,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5A326A932A7CF4AE00629066 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 		5A48728C2A7BCC5400610359 /* XCRemoteSwiftPackageReference "NukeUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/NukeUI";
@@ -629,6 +662,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5A326A942A7CF4AE00629066 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A326A932A7CF4AE00629066 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		5A326A962A7CF4AE00629066 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A326A932A7CF4AE00629066 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		5A326A982A7CF4AE00629066 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A326A932A7CF4AE00629066 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		5A326A9A2A7CF4AE00629066 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A326A932A7CF4AE00629066 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		5A48728D2A7BCC5400610359 /* NukeUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5A48728C2A7BCC5400610359 /* XCRemoteSwiftPackageReference "NukeUI" */;
