@@ -37,7 +37,7 @@ struct MainView: View {
                     switch router.currentTab{
                     case .chats:
                         if let chatData = chatVM.selectedChat{
-                            DialogView(chatData: chatData)
+                            DialogView(chatData: chatData, onSetDraft: chatVM.onSetDraft)
                         } else {
                             Text("Choose chat")
                         }

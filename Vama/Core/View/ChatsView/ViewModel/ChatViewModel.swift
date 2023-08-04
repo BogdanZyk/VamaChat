@@ -33,6 +33,11 @@ final class ChatViewModel: ObservableObject{
             self.chats.append(.init(chat: chat, target: target))
         }
     }
+    
+    func onSetDraft(_ draftText: String?, id: String){
+        guard let index = chats.firstIndex(where: {$0.id == id}) else {return}
+        chats[index].draftMessage = draftText
+    }
 }
 
 

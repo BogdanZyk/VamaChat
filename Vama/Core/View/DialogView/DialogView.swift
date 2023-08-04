@@ -12,9 +12,12 @@ struct DialogView: View {
     
     @StateObject private var viewModel: DialogViewModel
     @State private var hiddenDownButton: Bool = false
-    
-    init(chatData: ChatConversation){
+    let chatData: ChatConversation
+    var onSetDraft: ((String?, String) -> Void)?
+    init(chatData: ChatConversation, onSetDraft: ((String?, String) -> Void)? = nil){
         self._viewModel = StateObject(wrappedValue: DialogViewModel(chatData: chatData))
+        self.chatData = chatData
+        self.onSetDraft = onSetDraft
     }
     
     var body: some View {
@@ -36,6 +39,17 @@ struct DialogView: View {
         .animation(.easeOut(duration: 0.2), value: viewModel.bottomBarActionType.id)
         .fileImporter(isPresented: $viewModel.showFileExporter, allowedContentTypes: [.image]){result in
             print(result.map({$0.pathExtension}))
+        }
+        .onChange(of: chatData) {
+            if !viewModel.textMessage.isEmptyStrWithSpace{
+                onSetDraft?(viewModel.textMessage, viewModel.chatData.id)
+            }
+            viewModel.setChatDataAndRefetch(chatData: $0)
+        }
+        .onChange(of: viewModel.textMessage) { newValue in
+            if newValue.isEmpty, viewModel.chatData.draftMessage != nil{
+                onSetDraft?(nil, chatData.id)
+            }
         }
     }
 }

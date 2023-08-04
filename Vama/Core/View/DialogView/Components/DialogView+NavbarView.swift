@@ -10,16 +10,13 @@ import SwiftUI
 extension DialogView{
     struct NavBarView: View {
         @EnvironmentObject var viewModel: DialogViewModel
+        private var isPrivateChat: Bool{
+            viewModel.chatData.chat.chatType == .chatPrivate
+        }
         var body: some View {
             VStack(alignment: .leading) {
                 HStack{
-                    Circle()
-                        .frame(width: 30, height: 30)
-                    VStack(alignment: .leading) {
-                        Text("User name")
-                            .font(.body.bold())
-                        Text("status")
-                    }
+                   chatInfoView
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
@@ -34,4 +31,20 @@ struct NavbarView_Previews: PreviewProvider {
     static var previews: some View {
         DialogView.NavBarView()
     }
+}
+
+extension DialogView.NavBarView{
+    
+    private var chatInfoView: some View{
+        Group{
+            AvatarView(image: isPrivateChat ? viewModel.chatData.target?.image : viewModel.chatData.chat.photo, size: .init(width: 30, height: 30))
+            
+            VStack(alignment: .leading) {
+                Text(isPrivateChat ? (viewModel.chatData.target?.name ?? "") : viewModel.chatData.chat.title ?? "")
+                    .font(.body.bold())
+                Text("status")
+            }
+        }
+    }
+    
 }

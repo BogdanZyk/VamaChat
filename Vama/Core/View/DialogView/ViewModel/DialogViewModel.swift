@@ -18,7 +18,7 @@ class DialogViewModel: ObservableObject{
     @Published var textMessage: String = ""
     @Published var sendCounter: Int = 0
     
-    let chatData: ChatConversation
+    var chatData: ChatConversation
     
     
     init(chatData: ChatConversation) {
@@ -28,11 +28,18 @@ class DialogViewModel: ObservableObject{
     
     private func fetchMessages(){
         print("fetch messages \(chatData.id)")
-        
         self.messages = Message.mocks.map({.init(message: $0)})
         
     }
     
+    func setChatDataAndRefetch(chatData: ChatConversation){
+        bottomBarActionType = .empty
+        textMessage = chatData.draftMessage ?? ""
+        self.chatData = chatData
+        self.messages = []
+        self.selectedMessages = []
+        fetchMessages()
+    }
     
     func viewMessage(_ id: String){
         

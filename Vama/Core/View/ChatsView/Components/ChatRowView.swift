@@ -25,8 +25,18 @@ struct ChatRowView: View {
                         .font(.system(size: 10, weight: .light))
                 }
                 HStack(alignment: .bottom) {
-                    Text(chatData.chat.lastMessage?.message ?? "")
-                        .font(.caption.weight(.light))
+                    Group{
+                        if let draft = chatData.draftMessage{
+                            HStack(alignment: .top, spacing: 2){
+                                Text("Draft:")
+                                    .foregroundColor(.red)
+                                Text(draft)
+                            }
+                        }else{
+                            Text(chatData.chat.lastMessage?.message ?? "")
+                        }
+                    }
+                    .font(.caption.weight(.light))
                     Spacer()
 //                    if chat.unreadCount > 0{
 //                        Text("\(chat.unreadCount)")
