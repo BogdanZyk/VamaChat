@@ -40,7 +40,7 @@ extension DialogView.NavBarView{
             AvatarView(image: isPrivateChat ? viewModel.chatData.target?.image : viewModel.chatData.chat.photo, size: .init(width: 30, height: 30))
             
             VStack(alignment: .leading) {
-                Text(isPrivateChat ? (viewModel.chatData.target?.name ?? "") : viewModel.chatData.chat.title ?? "")
+                Text(isPrivateChat ? (viewModel.chatData.target?.fullName ?? "") : viewModel.chatData.chat.title ?? "")
                     .font(.body.bold())
                 Text("status")
             }

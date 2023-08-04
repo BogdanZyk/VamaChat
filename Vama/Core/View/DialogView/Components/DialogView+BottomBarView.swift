@@ -69,7 +69,7 @@ extension DialogView.BottomBarView{
                     .fill(Color.gray)
                     .frame(width: 2, height: 30)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(isEditMode ? "Edit" : viewModel.bottomBarActionType.message?.sender.name ?? "")
+                    Text(isEditMode ? "Edit" : viewModel.bottomBarActionType.message?.sender.fullName ?? "")
                         .font(.system(size: 14, weight: .medium))
                     Text(viewModel.bottomBarActionType.message?.message ?? "")
                         .font(.system(size: 14, weight: .light))

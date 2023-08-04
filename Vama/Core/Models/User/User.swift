@@ -13,19 +13,21 @@ import Foundation
 struct User: Identifiable, Codable, Hashable{
     
     let id: String
-    var userName: String
-    var email: String
+    let username: String
+    let email: String?
     var profileImage: StorageItem?
-    var fullName: String?
+    var firstName: String?
+    var lastName: String?
     var bio: String?
     
     
     enum CodingKeys: String, CodingKey {
         case id
-        case userName
+        case username
         case email
         case profileImage
-        case fullName
+        case lastName
+        case firstName
         case bio
     }
 
@@ -33,37 +35,38 @@ struct User: Identifiable, Codable, Hashable{
 
 extension User{
     static let mock = User(id: "fTSwHTmYHkeYvfsWASMpEDlwGmg2",
-                           userName: "Tester",
+                           username: "@Tester",
                            email: "test@test.cpm",
                            profileImage: .init(path: "", fullPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_KIEkMvsIZEmzG7Og_h3SJ4T3HsE2rqm3_w&usqp=CAU"),
-                           fullName: "Alex Tsimikas",
+                           firstName:"Alex",
+                           lastName: "Tsimikas",
                            bio: "Writer by Profession. Artist by Passion!")
 }
 
 
-extension User{
-    
-    
-    struct UserInfo{
-        let id: String
-        var userName: String
-        var fullName: String
-        var bio: String
-        
-        func getDict() -> [String: Any]{
-            [
-                User.CodingKeys.userName.rawValue: userName,
-                User.CodingKeys.fullName.rawValue: fullName,
-                User.CodingKeys.bio.rawValue: bio,
-            ]
-        }
-    }
-    
-    
-    func getInfo() -> UserInfo{
-        .init(id: id, userName: userName, fullName: fullName ?? "", bio: bio ?? "")
-    }
-}
+//extension User{
+//
+//
+//    struct UserInfo{
+//        let id: String
+//        var userName: String
+//        var fullName: String
+//        var bio: String
+//
+//        func getDict() -> [String: Any]{
+//            [
+//                User.CodingKeys.userName.rawValue: userName,
+//                User.CodingKeys.fullName.rawValue: fullName,
+//                User.CodingKeys.bio.rawValue: bio,
+//            ]
+//        }
+//    }
+//
+////
+////    func getInfo() -> UserInfo{
+////        .init(id: id, userName: userName, fullName: fullName ?? "", bio: bio ?? "")
+////    }
+//}
 
 
 extension User: Equatable{
@@ -76,13 +79,15 @@ extension User: Equatable{
 
 struct ShortUser: Identifiable, Codable, Hashable{
     let id: String
-    let name: String
+    let fullName: String
+    let username: String
     let image: String?
     
     
     init(user: User){
         self.id = user.id
-        self.name = user.userName
+        self.fullName = (user.firstName ?? "") + " " + (user.lastName ?? "")
+        self.username = user.username
         self.image = user.profileImage?.fullPath
     }
     

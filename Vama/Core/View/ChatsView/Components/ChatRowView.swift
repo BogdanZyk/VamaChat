@@ -81,7 +81,7 @@ extension ChatRowView{
     }
     
     private var chatTitle: some View{
-        Text(isPrivateChat ? (chatData.target?.name ?? "") : chatData.chat.title ?? "")
+        Text(isPrivateChat ? (chatData.target?.fullName ?? "") : chatData.chat.title ?? "")
             .font(.body.bold())
     }
     

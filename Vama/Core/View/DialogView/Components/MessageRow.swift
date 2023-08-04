@@ -17,7 +17,7 @@ struct MessageRow: View {
             AvatarView(image: dialogMessage.message.sender.image, size: .init(width: 30, height: 30))
             VStack(alignment: .leading) {
                 HStack(spacing: 10) {
-                    Text(dialogMessage.message.sender.name)
+                    Text(dialogMessage.message.sender.fullName)
                         .font(.body.bold())
                     Spacer()
                     Text("\(dialogMessage.message.createdAt, formatter: Date.hoursAndMinuteFormatter)")

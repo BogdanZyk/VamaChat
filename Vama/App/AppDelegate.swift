@@ -8,14 +8,16 @@
 import Foundation
 import SwiftUI
 import FirebaseCore
-import FirebaseAuth
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    
+    /// Don't work in applicationDidFinishLaunching
+    override init() {
+        FirebaseApp.configure()
+    }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        FirebaseApp.configure()
+       
     }
     
     

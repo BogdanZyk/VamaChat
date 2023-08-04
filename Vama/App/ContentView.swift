@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var isLogged: Bool = false
+    @StateObject var authManager = AuthenticationViewModel()
     var body: some View {
         Group{
-            //if isLogged{
+            if authManager.isSingIn{
                 MainView()
-//            }else{
-//                AuthView(isLoggin: $isLogged)
-//            }
+                    .environmentObject(authManager)
+            }else{
+                AuthView(authVM: authManager)
+            }
         }
     }
 }

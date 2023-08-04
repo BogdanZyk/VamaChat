@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @EnvironmentObject var authManager: AuthenticationViewModel
     @StateObject var router = MainRouter()
     @StateObject var chatVM = ChatViewModel()
     var body: some View {
@@ -22,7 +23,13 @@ struct MainView: View {
                     ChatsView(chatVM: chatVM)
                        
                 case .profile:
-                    Text("Profile")
+                    VStack {
+                        Text("Profile")
+                        Button("Sing Out") {
+                            authManager.singOut()
+                        }
+                    }
+                    
                        
                 case .settings:
                     Text("Settings")
