@@ -15,6 +15,7 @@ struct User: Identifiable, Codable, Hashable{
     let id: String
     let username: String
     let email: String?
+    let createdAt = FBTimestamp()
     var profileImage: StorageItem?
     var firstName: String?
     var lastName: String?
@@ -24,6 +25,7 @@ struct User: Identifiable, Codable, Hashable{
     enum CodingKeys: String, CodingKey {
         case id
         case username
+        case createdAt
         case email
         case profileImage
         case lastName

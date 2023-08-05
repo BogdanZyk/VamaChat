@@ -62,6 +62,7 @@
 		5ABC15922A7C60860063128F /* DialogView+NavbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15912A7C60860063128F /* DialogView+NavbarView.swift */; };
 		5ABC15942A7C687D0063128F /* ChatConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15932A7C687D0063128F /* ChatConversation.swift */; };
 		5AD635432A7E76B600FE0900 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635422A7E76B600FE0900 /* ChatService.swift */; };
+		5AD635472A7EFC7B00FE0900 /* FBTimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635462A7EFC7B00FE0900 /* FBTimestamp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +118,7 @@
 		5ABC15912A7C60860063128F /* DialogView+NavbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+NavbarView.swift"; sourceTree = "<group>"; };
 		5ABC15932A7C687D0063128F /* ChatConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatConversation.swift; sourceTree = "<group>"; };
 		5AD635422A7E76B600FE0900 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
+		5AD635462A7EFC7B00FE0900 /* FBTimestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTimestamp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				5A326AB72A7D22F100629066 /* AppError.swift */,
+				5AD635462A7EFC7B00FE0900 /* FBTimestamp.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 				5A326AB52A7D1D5500629066 /* UserManager.swift in Sources */,
 				5ABC158E2A7C5A620063128F /* MessageAction.swift in Sources */,
 				5A326AB22A7D004A00629066 /* AuthenticationViewModel.swift in Sources */,
+				5AD635472A7EFC7B00FE0900 /* FBTimestamp.swift in Sources */,
 				5A44A67F2A77EEE100C04810 /* TabButton.swift in Sources */,
 				5A4872972A7BD83200610359 /* MessageMedia.swift in Sources */,
 				5A4872852A7BC91300610359 /* ChatRowView.swift in Sources */,

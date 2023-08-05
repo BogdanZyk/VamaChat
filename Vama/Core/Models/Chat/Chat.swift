@@ -16,7 +16,7 @@ struct Chat: Identifiable, Codable{
     var title: String?
     var photo: String?
     let participantsIds: [String]
-    let createdAt: Timestamp = Timestamp(date: .now)
+    let createdAt = FBTimestamp()
    
 
     
