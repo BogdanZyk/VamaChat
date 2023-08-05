@@ -14,6 +14,7 @@ struct DialogView: View {
     @State private var hiddenDownButton: Bool = false
     let chatData: ChatConversation
     var onSetDraft: ((String?, String) -> Void)?
+    
     init(chatData: ChatConversation, onSetDraft: ((String?, String) -> Void)? = nil){
         self._viewModel = StateObject(wrappedValue: DialogViewModel(chatData: chatData))
         self.chatData = chatData

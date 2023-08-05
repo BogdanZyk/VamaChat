@@ -58,3 +58,16 @@ final class ChatViewModel: ObservableObject{
 }
 
 
+extension ChatViewModel{
+    
+    func createChatConversation(for target: ShortUser){
+        
+        guard let currentUserId = userService.getFBUserId() else {return}
+        
+        let chat = Chat(id: UUID().uuidString, chatType: .chatPrivate, lastMessage: nil, participantsIds: [currentUserId])
+        
+        let conversation = ChatConversation(chat: chat, target: target, draftMessage: nil)
+        
+        self.selectedChat = conversation
+    }
+}

@@ -15,7 +15,7 @@ struct ChatsView: View {
         VStack(spacing: 10) {
             searchField
             if searchVM.showSearchList{
-                SearchListView(users: searchVM.results, state: searchVM.viewState, onTap: searchVM.selectedUser)
+                searchList
             }else{
                 chatsListSection
             }
@@ -53,6 +53,13 @@ extension ChatsView{
                         onContextAction: chatVM.setChatAction)
                 }
             }
+        }
+    }
+    
+    private var searchList: some View{
+        SearchListView(users: searchVM.results, state: searchVM.viewState){ user in
+            searchVM.resetSearch()
+            chatVM.createChatConversation(for: user)
         }
     }
 }

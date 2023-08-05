@@ -71,12 +71,7 @@ class SearchViewModel: ObservableObject{
         
     }
     
-    func selectedUser(_ user: ShortUser){
-        NSApplication.shared.endEditing()
-        resetSearch()
-    }
-    
-    
+   
     func activateOrDeactivateSearch(_ isFocused: Bool){
         if isFocused{
             showSearchList = isFocused
@@ -85,7 +80,8 @@ class SearchViewModel: ObservableObject{
         }
     }
     
-    private func resetSearch(){
+    func resetSearch(){
+        NSApplication.shared.endEditing()
         query = ""
         showSearchList = false
         results = []
