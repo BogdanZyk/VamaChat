@@ -42,15 +42,23 @@ extension ChatsView{
 
 extension ChatsView{
     
+    @ViewBuilder
     private var chatsListSection: some View{
-        ScrollView(.vertical, showsIndicators: true) {
-            LazyVStack(alignment: .leading, spacing: 0){
-                ForEach(chatVM.chats) { chatData in
-                    ChatRowView(
-                        chatData: chatData,
-                        isSelected: chatData == chatVM.selectedChat,
-                        onTap: chatVM.selectChatConversation,
-                        onContextAction: chatVM.setChatAction)
+        if chatVM.chats.isEmpty{
+            Text("Use the search to create a chat room")
+                .multilineTextAlignment(.center)
+                .padding()
+                Spacer()
+        }else{
+            ScrollView(.vertical, showsIndicators: true) {
+                LazyVStack(alignment: .leading, spacing: 0){
+                    ForEach(chatVM.chats) { chatData in
+                        ChatRowView(
+                            chatData: chatData,
+                            isSelected: chatData == chatVM.selectedChat,
+                            onTap: {chatVM.selectChatConversation($0)},
+                            onContextAction: {chatVM.setChatAction($0, $1)})
+                    }
                 }
             }
         }
