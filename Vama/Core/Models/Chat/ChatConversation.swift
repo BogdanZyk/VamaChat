@@ -10,7 +10,7 @@ import Foundation
 struct ChatConversation: Identifiable, Hashable{
     
     var id: String{ chat.id }
-    let chat: Chat
+    var chat: Chat
     var target: ShortUser?
     var draftMessage: String?
     

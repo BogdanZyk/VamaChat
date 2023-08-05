@@ -46,15 +46,27 @@ extension Query{
         return .init(publisher: publisher.eraseToAnyPublisher(), listener: listener)
     }
     
-    func addSnapshotListenerWithChangeType<T>(as type: T.Type) -> (AnyPublisher<([T], [DocumentChangeType]), Error>, ListenerRegistration) where T: Decodable{
-        let publisher = PassthroughSubject<([T], [DocumentChangeType]), Error>()
+    func addSnapshotListenerWithChangeType<T>(as type: T.Type) -> (AnyPublisher<([T: DocumentChangeType]), Error>, ListenerRegistration) where T: Decodable, T: Hashable{
+        
+        let publisher = PassthroughSubject<([T: DocumentChangeType]), Error>()
         let listener = addSnapshotListener { querySnapshot, error in
             guard let documents = querySnapshot?.documents, let changest = querySnapshot?.documentChanges else{
                 return
             }
             let items: [T] = documents.compactMap({ try? $0.data(as: T.self)})
             let changeTypes = changest.compactMap({ $0.type })
-            publisher.send((items, changeTypes))
+            
+            var dictionary = [T: DocumentChangeType]()
+            
+            guard items.count == changeTypes.count else {
+                return
+            }
+            
+            for (index, element) in items.enumerated() {
+                dictionary[element] = changeTypes[index]
+            }
+            
+            publisher.send(dictionary)
         
         }
         return (publisher.eraseToAnyPublisher(), listener)

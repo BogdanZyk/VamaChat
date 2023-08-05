@@ -44,7 +44,7 @@ extension ChatsView{
     
     @ViewBuilder
     private var chatsListSection: some View{
-        if chatVM.chats.isEmpty{
+        if chatVM.chatConversations.isEmpty{
             Text("Use the search to create a chat room")
                 .multilineTextAlignment(.center)
                 .padding()
@@ -52,7 +52,7 @@ extension ChatsView{
         }else{
             ScrollView(.vertical, showsIndicators: true) {
                 LazyVStack(alignment: .leading, spacing: 0){
-                    ForEach(chatVM.chats) { chatData in
+                    ForEach(chatVM.chatConversations) { chatData in
                         ChatRowView(
                             chatData: chatData,
                             isSelected: chatData == chatVM.selectedChat,
