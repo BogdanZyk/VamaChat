@@ -9,22 +9,25 @@ import SwiftUI
 
 struct SearchListView: View {
     let users: [ShortUser]
+    let state: SearchViewState
     let onTap: (ShortUser) -> Void
     var body: some View {
-        if !users.isEmpty{
+        
+        switch state {
+        case .empty:
+            Text("Empty result")
+                .allFrame()
+        case .loading:
+            loader
+        case .loaded:
             ScrollView(.vertical, showsIndicators: true) {
                 LazyVStack(alignment: .leading, spacing: 0){
                     ForEach(users) { user in
                         rowView(user)
                     }
                 }
-                .padding()
-            }
-        }else{
-            Group{
-                Spacer()
-                Text("Empty result")
-                Spacer()
+                .padding(.horizontal)
+                .padding(.vertical, 10)
             }
         }
     }
@@ -32,7 +35,7 @@ struct SearchListView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchListView(users: [ShortUser.mock], onTap: {_ in})
+        SearchListView(users: [ShortUser.mock], state: .empty, onTap: {_ in})
     }
 }
 
@@ -54,5 +57,10 @@ extension SearchListView{
         .onTapGesture {
             onTap(user)
         }
+    }
+  
+    private var loader: some View{
+        ProgressView()
+            .allFrame()
     }
 }

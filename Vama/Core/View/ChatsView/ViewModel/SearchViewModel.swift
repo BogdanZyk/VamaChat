@@ -12,6 +12,7 @@ class SearchViewModel: ObservableObject{
     
     @Published var results: [ShortUser] = []
     @Published var query: String = ""
+    @Published private(set) var viewState: SearchViewState = .loaded
     @Published var showSearchList: Bool = false
     private var cancelBag = CancelBag()
     private let userService = UserService.share
@@ -42,22 +43,29 @@ class SearchViewModel: ObservableObject{
     
     
     private func searchUsers(_ query: String){
-        
+        viewState = .loading
         let searchQuery = query.first == "@" ? query : "@\(query)"
         
         let fbListenerResult = userService.findUsers(query: searchQuery.lowercased())
         
         self.fbListener.listener = fbListenerResult.listener
         
-        fbListenerResult.publisher.sink { completion in
+        fbListenerResult.publisher.sink {[weak self] completion in
+            self?.viewState = .loaded
             switch completion{
                 
             case .finished: break
             case .failure(let error):
                 print(error.localizedDescription)
             }
-        } receiveValue: { users in
+        } receiveValue: {[weak self] users in
+            guard let self = self else {return}
             self.results = users.map({ShortUser(user: $0)})
+            if results.isEmpty{
+                self.viewState = .empty
+            }else{
+                self.viewState = .loaded
+            }
         }
         .store(in: cancelBag)
         
@@ -65,8 +73,32 @@ class SearchViewModel: ObservableObject{
     
     func selectedUser(_ user: ShortUser){
         NSApplication.shared.endEditing()
+        resetSearch()
+    }
+    
+    
+    func activateOrDeactivateSearch(_ isFocused: Bool){
+        if isFocused{
+            showSearchList = isFocused
+        }else{
+            resetSearch()
+        }
+    }
+    
+    private func resetSearch(){
         query = ""
         showSearchList = false
         results = []
+        viewState = .loaded
     }
 }
+
+
+    
+enum SearchViewState{
+    case empty
+    case loading
+    case loaded
+}
+
+

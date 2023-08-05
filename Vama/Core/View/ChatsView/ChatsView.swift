@@ -15,7 +15,7 @@ struct ChatsView: View {
         VStack(spacing: 10) {
             searchField
             if searchVM.showSearchList{
-                SearchListView(users: searchVM.results, onTap: searchVM.selectedUser)
+                SearchListView(users: searchVM.results, state: searchVM.viewState, onTap: searchVM.selectedUser)
             }else{
                 chatsListSection
             }
@@ -35,9 +35,7 @@ struct ChatsView_Previews: PreviewProvider {
 extension ChatsView{
     
     private var searchField: some View{
-        SearchTextField(query: $searchVM.query){ isFocused in
-            searchVM.showSearchList = isFocused
-        }
+        SearchTextField(query: $searchVM.query, onChangeFocus: searchVM.activateOrDeactivateSearch)
     }
     
 }
