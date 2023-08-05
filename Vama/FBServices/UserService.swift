@@ -78,6 +78,22 @@ final class UserService{
             .whereField(field, isLessThanOrEqualTo: query+"\u{F7FF}")
             .addSnapshotListener(as: User.self)
     }
+    
+    func getUsers(ids: [String]) async throws -> [User]{
+        return try await withThrowingTaskGroup(of: User.self, returning: [User].self) { taskGroup in
+            for id in ids{
+                taskGroup.addTask { [weak self] in
+                    guard let self = self else {
+                        throw AppError.custom(errorDescription: "Error in get users")
+                    }
+                    return try await self.getUser(for: id)
+                }
+            }
+            return try await taskGroup.reduce(into: [User]()) { partialResult, name in
+                partialResult.append(name)
+            }
+        }
+    }
 }
 
 

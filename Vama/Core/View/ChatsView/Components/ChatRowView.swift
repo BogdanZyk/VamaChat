@@ -22,8 +22,10 @@ struct ChatRowView: View {
                 HStack {
                     chatTitle
                     Spacer()
-                    Text("\(chatData.chat.lastMessage?.createdAt ?? .now, formatter: Date.hoursAndMinuteFormatter)")
-                        .font(.system(size: 10, weight: .light))
+                    if chatData.draftMessage != nil{
+                        Text("\(chatData.chat.lastMessage?.createdAt ?? .now, formatter: Date.hoursAndMinuteFormatter)")
+                            .font(.system(size: 10, weight: .light))
+                    }
                 }
                 HStack(alignment: .bottom) {
                     Group{

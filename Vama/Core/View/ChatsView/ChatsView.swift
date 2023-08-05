@@ -49,7 +49,7 @@ extension ChatsView{
                     ChatRowView(
                         chatData: chatData,
                         isSelected: chatData == chatVM.selectedChat,
-                        onTap: chatVM.selectChat,
+                        onTap: chatVM.selectChatConversation,
                         onContextAction: chatVM.setChatAction)
                 }
             }

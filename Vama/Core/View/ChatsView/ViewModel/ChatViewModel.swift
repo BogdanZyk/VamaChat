@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+@MainActor
 final class ChatViewModel: ObservableObject{
     
     @Published var chats: [ChatConversation] = []
@@ -15,24 +15,43 @@ final class ChatViewModel: ObservableObject{
     private let userService = UserService.share
     private let chatService = ChatServices.shared
     
+    
+    var currentUID: String?{
+        userService.getFBUserId()
+    }
+    
     init(){
         fetchChats()
     }
     
+
     func fetchChats(){
-        createConversations(for: "1", chats: Chat.mocks)
+        guard let currentUID else {return}
+        Task{
+            do{
+                let chats = try await chatService.getUserChats(userId: currentUID)
+                let chatConversations = try await createChatConversations(for: currentUID, chats: chats)
+                
+                await MainActor.run {
+                    self.chats = chatConversations
+                }
+                
+            }catch{
+                print(error.localizedDescription)
+            }
+        }
     }
     
     
-    func createConversations(for userId: String, chats: [Chat]){
-
-        let usersIds = chats.compactMap({$0.participantsIds.first(where: {$0 != userId})})
-        let users = [ShortUser.mock]
-        
+    private func createChatConversations(for userId: String, chats: [Chat]) async throws -> [ChatConversation]{
+        let userIds = chats.compactMap({$0.participantsIds.first(where: {$0 != userId})})
+        let users = try await userService.getUsers(ids: userIds).map({ShortUser(user: $0)})
+        var conversations = [ChatConversation]()
         chats.forEach { chat in
-            let target = users.first(where: {chat.participantsIds.contains($0.id) && chat.chatType == .chatPrivate})
-            self.chats.append(.init(chat: chat, target: target))
+            let target = users.first(where: {chat.participantsIds.contains($0.id)})
+            conversations.append(.init(chat: chat, target: target))
         }
+        return conversations
     }
     
     func onSetDraft(_ draftText: String?, id: String){
@@ -40,7 +59,7 @@ final class ChatViewModel: ObservableObject{
         chats[index].draftMessage = draftText
     }
     
-    func selectChat(_ chat: ChatConversation){
+    func selectChatConversation(_ chat: ChatConversation){
         selectedChat = chat
     }
     
@@ -61,22 +80,21 @@ final class ChatViewModel: ObservableObject{
 
 extension ChatViewModel{
     
-    @MainActor
     func createChatConversation(for target: ShortUser){
         
-        guard let currentUserId = userService.getFBUserId(), currentUserId == target.id else {return}
+        guard let currentUID, currentUID != target.id else {return}
         
         if let existConversation = chats.first(where: {$0.target?.id == target.id}){
-            self.selectedChat = existConversation
+            selectChatConversation(existConversation)
         }else{
-            let chat = Chat(id: UUID().uuidString, chatType: .chatPrivate, lastMessage: nil, participantsIds: [currentUserId, target.id])
+            let chat = Chat(id: UUID().uuidString, chatType: .chatPrivate, lastMessage: nil, participantsIds: [currentUID, target.id])
             let conversation = ChatConversation(chat: chat, target: target, draftMessage: nil)
             
             Task{
                 do{
                     try await chatService.createChat(for: chat)
-                    self.selectedChat = conversation
-                    self.chats.insert(conversation, at: 0)
+                    selectChatConversation(conversation)
+                    chats.insert(conversation, at: 0)
                 }catch{
                     print(error)
                 }
