@@ -13,6 +13,7 @@ final class ChatViewModel: ObservableObject{
     @Published var chats: [ChatConversation] = []
     @Published var selectedChat: ChatConversation?
     private let userService = UserService.share
+    private let chatService = ChatServices.shared
     
     init(){
         fetchChats()
@@ -60,14 +61,26 @@ final class ChatViewModel: ObservableObject{
 
 extension ChatViewModel{
     
+    @MainActor
     func createChatConversation(for target: ShortUser){
         
-        guard let currentUserId = userService.getFBUserId() else {return}
+        guard let currentUserId = userService.getFBUserId(), currentUserId == target.id else {return}
         
-        let chat = Chat(id: UUID().uuidString, chatType: .chatPrivate, lastMessage: nil, participantsIds: [currentUserId])
-        
-        let conversation = ChatConversation(chat: chat, target: target, draftMessage: nil)
-        
-        self.selectedChat = conversation
+        if let existConversation = chats.first(where: {$0.target?.id == target.id}){
+            self.selectedChat = existConversation
+        }else{
+            let chat = Chat(id: UUID().uuidString, chatType: .chatPrivate, lastMessage: nil, participantsIds: [currentUserId, target.id])
+            let conversation = ChatConversation(chat: chat, target: target, draftMessage: nil)
+            
+            Task{
+                do{
+                    try await chatService.createChat(for: chat)
+                    self.selectedChat = conversation
+                    self.chats.insert(conversation, at: 0)
+                }catch{
+                    print(error)
+                }
+            }
+        }
     }
 }

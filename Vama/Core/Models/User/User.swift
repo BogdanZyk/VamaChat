@@ -88,7 +88,7 @@ struct ShortUser: Identifiable, Codable, Hashable{
     
     init(user: User){
         self.id = user.id
-        self.fullName = (user.firstName ?? "No name") + " " + (user.lastName ?? "")
+        self.fullName = (user.firstName ?? user.username) + " " + (user.lastName ?? "")
         self.username = user.username
         self.image = user.profileImage?.fullPath
     }

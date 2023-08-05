@@ -6,16 +6,18 @@
 //
 
 import Foundation
-
+import FirebaseFirestore
 
 struct Chat: Identifiable, Codable{
     let id: String
     let chatType: ChatType
     let lastMessage: Message?
+    var dialogStatus = Status()
     var title: String?
     var photo: String?
     let participantsIds: [String]
-    let createdAt: Date = Date()
+    let createdAt: Timestamp = Timestamp(date: .now)
+   
 
     
     enum CodingKeys: String, CodingKey {
@@ -26,12 +28,14 @@ struct Chat: Identifiable, Codable{
         case createdAt
         case title
         case photo
+        case dialogStatus
     }
 }
 
 extension Chat{
-    enum ChatType: Codable{
-        case chatPrivate, chatGroup
+    enum ChatType: String, Codable{
+        case chatPrivate = "PRIVATE"
+        case chatGroup = "GROUP"
     }
 }
 
@@ -50,4 +54,18 @@ extension Chat{
     ]
 }
 
+extension Chat{
+    
+    struct Status: Codable, Hashable{
+        
+        var fromId: String = ""
+        var status: Status = .empty
+        
+        enum Status: String, Codable{
+            case typing = "TYPING"
+            case empty = "EMPTY"
+            case upload = "UPLOAD"
+        }
+    }
+}
 

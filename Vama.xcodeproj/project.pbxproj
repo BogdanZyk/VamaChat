@@ -61,6 +61,7 @@
 		5ABC158E2A7C5A620063128F /* MessageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC158D2A7C5A620063128F /* MessageAction.swift */; };
 		5ABC15922A7C60860063128F /* DialogView+NavbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15912A7C60860063128F /* DialogView+NavbarView.swift */; };
 		5ABC15942A7C687D0063128F /* ChatConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15932A7C687D0063128F /* ChatConversation.swift */; };
+		5AD635432A7E76B600FE0900 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635422A7E76B600FE0900 /* ChatService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,7 @@
 		5ABC158D2A7C5A620063128F /* MessageAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAction.swift; sourceTree = "<group>"; };
 		5ABC15912A7C60860063128F /* DialogView+NavbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+NavbarView.swift"; sourceTree = "<group>"; };
 		5ABC15932A7C687D0063128F /* ChatConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatConversation.swift; sourceTree = "<group>"; };
+		5AD635422A7E76B600FE0900 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 				5A326AA92A7CFA7200629066 /* UserService.swift */,
 				5A326AB42A7D1D5500629066 /* UserManager.swift */,
 				5A21B4DD2A7D454A00CF00BB /* FbFirestore.swift */,
+				5AD635422A7E76B600FE0900 /* ChatService.swift */,
 			);
 			path = FBServices;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				5A4872852A7BC91300610359 /* ChatRowView.swift in Sources */,
 				5A48727F2A7BAA5100610359 /* Date.swift in Sources */,
 				5A326AC52A7D338900629066 /* SearchTextField.swift in Sources */,
+				5AD635432A7E76B600FE0900 /* ChatService.swift in Sources */,
 				5A4872A32A7CE7A100610359 /* ChatAction.swift in Sources */,
 				5A326AAA2A7CFA7200629066 /* UserService.swift in Sources */,
 				5A326AA22A7CF79300629066 /* AuthenticationManager.swift in Sources */,
