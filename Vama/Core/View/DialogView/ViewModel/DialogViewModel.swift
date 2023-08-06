@@ -16,13 +16,16 @@ class DialogViewModel: ObservableObject{
     @Published private(set) var selectedMessages: [Message] = []
     @Published var showFileExporter: Bool = false
     @Published var textMessage: String = ""
+    
+    private let pasteboard = NSPasteboard.general
+    private let messageService = MessageService.shared
+    private let userService = UserService.share
     private(set) var lastMessageId: String?
     private var cancelBag = CancelBag()
     private var fbListener = FBListener()
-    private let messageService = MessageService.shared
-    private let userService = UserService.share
     private var totalCountMessage: Int = 0
     private var lastDoc = FBLastDoc()
+    private var sending: Bool = false
 
     
     var chatData: ChatConversation
@@ -49,6 +52,7 @@ class DialogViewModel: ObservableObject{
         lastMessageId = message.id
         textMessage = ""
         resetBottomBarAction()
+        sending = true
         uploadMessage(chatId: chatData.id, message: message)
     }
     
@@ -85,27 +89,6 @@ class DialogViewModel: ObservableObject{
         
     }
     
-
-    
-    
-    func messageAction(_ action: MessageContextAction, _ message: Message){
-        switch action {
-        case .answer:
-            setBottomBarAction(.answer(message))
-        case .edit:
-            setBottomBarAction(.edit(message))
-        case .copy:
-            print("Copy \(message.message ?? "")")
-        case .pin:
-            print("Pin \(message.message ?? "")")
-        case .forward:
-            print("Forward \(message.message ?? "")")
-        case .select:
-            print("Select \(message.message ?? "")")
-        case .remove:
-            print("Remove \(message.message ?? "")")
-        }
-    }
 }
 
 
@@ -118,9 +101,11 @@ extension DialogViewModel{
                 try await messageService.sendMessage(for: chatData.id, message: message)
                 totalCountMessage += 1
                 changeMessageUploadStatus(for: message.id, status: .completed)
+                sending = false
             }catch{
                 print(error.localizedDescription)
                 changeMessageUploadStatus(for: message.id, status: .error)
+                sending = false
             }
         }
     }
@@ -160,7 +145,9 @@ extension DialogViewModel{
             modifiedMessage(message)
         case .removed:
             print("removed")
-            //removeMessageLocal(message.id)
+            if !sending{
+                removeMessageLocal(message.id)
+            }
         }
     }
     
@@ -189,6 +176,43 @@ extension DialogViewModel{
     
 }
 
+//MARK: - Message action
+extension DialogViewModel{
+    
+    func messageAction(_ action: MessageContextAction, _ message: Message){
+        switch action {
+        case .answer:
+            setBottomBarAction(.answer(message))
+        case .edit:
+            setBottomBarAction(.edit(message))
+        case .copy:
+            copyMessage(message: message.message)
+        case .pin:
+            print("Pin \(message.message ?? "")")
+        case .forward:
+            print("Forward \(message.message ?? "")")
+        case .select:
+            print("Select \(message.message ?? "")")
+        case .remove:
+            removeMessage(message.id)
+        }
+    }
+    
+    private func copyMessage(message: String?){
+        guard let message else {return}
+        pasteboard.clearContents()
+        pasteboard.setString(message, forType: .string)
+    }
+    
+    private func removeMessage(_ id: String){
+        Task{
+            try await messageService.removeMessage(for: chatData.id, id: id, lastMessage: messages.first?.message)
+            await MainActor.run {
+                removeMessageLocal(id)
+            }
+        }
+    }
+}
 
 extension DialogViewModel{
     

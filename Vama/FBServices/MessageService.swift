@@ -62,4 +62,11 @@ final class MessageService{
         try await getMessageCollectionRef(chatId: chatId).document(message.id).updateData(dict)
         try await chatService.updateLastChatMessage(for: chatId, message: message)
     }
+    
+    func removeMessage(for chatId: String, id: String, lastMessage: Message? = nil) async throws{
+        try await getMessageCollectionRef(chatId: chatId).document(id).delete()
+        if let lastMessage{
+            try await chatService.updateLastChatMessage(for: chatId, message: lastMessage)
+        }
+    }
 }
