@@ -54,6 +54,7 @@ extension ChatsView{
                 LazyVStack(alignment: .leading, spacing: 0){
                     ForEach(chatVM.chatConversations.sorted(by: {$0.pinned && !$1.pinned})) { chatData in
                         ChatRowView(
+                            currentUID: chatVM.currentUID,
                             chatData: chatData,
                             isSelected: chatData == chatVM.selectedChat,
                             onTap: {chatVM.selectChatConversation($0)},

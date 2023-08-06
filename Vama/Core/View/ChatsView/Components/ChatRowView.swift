@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChatRowView: View {
+    let currentUID: String?
     let chatData: ChatConversation
     let isSelected: Bool
     let onTap: (ChatConversation) -> Void
@@ -41,13 +42,11 @@ struct ChatRowView: View {
                     }
                     .font(.caption.weight(.light))
                     Spacer()
-//                    if chat.unreadCount > 0{
-//                        Text("\(chat.unreadCount)")
-//                            .font(.caption2)
-//                            .foregroundColor(.white)
-//                            .frame(width: 15, height: 15)
-//                            .background(Color.blue, in: Circle())
-//                    }
+                    if let currentUID, chatData.chat.lastMessage?.viewedIds.contains(currentUID) ?? false{
+                        Circle()
+                            .fill(Color.blue)
+                            .frame(width: 15, height: 15)
+                    }
                 }
             }
         }
@@ -71,7 +70,7 @@ struct ChatRowView: View {
 
 struct ChatRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatRowView(chatData: .mocks.first!, isSelected: false, onTap: {_ in}, onContextAction: {_, _ in})
+        ChatRowView(currentUID: "123", chatData: .mocks.first!, isSelected: false, onTap: {_ in}, onContextAction: {_, _ in})
     }
 }
 

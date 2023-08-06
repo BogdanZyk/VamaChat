@@ -17,7 +17,7 @@ struct Message: Identifiable, Hashable{
     var replies: [Message] = []
     var media: [MessageMedia] = []
     var pinned: Bool = false
-    var viewed: Bool = false
+    var viewedIds: [String] = []
     
     func getRecipientType(currentUserId: String?) -> RecipientType{
         sender.id == currentUserId ? .sent : .received
@@ -40,7 +40,7 @@ extension Message: Codable{
         case message
         case sender
         case createdAt
-        case viewed
+        case viewedIds
         case media
         case pinned
     }

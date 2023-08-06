@@ -17,7 +17,6 @@ struct Chat: Identifiable, Codable{
     let participantsIds: [String]
     let createdAt = FBTimestamp()
    
-
     
     enum CodingKeys: String, CodingKey {
         case id

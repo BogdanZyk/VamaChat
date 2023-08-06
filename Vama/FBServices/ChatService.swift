@@ -31,9 +31,9 @@ final class ChatServices{
         try await getChatDocument(for: id).getDocument(as: Chat.self)
     }
     
-    func updateLastChatMessage(for id: String, shortMessage: Message) async throws{
+    func updateLastChatMessage(for id: String, message: Message) async throws{
         
-        let data = try Firestore.Encoder().encode(shortMessage)
+        let data = try Firestore.Encoder().encode(message)
         
         let dict: [String: Any] = [
             Chat.CodingKeys.lastMessage.rawValue: data
@@ -41,12 +41,12 @@ final class ChatServices{
         try await getChatDocument(for: id).updateData(dict)
     }
     
-    func viewLastChatMessage(for id: String)  async throws{
-        let dict: [String: Any] = [
-           "lastMessage.viewed" : true
-        ]
-        try await getChatDocument(for: id).updateData(dict)
-    }
+//    func viewLastChatMessage(for id: String)  async throws{
+//        let dict: [String: Any] = [
+//           "lastMessage.viewed" : true
+//        ]
+//        try await getChatDocument(for: id).updateData(dict)
+//    }
     
     func deleteChat(for id: String) async throws{
         try await getChatDocument(for: id).delete()
