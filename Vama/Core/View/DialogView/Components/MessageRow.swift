@@ -21,7 +21,7 @@ struct MessageRow: View {
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             AvatarView(image: sender?.image, size: .init(width: 30, height: 30))
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 3) {
                 HStack(spacing: 10) {
                     Text(sender?.fullName ?? "")
                         .font(.body.bold())
