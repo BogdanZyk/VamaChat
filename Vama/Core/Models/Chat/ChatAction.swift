@@ -8,11 +8,12 @@
 import Foundation
 
 enum ChatContextAction: Int, CaseIterable{
-    case pin, archive, clear, remove
+    case pin, unpin, archive, clear, remove
     
     var image: String{
         switch self {
         case .pin: return "pin"
+        case .unpin: return "pin.slash"
         case .archive: return "archivebox"
         case .clear: return "trash"
         case .remove: return "trash"
@@ -22,6 +23,7 @@ enum ChatContextAction: Int, CaseIterable{
     var title: String{
         switch self {
         case .pin: return "Pin"
+        case .unpin: return "Unpin"
         case .archive: return "Archive"
         case .clear: return "Clear history"
         case .remove: return "Remove"

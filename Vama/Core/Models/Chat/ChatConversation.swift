@@ -13,6 +13,7 @@ struct ChatConversation: Identifiable, Hashable{
     var chat: Chat
     var target: ShortUser?
     var draftMessage: String?
+    var pinned: Bool = false
     
 }
 

@@ -72,7 +72,7 @@ extension DialogView{
     
     private var messagesSection: some View{
         LazyVStack(spacing: 6, pinnedViews: .sectionFooters){
-            let chunkedMessages = viewModel.messages.chunked(by: {$0.message.createdAt.isSameDay(as: $1.message.createdAt)})
+            let chunkedMessages = viewModel.messages.chunked(by: {$0.message.createdAt.date.isSameDay(as: $1.message.createdAt.date)})
             ForEach(chunkedMessages.indices, id: \.self){ index in
                 Section {
                     ForEach(chunkedMessages[index]) { dialogMessage in
@@ -93,7 +93,7 @@ extension DialogView{
                             }
                     }
                 } footer: {
-                    if let date = chunkedMessages[index].first?.message.createdAt{
+                    if let date = chunkedMessages[index].first?.message.createdAt.date{
                         messagesDateLabel(date)
                     }
                 }

@@ -13,7 +13,7 @@ struct Message: Identifiable, Hashable{
     let chatId: String
     let message: String?
     let sender: ShortUser
-    let createdAt: Date = Date()
+    let createdAt = FBTimestamp()
     var replies: [Message] = []
     var media: [MessageMedia] = []
     var pinned: Bool = false

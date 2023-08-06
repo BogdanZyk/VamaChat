@@ -50,10 +50,11 @@ extension Query{
         
         let publisher = PassthroughSubject<([T: DocumentChangeType]), Error>()
         let listener = addSnapshotListener { querySnapshot, error in
-            guard let documents = querySnapshot?.documents, let changest = querySnapshot?.documentChanges else{
+            guard let changest = querySnapshot?.documentChanges else{
                 return
             }
-            let items: [T] = documents.compactMap({ try? $0.data(as: T.self)})
+            
+            let items: [T] = changest.compactMap({ try? $0.document.data(as: T.self)})
             let changeTypes = changest.compactMap({ $0.type })
             
             var dictionary = [T: DocumentChangeType]()

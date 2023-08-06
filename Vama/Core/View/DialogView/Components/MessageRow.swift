@@ -20,7 +20,7 @@ struct MessageRow: View {
                     Text(dialogMessage.message.sender.fullName)
                         .font(.body.bold())
                     Spacer()
-                    Text("\(dialogMessage.message.createdAt, formatter: Date.hoursAndMinuteFormatter)")
+                    Text("\(dialogMessage.message.createdAt.date, formatter: Date.hoursAndMinuteFormatter)")
                         .font(.system(size: 10, weight: .light))
                     loaderStateView
                 }

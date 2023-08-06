@@ -35,7 +35,6 @@ final class ChatViewModel: ObservableObject{
         guard let currentUID else {return}
         let (pub, listener) = chatService.addChatListener(userId: currentUID)
 
-
         self.fbListener.listener = listener
 
         pub
@@ -48,6 +47,7 @@ final class ChatViewModel: ObservableObject{
                 }
             } receiveValue: { [weak self] dataDict in
                 guard let self = self else { return }
+
                 dataDict.forEach { element in
                     self.modifiedChat(chat: element.key, changeType: element.value)
                 }
@@ -58,7 +58,7 @@ final class ChatViewModel: ObservableObject{
     private func modifiedChat(chat: Chat, changeType: DocumentChangeType){
         switch changeType{
         case .added:
-            addNewChat(chat)
+            addedNewChat(chat)
         case .modified:
             updateChatLocal(chat)
         case .removed:
@@ -66,29 +66,9 @@ final class ChatViewModel: ObservableObject{
         }
     }
     
-    private func removeChatLocal(for id: String){
-        chatConversations.removeAll(where: {$0.id == id})
-    }
-    
-    private func updateChatLocal(_ chat: Chat){
-        guard let index = chatConversations.firstIndex(where: {$0.id == chat.id}) else {return}
-        chatConversations[index].chat = chat
-    }
-    
-    private func addNewChat(_ chat: Chat){
-        guard let currentUID, !chatConversations.contains(where: {$0.id == chat.id}) else {return}
-        Task{
-            guard let chatConversation = try await createChatConversation(currentUID: currentUID, chat: chat) else {return}
-            await MainActor.run {
-                self.chatConversations.append(chatConversation)
-            }
-        }
-    }
-    
 }
 
 //MARK: - Chat conversation logic
-
 extension ChatViewModel{
     
     func selectChatConversation(_ chat: ChatConversation){
@@ -135,14 +115,31 @@ extension ChatViewModel{
     func setChatAction(_ action: ChatContextAction, _ id: String){
         switch action {
         case .pin:
-            print("pin chat")
+            pinUnPinChat(for: id)
+        case .unpin:
+            pinUnPinChat(for: id)
         case .archive:
             print("archive chat")
         case .clear:
             print("Clear chat")
         case .remove:
-            print("Remove chat")
+            removeChat(for: id)
         }
+    }
+    
+    private func removeChat(for id: String){
+        Task{
+            do{
+                try await chatService.deleteChat(for: id)
+            }catch{
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func pinUnPinChat(for id: String){
+        guard let index = chatConversations.firstIndex(where: {$0.id == id}) else {return}
+        chatConversations[index].pinned.toggle()
     }
 }
 
@@ -152,6 +149,28 @@ extension ChatViewModel{
     func onSetDraft(_ draftText: String?, id: String){
         guard let index = chatConversations.firstIndex(where: {$0.id == id}) else {return}
         chatConversations[index].draftMessage = draftText
+    }
+    
+    private func removeChatLocal(for id: String){
+        chatConversations.removeAll(where: {$0.id == id})
+    }
+    
+    private func updateChatLocal(_ chat: Chat){
+        guard let index = chatConversations.firstIndex(where: {$0.id == chat.id}) else {return}
+        chatConversations[index].chat = chat
+    }
+    
+    private func addedNewChat(_ chat: Chat){
+        guard let currentUID, !chatConversations.contains(where: {$0.id == chat.id}) else {return}
+        Task{
+            guard let chatConversation = try await createChatConversation(currentUID: currentUID, chat: chat) else {return}
+            chatConversations.append(chatConversation)
+            chatConversations.sort(by: {sortChat(lh: $0, rh: $1)})
+        }
+    }
+    
+    private func sortChat(lh: ChatConversation, rh: ChatConversation) -> Bool{
+        (lh.chat.lastMessage?.createdAt.date ?? lh.chat.createdAt.date) > (rh.chat.lastMessage?.createdAt.date ?? rh.chat.createdAt.date)
     }
     
 }

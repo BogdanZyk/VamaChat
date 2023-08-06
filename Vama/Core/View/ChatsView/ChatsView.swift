@@ -52,7 +52,7 @@ extension ChatsView{
         }else{
             ScrollView(.vertical, showsIndicators: true) {
                 LazyVStack(alignment: .leading, spacing: 0){
-                    ForEach(chatVM.chatConversations) { chatData in
+                    ForEach(chatVM.chatConversations.sorted(by: {$0.pinned && !$1.pinned})) { chatData in
                         ChatRowView(
                             chatData: chatData,
                             isSelected: chatData == chatVM.selectedChat,
