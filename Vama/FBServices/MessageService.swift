@@ -64,14 +64,14 @@ final class MessageService{
             .addSnapshotListenerWithChangeType(as: Message.self)
     }
     
-    func viewMessage(for chatId: String, message: Message, uid: String) async throws{
+    func viewMessage(for chatId: String, messageId: String, uid: String) async throws{
        
         let dict: [String: Any] = [
             Message.CodingKeys.viewedIds.rawValue: FieldValue.arrayUnion([uid])
         ]
         
-        try await getMessageCollectionRef(chatId: chatId).document(message.id).updateData(dict)
-        try await chatService.updateLastChatMessage(for: chatId, message: message)
+        try await getMessageCollectionRef(chatId: chatId).document(messageId).updateData(dict)
+        try await chatService.viewLastChatMessage(for: chatId, uid: uid)
     }
     
     func removeMessage(for chatId: String, message: Message, lastMessage: Message? = nil) async throws{

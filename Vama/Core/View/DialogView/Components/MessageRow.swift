@@ -68,7 +68,6 @@ extension MessageRow{
                 .foregroundColor(.cyan)
             }
             if currentUserSender, dialogMessage.message.viewAllExceptSender(){
-                Text(dialogMessage.message.viewAllExceptSender().description)
                 Image("check_double")
                     .foregroundColor(.cyan)
             }

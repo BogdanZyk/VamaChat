@@ -41,12 +41,12 @@ final class ChatServices{
         try await getChatDocument(for: id).updateData(dict)
     }
     
-//    func viewLastChatMessage(for id: String)  async throws{
-//        let dict: [String: Any] = [
-//           "lastMessage.viewed" : true
-//        ]
-//        try await getChatDocument(for: id).updateData(dict)
-//    }
+    func viewLastChatMessage(for id: String, uid: String)  async throws{
+        let dict: [String: Any] = [
+           "lastMessage.viewedIds": FieldValue.arrayUnion([uid])
+        ]
+        try await getChatDocument(for: id).updateData(dict)
+    }
     
     func deleteChat(for id: String) async throws{
         try await getChatDocument(for: id).delete()
