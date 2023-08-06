@@ -39,7 +39,7 @@ extension DialogView{
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
         DialogView.BottomBarView()
-            .environmentObject(DialogViewModel(chatData: .mocks.first!))
+            .environmentObject(DialogViewModel(chatData: .mocks.first!, currentUser: .mock))
     }
 }
 

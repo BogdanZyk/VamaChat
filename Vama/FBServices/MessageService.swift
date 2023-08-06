@@ -24,7 +24,7 @@ final class MessageService{
         chatService.getChatDocument(for: chatId).collection("messages")
     }
     
-    func sendMessage(for id: String, _ message: Message) async throws{
+    func sendMessage(for id: String, message: Message) async throws{
         try getMessageCollectionRef(chatId: id).document(message.id)
             .setData(from: message, merge: false)
         try await chatService.updateLastChatMessage(for: id, message: message)
