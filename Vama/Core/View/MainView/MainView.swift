@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject var authManager: AuthenticationViewModel
     @StateObject var userManager = UserManager()
     @StateObject var router = MainRouter()
@@ -78,6 +79,14 @@ struct MainView: View {
         .frame(minWidth: getRect().width / 3, minHeight: getRect().height / 1.8)
         .environmentObject(router)
         .environmentObject(userManager)
+        .onChange(of: scenePhase) { newValue in
+            switch newValue{
+            case .active:
+                userManager.updateUserOnlineStatus(isOnline: true)
+            default:
+                userManager.updateUserOnlineStatus(isOnline: false)
+            }
+        }
     }
 }
 

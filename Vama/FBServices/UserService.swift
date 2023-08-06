@@ -59,6 +59,20 @@ final class UserService{
         try await userDocument(for: info.id).updateData(info.getDict())
     }
     
+    func updateUserOnlineStatus(status: OnlineStatus) async throws{
+        guard let id = getFBUserId() else {
+            throw AppError.custom(errorDescription: "No init firebase user")
+        }
+        
+        let data = try Firestore.Encoder().encode(status)
+        
+        let dict: [String: Any] = [
+            User.CodingKeys.status.rawValue: data
+        ]
+        
+        try await userDocument(for: id).updateData(dict)
+    }
+    
     func addUserListener(for id: String) -> (AnyPublisher<User?, Error>, ListenerRegistration){
         userDocument(for: id).addSnapshotListener(as: User.self)
     }

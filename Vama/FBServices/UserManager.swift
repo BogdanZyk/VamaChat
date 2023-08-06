@@ -39,6 +39,16 @@ class UserManager: ObservableObject{
         }
     }
     
+    func updateUserOnlineStatus(isOnline: Bool){
+        Task{
+            do{
+                try await userService.updateUserOnlineStatus(status: OnlineStatus(isOnline: isOnline))
+            }catch{
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     private func startUserListener(){
         guard let id = userId else {return}
         

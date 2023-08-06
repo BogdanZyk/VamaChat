@@ -20,6 +20,7 @@ struct User: Identifiable, Codable, Hashable{
     var firstName: String?
     var lastName: String?
     var bio: String?
+    var status = OnlineStatus()
     
     
     enum CodingKeys: String, CodingKey {
@@ -31,6 +32,7 @@ struct User: Identifiable, Codable, Hashable{
         case lastName
         case firstName
         case bio
+        case status
     }
 
 }
@@ -79,6 +81,32 @@ extension User: Equatable{
     }
 }
 
+extension User{
+    func getShortUser() -> ShortUser{
+        ShortUser(user: self)
+    }
+}
+
+struct OnlineStatus: Codable, Hashable{
+    var time = FBTimestamp()
+    var isOnline: Bool = true
+    var chatStatus: Status? = Status()
+    
+    
+    struct Status: Codable, Hashable{
+        
+        var forChatId: String = ""
+        var status: Status = .empty
+        
+        enum Status: String, Codable{
+            case typing = "TYPING"
+            case empty = "EMPTY"
+            case upload = "UPLOAD"
+        }
+    }
+}
+
+
 
 
 struct ShortUser: Identifiable, Codable, Hashable{
@@ -86,6 +114,7 @@ struct ShortUser: Identifiable, Codable, Hashable{
     let fullName: String
     let username: String
     let image: String?
+    var status: OnlineStatus
     
     
     init(user: User){
@@ -93,6 +122,7 @@ struct ShortUser: Identifiable, Codable, Hashable{
         self.fullName = (user.firstName ?? user.username) + " " + (user.lastName ?? "")
         self.username = user.username
         self.image = user.profileImage?.fullPath
+        self.status = user.status
     }
     
     static let mock = ShortUser(user: .mock)
