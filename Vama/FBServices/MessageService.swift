@@ -30,10 +30,12 @@ final class MessageService{
         try await chatService.updateLastChatMessage(for: id, message: message)
     }
     
-    func updateMessage(for id: String, message: Message) async throws{
+    func updateMessage(for id: String, message: Message, isUpdateLastMessage: Bool) async throws{
         try await getMessageCollectionRef(chatId: id).document(message.id)
             .updateData([Message.CodingKeys.message.rawValue: message.message ?? ""])
-        try await chatService.updateLastChatMessage(for: id, message: message)
+        if isUpdateLastMessage{
+            try await chatService.updateLastChatMessage(for: id, message: message)
+        }
         if message.pinned{
             try await updatePinMessage(for: id, message: message)
         }

@@ -11,7 +11,7 @@ struct Message: Identifiable, Hashable{
     
     let id: String
     let chatId: String
-    let message: String?
+    var message: String?
     let sender: ShortUser
     let createdAt = FBTimestamp()
     var replies: [Message] = []

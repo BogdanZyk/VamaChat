@@ -64,6 +64,7 @@
 		5AD635432A7E76B600FE0900 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635422A7E76B600FE0900 /* ChatService.swift */; };
 		5AD635472A7EFC7B00FE0900 /* FBTimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635462A7EFC7B00FE0900 /* FBTimestamp.swift */; };
 		5AD635492A7FB51700FE0900 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635482A7FB51700FE0900 /* MessageService.swift */; };
+		5AD6354B2A8013EC00FE0900 /* DialogViewModel+BottomActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6354A2A8013EC00FE0900 /* DialogViewModel+BottomActionType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +122,7 @@
 		5AD635422A7E76B600FE0900 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		5AD635462A7EFC7B00FE0900 /* FBTimestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTimestamp.swift; sourceTree = "<group>"; };
 		5AD635482A7FB51700FE0900 /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
+		5AD6354A2A8013EC00FE0900 /* DialogViewModel+BottomActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogViewModel+BottomActionType.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -411,6 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				5A48729D2A7BF41400610359 /* DialogViewModel.swift */,
+				5AD6354A2A8013EC00FE0900 /* DialogViewModel+BottomActionType.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				5A44A6862A77F64F00C04810 /* BlurView.swift in Sources */,
 				5A4872792A7BA6B100610359 /* DialogView.swift in Sources */,
 				5ABC158A2A7C4EE60063128F /* ContentView.swift in Sources */,
+				5AD6354B2A8013EC00FE0900 /* DialogViewModel+BottomActionType.swift in Sources */,
 				5A44A67D2A77EECE00C04810 /* MainView.swift in Sources */,
 				5A4872822A7BB4B800610359 /* String.swift in Sources */,
 				5ABC158C2A7C50A20063128F /* DialogView+BottomBarView.swift in Sources */,

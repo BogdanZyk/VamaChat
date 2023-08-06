@@ -11,13 +11,14 @@ import FirebaseFirestore
 
 class DialogViewModel: ObservableObject{
     
-    @Published private(set) var messages: [DialogMessage] = []
-    @Published private(set) var bottomBarActionType: BottomBarActionType = .empty
-    @Published private(set) var selectedMessages: [Message] = []
-    @Published private(set) var pinnedMessages: [Message] = []
+    @Published var bottomBarActionType: BottomBarActionType = .empty
     @Published var showFileExporter: Bool = false
     @Published var textMessage: String = ""
     @Published var pinMessageTrigger: Bool = false
+    
+    @Published private(set) var messages: [DialogMessage] = []
+    @Published private(set) var selectedMessages: [Message] = []
+    @Published private(set) var pinnedMessages: [Message] = []
     
     private let pasteboard = NSPasteboard.general
     private let messageService = MessageService.shared
@@ -48,13 +49,25 @@ class DialogViewModel: ObservableObject{
     
     @MainActor
     func send(){
+        switch bottomBarActionType{
+        case .answer(_):
+            print("send answer message")
+        case .edit(let message):
+            updateMessage(message: message, text: textMessage)
+        case .empty:
+            sendMessage()
+        }
+        textMessage = ""
+        resetBottomBarAction()
+    }
+    
+    @MainActor
+    private func sendMessage(){
         guard let currentUser else {return}
         print("Send message \(textMessage)")
         let message = Message(id: UUID().uuidString, chatId: chatData.id, message: textMessage, sender: currentUser.getShortUser())
         messages.insert(.init(message: message, loadState: .sending), at: 0)
         targetMessageId = message.id
-        textMessage = ""
-        resetBottomBarAction()
         sending = true
         uploadMessage(chatId: chatData.id, message: message)
     }
@@ -220,39 +233,26 @@ extension DialogViewModel{
     }
 }
 
+
+
+//MARK: - Edit message logic
 extension DialogViewModel{
     
-    enum BottomBarActionType{
-        case edit(Message), answer(Message), empty
-        
-        var id: Int{
-            switch self{
-            case .edit: return 0
-            case .answer: return 1
-            case .empty: return 2
-            }
+    @MainActor
+    private func updateMessage(message: Message, text: String){
+        Task{
+            var mess = message
+            mess.message = text
+            let isUpdateLastMessage = message.id == messages.first?.id
+            try await messageService.updateMessage(for: chatData.id, message: mess, isUpdateLastMessage: isUpdateLastMessage)
+            guard let index = messages.firstIndex(where: {$0.id == message.id}) else {return}
+            messages[index].message = mess
         }
-        
-        var message: Message?{
-            switch self{
-            case .edit(let message): return message
-            case .answer(let message): return message
-            case .empty: return nil
-            }
-        }
-    }
-    
-    private func setBottomBarAction(_ bottomBarActionType: BottomBarActionType){
-        self.bottomBarActionType = bottomBarActionType
-    }
-    
-    func resetBottomBarAction(){
-        bottomBarActionType = .empty
     }
     
 }
 
-//MARK: - Pin onTapPinMessagemessage logic
+//MARK: - Pin message logic
 extension DialogViewModel{
     
     func onTapPinMessage(){
