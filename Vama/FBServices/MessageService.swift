@@ -26,7 +26,7 @@ final class MessageService{
     
     func sendMessage(for id: String, message: Message) async throws{
         try getMessageCollectionRef(chatId: id).document(message.id)
-            .setData(from: message, merge: false)
+            .setData(from: message)
         try await chatService.updateLastChatMessage(for: id, message: message)
     }
     
@@ -59,8 +59,8 @@ final class MessageService{
         return Int(truncating: snapshot.count)
     }
     
-    func addListenerForMessages(chatId: String) -> (AnyPublisher<([Message : DocumentChangeType]), Error>, ListenerRegistration){
-        messageQuery(chatId: chatId, limit: 1)
+    func addListenerForMessages(chatId: String) -> (AnyPublisher<[(item: Message, type: DocumentChangeType)], Error>, ListenerRegistration, DocumentSnapshot?){
+        messageQuery(chatId: chatId, limit: 30)
             .addSnapshotListenerWithChangeType(as: Message.self)
     }
     

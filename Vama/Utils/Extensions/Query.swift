@@ -46,31 +46,27 @@ extension Query{
         return .init(publisher: publisher.eraseToAnyPublisher(), listener: listener)
     }
     
-    func addSnapshotListenerWithChangeType<T>(as type: T.Type) -> (AnyPublisher<([T: DocumentChangeType]), Error>, ListenerRegistration) where T: Decodable, T: Hashable{
+    func addSnapshotListenerWithChangeType<T>(as type: T.Type) -> (AnyPublisher<([(item: T, type: DocumentChangeType)]), Error>, ListenerRegistration, DocumentSnapshot?) where T: Decodable, T: Hashable{
         
-        let publisher = PassthroughSubject<([T: DocumentChangeType]), Error>()
+        let publisher = PassthroughSubject<([(item: T, type: DocumentChangeType)]), Error>()
+        var lastDoc: DocumentSnapshot?
         let listener = addSnapshotListener { querySnapshot, error in
             guard let changest = querySnapshot?.documentChanges else{
                 return
             }
             
-            let items: [T] = changest.compactMap({ try? $0.document.data(as: T.self)})
-            let changeTypes = changest.compactMap({ $0.type })
-            
-            var dictionary = [T: DocumentChangeType]()
-            
-            guard items.count == changeTypes.count else {
-                return
+            var changeData = [(item: T, type: DocumentChangeType)]()
+
+            changest.forEach{
+                guard let item: T = try? $0.document.data(as: T.self) else {return}
+                let type = $0.type
+                changeData.append((item: item, type: type))
             }
+            publisher.send(changeData)
+            lastDoc = changest.last?.document
             
-            for (index, element) in items.enumerated() {
-                dictionary[element] = changeTypes[index]
-            }
-            
-            publisher.send(dictionary)
-        
         }
-        return (publisher.eraseToAnyPublisher(), listener)
+        return (publisher.eraseToAnyPublisher(), listener, lastDoc)
     }
     
     func startOptionally(afterDocument lastDoc: DocumentSnapshot?) -> Query{

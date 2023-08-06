@@ -33,7 +33,7 @@ final class ChatViewModel: ObservableObject{
 
    private func startChatsListener(){
         guard let currentUID else {return}
-        let (pub, listener) = chatService.addChatListener(userId: currentUID)
+        let (pub, listener, _) = chatService.addChatListener(userId: currentUID)
 
         self.fbListener.listener = listener
 
@@ -45,11 +45,11 @@ final class ChatViewModel: ObservableObject{
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-            } receiveValue: { [weak self] dataDict in
+            } receiveValue: { [weak self] listenerData in
                 guard let self = self else { return }
 
-                dataDict.forEach { element in
-                    self.modifiedChat(chat: element.key, changeType: element.value)
+                listenerData.forEach { element in
+                    self.modifiedChat(chat: element.item, changeType: element.type)
                 }
             }
             .store(in: cancelBag)

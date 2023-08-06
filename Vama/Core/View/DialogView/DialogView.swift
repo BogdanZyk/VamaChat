@@ -97,7 +97,7 @@ extension DialogView{
                         }
                         .onDisappear{
                             hiddenOrUnhiddenDownButton(dialogMessage.message.id, hidden: false)
-                            }
+                        }
                     }
                 } footer: {
                     if let date = chunkedMessages[index].first?.message.createdAt.date{

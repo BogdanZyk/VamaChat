@@ -8,6 +8,7 @@
 import Foundation
 import Algorithms
 import FirebaseFirestore
+import SwiftUI
 
 class DialogViewModel: ObservableObject{
     
@@ -28,7 +29,7 @@ class DialogViewModel: ObservableObject{
     private var fbListeners: [FBListener] = []
     private var totalCountMessage: Int = 0
     private var lastDoc = FBLastDoc()
-    private var sending: Bool = false
+
 
     
     var chatData: ChatConversation
@@ -37,9 +38,9 @@ class DialogViewModel: ObservableObject{
     init(chatData: ChatConversation, currentUser: User?) {
         self.chatData = chatData
         self.currentUser = currentUser
-        fetchMessages(chatData.id)
-        startMessageListener(chatData.id)
+        startMessageListener()
         startPinMessagesListener()
+        fetchTotalCountMessages()
     }
     
     deinit{
@@ -68,7 +69,6 @@ class DialogViewModel: ObservableObject{
         let message = Message(id: UUID().uuidString, chatId: chatData.id, message: textMessage, sender: currentUser.getShortUser())
         messages.insert(.init(message: message, loadState: .sending), at: 0)
         targetMessageId = message.id
-        sending = true
         uploadMessage(chatId: chatData.id, message: message)
     }
     
@@ -82,19 +82,28 @@ class DialogViewModel: ObservableObject{
         messages = []
         selectedMessages = []
         fetchMessages(chatData.id)
-        startMessageListener(chatData.id)
+        startMessageListener()
         startPinMessagesListener()
+        fetchTotalCountMessages()
     }
     
     private func fetchMessages(_ chatId: String){
         Task{
-            let total = try await messageService.getCountAllMessages(chatId: chatId)
             let (messages, lastDoc) = try await messageService.fetchPaginatedMessage(for: chatId, lastDocument: lastDoc.lastDocument)
             await MainActor.run {
-                self.totalCountMessage = total
                 self.lastDoc.lastDocument = lastDoc
                 let dialogMessages = messages.map({DialogMessage(message: $0)})
                 self.messages.append(contentsOf: dialogMessages)
+            }
+        }
+    }
+    
+    private func fetchTotalCountMessages(){
+        Task{
+            let total = try await messageService.getCountAllMessages(chatId: chatData.id)
+            await MainActor.run {
+                print("Total message", total)
+                self.totalCountMessage = total
             }
         }
     }
@@ -103,10 +112,22 @@ class DialogViewModel: ObservableObject{
         
     }
     
-    func loadNextPage(_ id: String){
-        
+}
+
+extension DialogViewModel{
+    
+    private func shouldNextPageLoader(_ messageId: String) -> Bool{
+        (messages.last?.id == messageId) && totalCountMessage > messages.count
     }
     
+    func loadNextPage(_ messageId: String){
+        if shouldNextPageLoader(messageId){
+            withAnimation {
+                print("loadNextPage")
+                fetchMessages(chatData.id)
+            }
+        }
+    }
 }
 
 
@@ -119,18 +140,16 @@ extension DialogViewModel{
                 try await messageService.sendMessage(for: chatData.id, message: message)
                 totalCountMessage += 1
                 changeMessageUploadStatus(for: message.id, status: .completed)
-                sending = false
             }catch{
                 print(error.localizedDescription)
                 changeMessageUploadStatus(for: message.id, status: .error)
-                sending = false
             }
         }
     }
     
-    private func startMessageListener(_ chatId: String){
+    private func startMessageListener(){
         
-        let (publisher, listener) = messageService.addListenerForMessages(chatId: chatId)
+        let (publisher, listener, lastDoc) = messageService.addListenerForMessages(chatId: chatData.id)
         let fbListener = FBListener(listener: listener)
         fbListeners.append(fbListener)
         
@@ -141,11 +160,17 @@ extension DialogViewModel{
             case .failure(let error):
                 print(error.localizedDescription)
             }
-        } receiveValue: {[weak self] dataDict in
-            guard let self = self, let element = dataDict.first else {return}
-        
-            self.modifiedDialog(message: element.key, changeType: element.value)
-            
+        } receiveValue: {[weak self] listenerData in
+            guard let self = self, let element = listenerData.last else {return}
+            /// set messages by default
+            if messages.isEmpty, self.lastDoc.lastDocument == nil{
+                self.lastDoc.lastDocument = lastDoc
+                let messages = listenerData.compactMap({DialogMessage(message: $0.item)})
+                self.messages = messages
+            }else{
+                self.modifiedDialog(message: element.item, changeType: element.type)
+            }
+           
         }
         .store(in: cancelBag)
     }
@@ -154,16 +179,14 @@ extension DialogViewModel{
         switch changeType{
             
         case .added:
-            print("added")
+            print("Added new message", message.id)
             addMessage(message)
         case .modified:
-            print("modified")
+            print("Modified message", message.id)
             modifiedMessage(message)
         case .removed:
-            print("removed")
-            if !sending{
-                removeMessageLocal(message.id)
-            }
+            print("Remove", message.id)
+            removeMessageLocal(message.id)
         }
     }
     
@@ -225,7 +248,14 @@ extension DialogViewModel{
     
     private func removeMessage(_ message: Message){
         Task{
-            try await messageService.removeMessage(for: chatData.id, message: message, lastMessage: messages.first?.message)
+            
+            var lastMessage: Message?
+            
+            if messages.count >= 2, message.id == messages.first?.id{
+                lastMessage = messages[1].message
+            }
+            
+            try await messageService.removeMessage(for: chatData.id, message: message, lastMessage: lastMessage)
             await MainActor.run {
                 removeMessageLocal(message.id)
             }
@@ -245,8 +275,8 @@ extension DialogViewModel{
             mess.message = text
             let isUpdateLastMessage = message.id == messages.first?.id
             try await messageService.updateMessage(for: chatData.id, message: mess, isUpdateLastMessage: isUpdateLastMessage)
-            guard let index = messages.firstIndex(where: {$0.id == message.id}) else {return}
-            messages[index].message = mess
+//            guard let index = messages.firstIndex(where: {$0.id == message.id}) else {return}
+//            messages[index].message = mess
         }
     }
     
