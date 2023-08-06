@@ -83,15 +83,15 @@ extension DialogView{
                 Section {
                     ForEach(chunkedMessages[index].uniqued(on: {$0.id})) { dialogMessage in
                         MessageRow(
+                            sender: viewModel.getMessageSender(senderId: dialogMessage.message.fromId),
                             currentUserId: currentUserId,
                             dialogMessage: dialogMessage,
-                            recipientType: dialogMessage.message.getRecipientType(currentUserId: "1"),
                             onActionMessage: viewModel.messageAction)
                         
                         .id(dialogMessage.message.id)
                         .flippedUpsideDown()
                         .onAppear{
-                            viewModel.viewMessage(dialogMessage.message.id)
+                            viewModel.viewMessage(dialogMessage.message)
                             viewModel.loadNextPage(dialogMessage.message.id)
                             hiddenOrUnhiddenDownButton(dialogMessage.message.id, hidden: true)
                         }

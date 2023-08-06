@@ -42,10 +42,10 @@ struct ChatRowView: View {
                     }
                     .font(.caption.weight(.light))
                     Spacer()
-                    if let currentUID, chatData.chat.lastMessage?.viewedIds.contains(currentUID) ?? false{
+                    if let currentUID, !(chatData.chat.lastMessage?.viewMessage(for: currentUID) ?? false){
                         Circle()
                             .fill(Color.blue)
-                            .frame(width: 15, height: 15)
+                            .frame(width: 10, height: 10)
                     }
                 }
             }

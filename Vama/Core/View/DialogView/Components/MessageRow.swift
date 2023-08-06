@@ -9,21 +9,21 @@ import SwiftUI
 
 
 struct MessageRow: View {
+    let sender: ShortUser?
     let currentUserId: String?
     let dialogMessage: DialogMessage
-    let recipientType: RecipientType
     let onActionMessage: (MessageContextAction, Message) -> Void
     
     var currentUserSender: Bool{
-        dialogMessage.message.sender.id == currentUserId
+        sender?.id == currentUserId
     }
     
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
-            AvatarView(image: dialogMessage.message.sender.image, size: .init(width: 30, height: 30))
+            AvatarView(image: sender?.image, size: .init(width: 30, height: 30))
             VStack(alignment: .leading) {
                 HStack(spacing: 10) {
-                    Text(dialogMessage.message.sender.fullName)
+                    Text(sender?.fullName ?? "")
                         .font(.body.bold())
                     Spacer()
                     messageTimeSection
@@ -45,8 +45,8 @@ struct MessageRow: View {
 struct MessageRow_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 4) {
-            MessageRow(currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!), recipientType: .received){_, _ in}
-            MessageRow(currentUserId: "2", dialogMessage: .init(message: Message.mocks.first!), recipientType: .sent){_, _ in}
+            MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!)){_, _ in}
+            MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!)){_, _ in}
         }
         .padding()
     }
@@ -67,6 +67,13 @@ extension MessageRow{
                 .font(.caption)
                 .foregroundColor(.cyan)
             }
+            if currentUserSender, dialogMessage.message.viewAllExceptSender(){
+                Text(dialogMessage.message.viewAllExceptSender().description)
+                Image("check_double")
+                    .foregroundColor(.cyan)
+            }
+            
+                
             Text("\(dialogMessage.message.createdAt.date, formatter: Date.hoursAndMinuteFormatter)")
                 .font(.system(size: 10, weight: .light))
         }

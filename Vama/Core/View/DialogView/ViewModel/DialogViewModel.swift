@@ -66,7 +66,7 @@ class DialogViewModel: ObservableObject{
     private func sendMessage(){
         guard let currentUser else {return}
         print("Send message \(textMessage)")
-        let message = Message(id: UUID().uuidString, chatId: chatData.id, message: textMessage, sender: currentUser.getShortUser())
+        let message = Message(id: UUID().uuidString, chatId: chatData.id, message: textMessage, fromId: currentUser.id, viewedIds: [currentUser.id])
         messages.insert(.init(message: message, loadState: .sending), at: 0)
         targetMessageId = message.id
         uploadMessage(chatId: chatData.id, message: message)
@@ -108,10 +108,18 @@ class DialogViewModel: ObservableObject{
         }
     }
     
-    func viewMessage(_ id: String){
-        
+    func viewMessage(_ message: Message){
+        guard let uid = currentUser?.id, message.fromId != uid else {return}
+        Task{
+            print("viewMessage")
+            try await messageService.viewMessage(for: chatData.id, message: message, uid: uid)
+        }
     }
     
+    func getMessageSender(senderId: String) -> ShortUser?{
+        let users = [currentUser?.getShortUser(), chatData.target]
+        return users.first(where: {$0?.id == senderId}) ?? nil
+    }
 }
 
 extension DialogViewModel{
