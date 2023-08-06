@@ -14,15 +14,17 @@ class DialogViewModel: ObservableObject{
     @Published private(set) var messages: [DialogMessage] = []
     @Published private(set) var bottomBarActionType: BottomBarActionType = .empty
     @Published private(set) var selectedMessages: [Message] = []
+    @Published private(set) var pinnedMessages: [Message] = []
     @Published var showFileExporter: Bool = false
     @Published var textMessage: String = ""
+    @Published var pinMessageTrigger: Bool = false
     
     private let pasteboard = NSPasteboard.general
     private let messageService = MessageService.shared
     private let userService = UserService.share
-    private(set) var lastMessageId: String?
+    private(set) var targetMessageId: String?
     private var cancelBag = CancelBag()
-    private var fbListener = FBListener()
+    private var fbListeners: [FBListener] = []
     private var totalCountMessage: Int = 0
     private var lastDoc = FBLastDoc()
     private var sending: Bool = false
@@ -36,10 +38,11 @@ class DialogViewModel: ObservableObject{
         self.currentUser = currentUser
         fetchMessages(chatData.id)
         startMessageListener(chatData.id)
+        startPinMessagesListener()
     }
     
     deinit{
-        fbListener.cancel()
+        fbListeners.forEach({$0.cancel()})
         cancelBag.cancel()
     }
     
@@ -49,7 +52,7 @@ class DialogViewModel: ObservableObject{
         print("Send message \(textMessage)")
         let message = Message(id: UUID().uuidString, chatId: chatData.id, message: textMessage, sender: currentUser.getShortUser())
         messages.insert(.init(message: message, loadState: .sending), at: 0)
-        lastMessageId = message.id
+        targetMessageId = message.id
         textMessage = ""
         resetBottomBarAction()
         sending = true
@@ -58,6 +61,7 @@ class DialogViewModel: ObservableObject{
     
   
     func setChatDataAndRefetch(chatData: ChatConversation){
+        fbListeners.forEach({$0.cancel()})
         bottomBarActionType = .empty
         textMessage = chatData.draftMessage ?? ""
         self.chatData = chatData
@@ -66,6 +70,7 @@ class DialogViewModel: ObservableObject{
         selectedMessages = []
         fetchMessages(chatData.id)
         startMessageListener(chatData.id)
+        startPinMessagesListener()
     }
     
     private func fetchMessages(_ chatId: String){
@@ -112,11 +117,9 @@ extension DialogViewModel{
     
     private func startMessageListener(_ chatId: String){
         
-        fbListener.cancel()
-        
         let (publisher, listener) = messageService.addListenerForMessages(chatId: chatId)
-        
-        fbListener.listener = listener
+        let fbListener = FBListener(listener: listener)
+        fbListeners.append(fbListener)
         
         publisher.sink { completion in
             switch completion{
@@ -152,10 +155,11 @@ extension DialogViewModel{
     }
     
     private func addMessage(_ message: Message){
-        if self.messages.first(where: {$0.id == message.id}) == nil{
-            self.messages.insert(.init(message: message), at: 0)
-            self.totalCountMessage += 1
-            self.messages = messages.uniqued(on: {$0.id})
+        if messages.first(where: {$0.id == message.id}) == nil{
+            messages.insert(.init(message: message), at: 0)
+            totalCountMessage += 1
+            messages = messages.uniqued(on: {$0.id})
+            targetMessageId = message.id
         }
     }
     
@@ -179,7 +183,7 @@ extension DialogViewModel{
 //MARK: - Message action
 extension DialogViewModel{
     
-    func messageAction(_ action: MessageContextAction, _ message: Message){
+    @MainActor func messageAction(_ action: MessageContextAction, _ message: Message){
         switch action {
         case .answer:
             setBottomBarAction(.answer(message))
@@ -188,13 +192,15 @@ extension DialogViewModel{
         case .copy:
             copyMessage(message: message.message)
         case .pin:
-            print("Pin \(message.message ?? "")")
+            pinOrUnpinMessage(message: message, onPinned: true)
+        case .unpin:
+            pinOrUnpinMessage(message: message, onPinned: false)
         case .forward:
             print("Forward \(message.message ?? "")")
         case .select:
             print("Select \(message.message ?? "")")
         case .remove:
-            removeMessage(message.id)
+            removeMessage(message)
         }
     }
     
@@ -204,11 +210,11 @@ extension DialogViewModel{
         pasteboard.setString(message, forType: .string)
     }
     
-    private func removeMessage(_ id: String){
+    private func removeMessage(_ message: Message){
         Task{
-            try await messageService.removeMessage(for: chatData.id, id: id, lastMessage: messages.first?.message)
+            try await messageService.removeMessage(for: chatData.id, message: message, lastMessage: messages.first?.message)
             await MainActor.run {
-                removeMessageLocal(id)
+                removeMessageLocal(message.id)
             }
         }
     }
@@ -246,11 +252,56 @@ extension DialogViewModel{
     
 }
 
+//MARK: - Pin onTapPinMessagemessage logic
+extension DialogViewModel{
+    
+    func onTapPinMessage(){
+        pinMessageTrigger.toggle()
+    }
+    
+    func pinOrUnpinMessage(message: Message, onPinned: Bool){
+        Task{
+            if onPinned{
+                try await messageService.pinMessage(for:chatData.id, message: message)
+            }else{
+                try await messageService.unpinMessage(for: chatData.id, messageId: message.id)
+            }
+        }
+        updatePinLocal(messageId: message.id, onPinned: onPinned)
+    }
+    
+    private func updatePinLocal(messageId: String, onPinned: Bool){
+        guard let index = messages.firstIndex(where: {$0.id == messageId}) else {return}
+        messages[index].message.pinned = onPinned
+    }
+    
+    private func startPinMessagesListener(){
+        
+        let res = messageService.addListenerForPinMessages(chatId: chatData.id)
+        
+        let fbListener = FBListener(listener: res.listener)
+        fbListeners.append(fbListener)
+        
+        res.publisher.sink { completion in
+            switch completion{
+                
+            case .finished: break
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        } receiveValue: {[weak self] messages in
+            guard let self = self else {return}
+            self.pinnedMessages = messages
+        }
+        .store(in: cancelBag)
+    }
+}
+
 
 
 struct DialogMessage: Identifiable{
     var id: String{ message.id }
-    let message: Message
+    var message: Message
     var loadState: LoadState = .completed
     var selected: Bool = false
     

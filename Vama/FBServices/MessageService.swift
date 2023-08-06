@@ -30,6 +30,15 @@ final class MessageService{
         try await chatService.updateLastChatMessage(for: id, message: message)
     }
     
+    func updateMessage(for id: String, message: Message) async throws{
+        try await getMessageCollectionRef(chatId: id).document(message.id)
+            .updateData([Message.CodingKeys.message.rawValue: message.message ?? ""])
+        try await chatService.updateLastChatMessage(for: id, message: message)
+        if message.pinned{
+            try await updatePinMessage(for: id, message: message)
+        }
+    }
+    
     func messageQuery(chatId: String, limit: Int? = 20) -> Query{
         getMessageCollectionRef(chatId: chatId)
             .limitOptionally(to: limit)
@@ -63,10 +72,50 @@ final class MessageService{
         try await chatService.updateLastChatMessage(for: chatId, message: message)
     }
     
-    func removeMessage(for chatId: String, id: String, lastMessage: Message? = nil) async throws{
-        try await getMessageCollectionRef(chatId: chatId).document(id).delete()
+    func removeMessage(for chatId: String, message: Message, lastMessage: Message? = nil) async throws{
+        try await getMessageCollectionRef(chatId: chatId).document(message.id).delete()
         if let lastMessage{
             try await chatService.updateLastChatMessage(for: chatId, message: lastMessage)
         }
+        if message.pinned{
+            try await unpinMessage(for: chatId, messageId: message.id, withUpdate: false)
+        }
+    }
+}
+
+
+//MARK: - Pinned messages
+extension MessageService{
+    
+    private func getPinnedMessageCollectionRef(chatId: String) -> CollectionReference{
+        chatService.getChatDocument(for: chatId).collection("pinned_messages")
+    }
+    
+    func addListenerForPinMessages(chatId: String) -> FBListenerResult<Message>{
+        getPinnedMessageCollectionRef(chatId: chatId)
+            .addSnapshotListener(as: Message.self)
+    }
+    
+    func pinMessage(for id: String, message: Message) async throws{
+        try getPinnedMessageCollectionRef(chatId: id).document(message.id)
+            .setData(from: message, merge: false)
+        try await updatePinMessageFlag(for: id, messageId: message.id, pinned: true)
+    }
+    
+    func unpinMessage(for id: String, messageId: String, withUpdate: Bool = true) async throws{
+        try await getPinnedMessageCollectionRef(chatId: id).document(messageId).delete()
+        if withUpdate{
+            try await updatePinMessageFlag(for: id, messageId: messageId, pinned: false)
+        }
+    }
+
+    func updatePinMessage(for id: String, message: Message) async throws{
+        try await getPinnedMessageCollectionRef(chatId: id).document(message.id)
+            .updateData([Message.CodingKeys.message.rawValue: message.message ?? ""])
+    }
+    
+    func updatePinMessageFlag(for id: String, messageId: String, pinned: Bool) async throws{
+        try await getMessageCollectionRef(chatId: id).document(messageId)
+            .updateData([Message.CodingKeys.pinned.rawValue: pinned])
     }
 }

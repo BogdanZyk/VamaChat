@@ -16,11 +16,13 @@ extension DialogView{
         var body: some View {
             VStack(alignment: .leading) {
                 HStack{
-                   chatInfoView
+                    chatInfoView
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
                 Divider()
+                
+                pinMessageSection
             }
         }
     }
@@ -30,6 +32,7 @@ extension DialogView{
 struct NavbarView_Previews: PreviewProvider {
     static var previews: some View {
         DialogView.NavBarView()
+            .environmentObject(DialogViewModel(chatData: .mocks.first!, currentUser: .mock))
     }
 }
 
@@ -47,4 +50,45 @@ extension DialogView.NavBarView{
         }
     }
     
+    
+    @ViewBuilder
+    private var pinMessageSection: some View{
+        if !viewModel.pinnedMessages.isEmpty, let last = viewModel.pinnedMessages.last{
+            VStack{
+                HStack{
+                    VStack(spacing: 2){
+                        ForEach(viewModel.pinnedMessages.indices, id: \.self) { _ in
+                            Rectangle()
+                                .fill(Color.cyan)
+                                .frame(width: 2)
+                            
+                        }
+                    }
+                    .frame(height: 32)
+                    
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Pin message")
+                                .font(.system(size: 12, weight: .medium))
+                            Text(last.message ?? "")
+                                .font(.system(size: 12, weight: .light))
+                                .lineLimit(1)
+                        }
+                        Spacer()
+                        Button {
+                            viewModel.pinOrUnpinMessage(message: last, onPinned: false)
+                        } label: {
+                            Image(systemName: "xmark.circle")
+                                .font(.title3)
+                                .foregroundColor(Color.cyan)
+                        }
+                        .buttonStyle(.plain)
+                    
+                }
+                .padding(.horizontal)
+                Divider()
+            }
+            .contentShape(Rectangle())
+            .onTapGesture(perform: viewModel.onTapPinMessage)
+        }
+    }
 }

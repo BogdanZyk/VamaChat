@@ -14,13 +14,14 @@ struct DialogView: View {
     @State private var hiddenDownButton: Bool = false
     let chatData: ChatConversation
     var onSetDraft: ((String?, String) -> Void)?
-    
+    let currentUserId: String?
     init(chatData: ChatConversation,
          currentUser: User?,
          onSetDraft: ((String?, String) -> Void)? = nil){
         self._viewModel = StateObject(wrappedValue: DialogViewModel(chatData: chatData, currentUser: currentUser))
         self.chatData = chatData
         self.onSetDraft = onSetDraft
+        self.currentUserId = currentUser?.id
     }
     
     var body: some View {
@@ -30,14 +31,17 @@ struct DialogView: View {
                     .padding()
             }
             .flippedUpsideDown()
-            .onChange(of: viewModel.lastMessageId) { id in
+            .onChange(of: viewModel.targetMessageId) { id in
                 scrollTo(proxy, id: id)
             }
             .overlay(alignment: .bottomTrailing) {
                 downButton(proxy)
             }
+            .onChange(of: viewModel.pinMessageTrigger) { _ in
+                scrollTo(proxy, id: viewModel.pinnedMessages.last?.id ?? "")
+            }
         }
-        .animation(.easeOut(duration: 0.2), value: viewModel.lastMessageId)
+        .animation(.easeOut(duration: 0.2), value: viewModel.targetMessageId)
         .safeAreaInset(edge: .top, alignment: .center, spacing: 0){
             NavBarView()
         }
@@ -79,6 +83,7 @@ extension DialogView{
                 Section {
                     ForEach(chunkedMessages[index].uniqued(on: {$0.id})) { dialogMessage in
                         MessageRow(
+                            currentUserId: currentUserId,
                             dialogMessage: dialogMessage,
                             recipientType: dialogMessage.message.getRecipientType(currentUserId: "1"),
                             onActionMessage: viewModel.messageAction)
