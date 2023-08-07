@@ -12,27 +12,19 @@ struct MessageRow: View {
     let sender: ShortUser?
     let currentUserId: String?
     let dialogMessage: DialogMessage
+    let isShortMessage: Bool
     let onActionMessage: (MessageContextAction, Message) -> Void
-    
     var currentUserSender: Bool{
         sender?.id == currentUserId
     }
     
     var body: some View {
-        HStack(alignment: .center, spacing: 10) {
-            AvatarView(image: sender?.image, size: .init(width: 30, height: 30))
-            VStack(alignment: .leading, spacing: 3) {
-                HStack(spacing: 10) {
-                    Text(sender?.fullName ?? "")
-                        .font(.body.bold())
-                    Spacer()
-                    messageTimeSection
-                    loaderStateView
-                }
-                if let message = dialogMessage.message.message{
-                    Text(message)
-                        .font(.system(size: 14, weight: .light))
-                }
+        
+        Group{
+            if isShortMessage{
+                shortMessage
+            }else{
+                fullMessage
             }
         }
         .foregroundColor(.white)
@@ -45,8 +37,8 @@ struct MessageRow: View {
 struct MessageRow_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 4) {
-            MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!)){_, _ in}
-            MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!)){_, _ in}
+            MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!), isShortMessage: false){_, _ in}
+            MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!), isShortMessage: true){_, _ in}
         }
         .padding()
     }
@@ -58,7 +50,46 @@ enum RecipientType: String, Codable, Equatable {
     case received
 }
 
+
 extension MessageRow{
+    
+    private var fullMessage: some View{
+        HStack(alignment: .center, spacing: 10) {
+            AvatarView(image: sender?.image, size: .init(width: 30, height: 30))
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 10) {
+                    Text(sender?.fullName ?? "")
+                        .font(.body.bold())
+                    Spacer()
+                    messageTimeSection
+                    loaderStateView
+                }
+                messageText
+            }
+        }
+    }
+    
+    private var shortMessage: some View{
+        HStack(alignment: .center, spacing: 10) {
+            messageText
+            Spacer()
+            messageTimeSection
+            loaderStateView
+        }
+    }
+}
+
+extension MessageRow{
+    
+    
+    @ViewBuilder
+    private var messageText: some View{
+        if let message = dialogMessage.message.message{
+            Text(message)
+                .font(.system(size: 14, weight: .light))
+                .padding(.leading, isShortMessage ? 40 : 0)
+        }
+    }
     
     private var messageTimeSection: some View{
         HStack(spacing: 5){

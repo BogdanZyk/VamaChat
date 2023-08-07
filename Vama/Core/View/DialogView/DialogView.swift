@@ -81,23 +81,12 @@ extension DialogView{
             let chunkedMessages = viewModel.messages.chunked(by: {$0.message.createdAt.date.isSameDay(as: $1.message.createdAt.date)})
             ForEach(chunkedMessages.indices, id: \.self){ index in
                 Section {
-                    ForEach(chunkedMessages[index].uniqued(on: {$0.id})) { dialogMessage in
-                        MessageRow(
-                            sender: viewModel.getMessageSender(senderId: dialogMessage.message.fromId),
-                            currentUserId: currentUserId,
-                            dialogMessage: dialogMessage,
-                            onActionMessage: viewModel.messageAction)
+                    let messages = chunkedMessages[index]
+                    ForEach(messages.indices, id: \.self) { index in
+                        ///One message after another from the same user
+                        let isOneByOne = isOneByOneMessages(messages, index: index)
                         
-                        .id(dialogMessage.message.id)
-                        .flippedUpsideDown()
-                        .onAppear{
-                            viewModel.viewMessage(dialogMessage.message)
-                            viewModel.loadNextPage(dialogMessage.message.id)
-                            hiddenOrUnhiddenDownButton(dialogMessage.message.id, hidden: true)
-                        }
-                        .onDisappear{
-                            hiddenOrUnhiddenDownButton(dialogMessage.message.id, hidden: false)
-                        }
+                        messageRow(messages[index], isOneByOne: isOneByOne)
                     }
                 } footer: {
                     if let date = chunkedMessages[index].first?.message.createdAt.date{
@@ -105,6 +94,26 @@ extension DialogView{
                     }
                 }
             }
+        }
+    }
+    
+    private func messageRow(_ dialogMessage: DialogMessage, isOneByOne: Bool) -> some View{
+        MessageRow(
+            sender: viewModel.getMessageSender(senderId: dialogMessage.message.fromId),
+            currentUserId: currentUserId,
+            dialogMessage: dialogMessage,
+            isShortMessage: isOneByOne,
+            onActionMessage: viewModel.messageAction)
+        
+        .id(dialogMessage.message.id)
+        .flippedUpsideDown()
+        .onAppear{
+            viewModel.viewMessage(dialogMessage.message)
+            viewModel.loadNextPage(dialogMessage.message.id)
+            hiddenOrUnhiddenDownButton(dialogMessage.message.id, hidden: true)
+        }
+        .onDisappear{
+            hiddenOrUnhiddenDownButton(dialogMessage.message.id, hidden: false)
         }
     }
     
@@ -119,6 +128,13 @@ extension DialogView{
             .flippedUpsideDown()
     }
     
+    private func isOneByOneMessages(_ messages: ArraySlice<DialogMessage>, index: Int) -> Bool {
+        guard index >= 0 && index < messages.count - 1 else {
+            return false
+        }
+        return messages[index].message.fromId == messages[index + 1].message.fromId
+    }
+
 }
 
 extension DialogView{

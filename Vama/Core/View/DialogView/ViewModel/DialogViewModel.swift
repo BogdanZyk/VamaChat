@@ -110,8 +110,9 @@ class DialogViewModel: ObservableObject{
     
     func viewMessage(_ message: Message){
         guard let uid = currentUser?.id, message.fromId != uid else {return}
+        if message.viewedIds.contains(uid){return}
         Task{
-            print("viewMessage")
+            print("viewMessage", message.message)
             try await messageService.viewMessage(for: chatData.id, messageId: message.id, uid: uid)
         }
     }
