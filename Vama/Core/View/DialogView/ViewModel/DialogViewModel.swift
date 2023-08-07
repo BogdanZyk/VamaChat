@@ -205,6 +205,7 @@ extension DialogViewModel{
             totalCountMessage += 1
             messages = messages.uniqued(on: {$0.id})
             targetMessageId = message.id
+            viewMessage(message)
         }
     }
     
