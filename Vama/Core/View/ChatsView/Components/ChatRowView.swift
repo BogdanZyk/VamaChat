@@ -24,7 +24,7 @@ struct ChatRowView: View {
                     chatTitle
                     Spacer()
                     if let date = chatData.chat.lastMessage?.createdAt.date{
-                        Text("\(date, formatter: Date.hoursAndMinuteFormatter)")
+                        Text("\(date.formatted(date: .omitted, time: .shortened))")
                             .font(.system(size: 10, weight: .light))
                     }
                 }

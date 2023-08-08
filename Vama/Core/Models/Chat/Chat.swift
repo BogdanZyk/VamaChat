@@ -12,10 +12,10 @@ struct Chat: Identifiable, Codable{
     let id: String
     let chatType: ChatType
     let lastMessage: Message?
+    let participantsIds: [String]
+    var createdAt = FBTimestamp()
     var title: String?
     var photo: String?
-    let participantsIds: [String]
-    let createdAt = FBTimestamp()
    
     
     enum CodingKeys: String, CodingKey {

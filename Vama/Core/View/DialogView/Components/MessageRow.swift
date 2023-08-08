@@ -104,7 +104,7 @@ extension MessageRow{
             }
             
                 
-            Text("\(dialogMessage.message.createdAt.date, formatter: Date.hoursAndMinuteFormatter)")
+            Text("\(dialogMessage.message.createdAt.date.formatted(date: .omitted, time: .shortened))")
                 .font(.system(size: 10, weight: .light))
         }
         

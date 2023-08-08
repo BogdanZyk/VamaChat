@@ -148,9 +148,8 @@ extension DialogView{
     
     @ViewBuilder
     private func downButton(_ proxy: ScrollViewProxy) -> some View{
-        if !hiddenDownButton{
+        if let id = viewModel.messages.first?.id, !hiddenDownButton{
             Button {
-                guard let id = viewModel.messages.first?.id else { return }
                 scrollTo(proxy, id: id)
             } label: {
                 Image(systemName: "chevron.down")

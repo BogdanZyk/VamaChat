@@ -15,7 +15,7 @@ struct User: Identifiable, Codable, Hashable{
     let id: String
     let username: String
     let email: String?
-    let createdAt = FBTimestamp()
+    var createdAt = FBTimestamp()
     var profileImage: StorageItem?
     var firstName: String?
     var lastName: String?
