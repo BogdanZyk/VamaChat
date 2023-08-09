@@ -51,8 +51,8 @@ class DialogViewModel: ObservableObject{
     @MainActor
     func send(){
         switch bottomBarActionType{
-        case .answer(_):
-            print("send answer message")
+        case .reply(let message):
+            sendReplyMessage(message)
         case .edit(let message):
             updateMessage(message: message, text: textMessage)
         case .empty:
@@ -63,15 +63,37 @@ class DialogViewModel: ObservableObject{
     }
     
     @MainActor
-    private func sendMessage(){
+    private func sendMessage(replyMessage: [SubMessage]? = nil){
         guard let currentUser else {return}
         print("Send message \(textMessage)")
-        let message = Message(id: UUID().uuidString, chatId: chatData.id, message: textMessage, fromId: currentUser.id, viewedIds: [currentUser.id])
+        let message = Message(id: UUID().uuidString, chatId: chatData.id, message: textMessage, fromId: currentUser.id, replyMessage: replyMessage, viewedIds: [currentUser.id])
         messages.insert(.init(message: message, loadState: .sending), at: 0)
         targetMessageId = message.id
         uploadMessage(chatId: chatData.id, message: message)
     }
     
+    @MainActor
+    private func sendReplyMessage(_ message: Message){
+        guard let user = getMessageSender(senderId: message.fromId) else {return}
+        let subMessage = SubMessage(message: message, user: .init(id: user.id, fullName: user.fullName))
+        sendMessage(replyMessage: [subMessage])
+    }
+    
+    @MainActor
+    private func forwardMessages(_ messages: [Message], for chatId: String){
+        guard let currentUser, let forwardMessages = createSubMessages(messages) else {return}
+        let message = Message(id: UUID().uuidString, chatId: chatId, message: nil, fromId: currentUser.id, forwardMessages: forwardMessages, viewedIds: [currentUser.id])
+        self.messages.insert(.init(message: message, loadState: .sending), at: 0)
+        targetMessageId = message.id
+        uploadMessage(chatId: chatData.id, message: message)
+    }
+    
+    private func createSubMessages(_ messages: [Message]) -> [SubMessage]?{
+        return messages.compactMap { message in
+            guard let user = getMessageSender(senderId: message.fromId) else {return nil}
+            return SubMessage(message: message, user: .init(id: user.id, fullName: user.fullName))
+        }
+    }
   
     func setChatDataAndRefetch(chatData: ChatConversation){
         fbListeners.forEach({$0.cancel()})
@@ -232,7 +254,7 @@ extension DialogViewModel{
     @MainActor func messageAction(_ action: MessageContextAction, _ message: Message){
         switch action {
         case .answer:
-            setBottomBarAction(.answer(message))
+            setBottomBarAction(.reply(message))
         case .edit:
             setBottomBarAction(.edit(message))
         case .copy:
@@ -242,7 +264,7 @@ extension DialogViewModel{
         case .unpin:
             pinOrUnpinMessage(message: message, onPinned: false)
         case .forward:
-            print("Forward \(message.message ?? "")")
+            forwardMessages([message], for: chatData.id)
         case .select:
             print("Select \(message.message ?? "")")
         case .remove:

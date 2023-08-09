@@ -14,8 +14,9 @@ struct Message: Identifiable, Hashable{
     var message: String?
     let fromId: String
     var createdAt = FBTimestamp()
-    var replies: [Message] = []
-    var media: [MessageMedia] = []
+    var replyMessage: [SubMessage]?
+    var forwardMessages: [SubMessage]?
+    var media: [MessageMedia]?
     var pinned: Bool = false
     var viewedIds: [String] = []
     
@@ -40,7 +41,9 @@ extension Message{
 extension Message{
     static let mocks: [Message] = [
         .init(id: UUID().uuidString, chatId: "1", message: "Hello!", fromId: "1"),
-        .init(id: UUID().uuidString, chatId: "1", message: "Hi!", fromId: "2")
+        .init(id: UUID().uuidString, chatId: "1", message: "Hi!", fromId: "2"),
+        .init(id: UUID().uuidString, chatId: "1", message: "Hello!", fromId: "1", replyMessage: [.mock]),
+        .init(id: UUID().uuidString, chatId: "1", message: "Hello!", fromId: "1", forwardMessages: [.mock, .mock]),
     ]
 }
 
@@ -56,9 +59,22 @@ extension Message: Codable{
         case viewedIds
         case media
         case pinned
+        case replyMessage
+        case forwardMessages
     }
 }
 
-
+struct SubMessage: Codable, Hashable, Identifiable{
+    var id: String { message.id }
+    let message: Message
+    let user: SubMessageUser
+    
+    struct SubMessageUser: Codable, Hashable {
+        let id: String
+        let fullName: String
+    }
+    
+    static let mock = SubMessage(message: .init(id: UUID().uuidString, chatId: "1", message: "Hello!", fromId: "1"), user: .init(id: "2", fullName: "Tester"))
+}
 
 

@@ -21,7 +21,10 @@ struct MessageRow: View {
     var body: some View {
         
         Group{
-            if isShortMessage{
+            
+            if let forwardMessages = dialogMessage.message.forwardMessages{
+                forwardMessage(forwardMessages)
+            }else if isShortMessage{
                 shortMessage
             }else{
                 fullMessage
@@ -37,8 +40,11 @@ struct MessageRow: View {
 struct MessageRow_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 4) {
-            MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!), isShortMessage: false){_, _ in}
-            MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!), isShortMessage: true){_, _ in}
+            
+            ForEach(Message.mocks) { message in
+                MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: message), isShortMessage: false){_, _ in}
+            }
+            //MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!), isShortMessage: true){_, _ in}
         }
         .padding()
     }
@@ -52,9 +58,8 @@ enum RecipientType: String, Codable, Equatable {
 
 
 extension MessageRow{
-    
     private var fullMessage: some View{
-        HStack(alignment: .center, spacing: 10) {
+        HStack(alignment: .top, spacing: 10) {
             AvatarView(image: sender?.image, size: .init(width: 30, height: 30))
             VStack(alignment: .leading, spacing: 3) {
                 HStack(spacing: 10) {
@@ -64,17 +69,85 @@ extension MessageRow{
                     messageTimeSection
                     loaderStateView
                 }
+                replyMessage
                 messageText
             }
         }
     }
     
     private var shortMessage: some View{
-        HStack(alignment: .center, spacing: 10) {
-            messageText
+        HStack(alignment: .top, spacing: 10) {
+            VStack(alignment: .leading, spacing: 3) {
+                replyMessage
+                messageText
+            }
+            .padding(.leading, 40)
             Spacer()
             messageTimeSection
             loaderStateView
+        }
+    }
+    
+    private var replyMessage: some View{
+        Group{
+            if let reply = dialogMessage.message.replyMessage?.first{
+                HStack{
+                    Rectangle()
+                        .fill(Color.cyan)
+                        .frame(width: 2, height: 30)
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(reply.user.fullName)
+                            .font(.body.weight(.medium))
+                        Text(reply.message.message ?? "")
+                            .lineLimit(1)
+                            .font(.system(size: 14, weight: .light))
+                    }
+                }
+                .padding(.bottom, 2)
+            }
+        }
+    }
+    
+    private func forwardMessage(_ messages: [SubMessage]) -> some View{
+        HStack(alignment: .top, spacing: 10) {
+            AvatarView(image: sender?.image, size: .init(width: 30, height: 30))
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 10) {
+                    Text(sender?.fullName ?? "")
+                        .font(.body.bold())
+                    Spacer()
+                    messageTimeSection
+                    loaderStateView
+                }
+                Text("Forwarded messages")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.bottom, 5)
+                
+                VStack(alignment: .leading, spacing: 5){
+                    ForEach(messages) { message in
+                        HStack(alignment: .top){
+                            VStack(alignment: .leading, spacing: 0){
+                                HStack{
+                                    Text(message.user.fullName)
+                                        .font(.body.weight(.medium))
+                                    Text("\(message.message.createdAt.date.formatted(date: .abbreviated, time: .shortened))")
+                                        .font(.system(size: 10, weight: .light))
+                                        .foregroundColor(.secondary)
+                                }
+                                Text(message.message.message ?? "")
+                                    .font(.system(size: 14, weight: .light))
+                            }
+                        }
+                    }
+                }
+                .padding(.leading, 10)
+                .overlay(alignment: .leading) {
+                    Rectangle()
+                        .fill(Color.cyan)
+                        .frame(width: 2)
+                }
+            }
         }
     }
 }
@@ -87,7 +160,6 @@ extension MessageRow{
         if let message = dialogMessage.message.message{
             Text(message)
                 .font(.system(size: 14, weight: .light))
-                .padding(.leading, isShortMessage ? 40 : 0)
         }
     }
     
