@@ -59,40 +59,7 @@ class DialogViewModel: ObservableObject{
         textMessage = ""
         resetBottomBarAction()
     }
-    
-    @MainActor
-    private func sendMessage(replyMessage: [SubMessage]? = nil){
-        guard let currentUser else {return}
-        print("Send message \(textMessage)")
-        let message = Message(id: UUID().uuidString, chatId: chatData.id, message: textMessage, fromId: currentUser.id, replyMessage: replyMessage, viewedIds: [currentUser.id])
-        messages.insert(.init(message: message, loadState: .sending), at: 0)
-        targetMessageId = message.id
-        uploadMessage(chatId: chatData.id, message: message)
-    }
-    
-    @MainActor
-    private func sendReplyMessage(_ message: Message){
-        guard let user = getMessageSender(senderId: message.fromId) else {return}
-        let subMessage = SubMessage(message: message, user: .init(id: user.id, fullName: user.fullName))
-        sendMessage(replyMessage: [subMessage])
-    }
-    
-    @MainActor
-    private func forwardMessages(_ messages: [Message], for chatId: String){
-        guard let currentUser, let forwardMessages = createSubMessages(messages) else {return}
-        let message = Message(id: UUID().uuidString, chatId: chatId, message: nil, fromId: currentUser.id, forwardMessages: forwardMessages, viewedIds: [currentUser.id])
-        self.messages.insert(.init(message: message, loadState: .sending), at: 0)
-        targetMessageId = message.id
-        uploadMessage(chatId: chatData.id, message: message)
-    }
-    
-    private func createSubMessages(_ messages: [Message]) -> [SubMessage]?{
-        return messages.compactMap { message in
-            guard let user = getMessageSender(senderId: message.fromId) else {return nil}
-            return SubMessage(message: message, user: .init(id: user.id, fullName: user.fullName))
-        }
-    }
-  
+          
     func setChatDataAndRefetch(chatData: ChatConversation){
         fbListeners.forEach({$0.cancel()})
         bottomBarActionType = .empty
@@ -140,6 +107,64 @@ class DialogViewModel: ObservableObject{
     func getMessageSender(senderId: String) -> ShortUser?{
         let users = [currentUser?.getShortUser(), chatData.target]
         return users.first(where: {$0?.id == senderId}) ?? nil
+    }
+}
+
+// MARK: - Send message logic
+extension DialogViewModel{
+    
+    @MainActor
+    private func sendMessage(replyMessage: [SubMessage]? = nil){
+        guard let currentUser else {return}
+        print("Send message \(textMessage)")
+        let message = Message(id: UUID().uuidString, chatId: chatData.id, message: textMessage, fromId: currentUser.id, replyMessage: replyMessage, viewedIds: [currentUser.id])
+        messages.insert(.init(message: message, loadState: .sending), at: 0)
+        targetMessageId = message.id
+        uploadMessage(chatId: chatData.id, message: message)
+    }
+    
+    @MainActor
+    private func sendReplyMessage(_ message: Message){
+        guard let user = getMessageSender(senderId: message.fromId) else {return}
+        
+        var subMessage: SubMessage
+        
+        if let forward = message.forwardMessages?.first{
+            var newMessage = message
+            newMessage.message = forward.message.message ?? ""
+            subMessage = SubMessage(message: newMessage, user: .init(id: user.id, fullName: user.fullName))
+        }else{
+            subMessage = SubMessage(message: message, user: .init(id: user.id, fullName: user.fullName))
+        }
+        
+        sendMessage(replyMessage: [subMessage])
+    }
+    
+    @MainActor
+    private func forwardMessages(_ messages: [Message], for chatId: String){
+        guard let currentUser, let forwardMessages = createSubMessages(messages) else {return}
+        
+        forwardMessages.forEach({ forwardMessage in
+            let message = Message(id: UUID().uuidString,
+                                  chatId: chatId,
+                                  message: nil,
+                                  fromId: currentUser.id,
+                                  forwardMessages: [forwardMessage],
+                                  viewedIds: [currentUser.id])
+            
+            uploadMessage(chatId: chatData.id, message: message)
+            
+            if chatId == chatData.id{
+                self.messages.insert(.init(message: message, loadState: .sending), at: 0)
+            }
+        })
+    }
+    
+    private func createSubMessages(_ messages: [Message]) -> [SubMessage]?{
+        return messages.compactMap { message in
+            guard let user = getMessageSender(senderId: message.fromId) else {return nil}
+            return SubMessage(message: message, user: .init(id: user.id, fullName: user.fullName))
+        }
     }
 }
 

@@ -22,10 +22,7 @@ struct MessageRow: View {
     var body: some View {
         
         Group{
-            
-            if let forwardMessages = dialogMessage.message.forwardMessages{
-                forwardMessage(forwardMessages)
-            }else if isShortMessage{
+            if isShortMessage{
                 shortMessage
             }else{
                 fullMessage
@@ -81,8 +78,13 @@ extension MessageRow{
                     messageTimeSection
                     loaderStateView
                 }
-                replyMessage
-                messageText
+                if let forwardedMessage = dialogMessage.message.forwardMessages?.first{
+                    forwardLabel
+                    forwardMessage(message: forwardedMessage)
+                }else{
+                    replyMessage
+                    messageText
+                }
             }
         }
     }
@@ -90,8 +92,12 @@ extension MessageRow{
     private var shortMessage: some View{
         HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading, spacing: 3) {
-                replyMessage
-                messageText
+                if let forwardedMessage = dialogMessage.message.forwardMessages?.first{
+                    forwardMessage(message: forwardedMessage)
+                }else{
+                    replyMessage
+                    messageText
+                }
             }
             .padding(.leading, 40)
             Spacer()
@@ -120,47 +126,32 @@ extension MessageRow{
         }
     }
     
-    private func forwardMessage(_ messages: [SubMessage]) -> some View{
-        HStack(alignment: .top, spacing: 10) {
-            AvatarView(image: sender?.image, size: .init(width: 30, height: 30))
-            VStack(alignment: .leading, spacing: 3) {
-                HStack(spacing: 10) {
-                    Text(sender?.fullName ?? "")
-                        .font(.body.bold())
-                    Spacer()
-                    messageTimeSection
-                    loaderStateView
+    private var forwardLabel: some View{
+        Text("Forwarded messages")
+            .font(.caption)
+            .foregroundColor(.secondary)
+            .padding(.bottom, 5)
+    }
+    
+    private func forwardMessage(message: SubMessage) -> some View{
+        HStack{
+            Rectangle()
+                .fill(Color.cyan)
+                .frame(width: 2, height: 30)
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    Text(message.user.fullName)
+                        .font(.body.weight(.medium))
+                    Text("\(message.message.createdAt.date.formatted(date: .abbreviated, time: .shortened))")
+                        .font(.system(size: 10, weight: .light))
+                        .foregroundColor(.secondary)
                 }
-                Text("Forwarded messages")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .padding(.bottom, 5)
-                
-                VStack(alignment: .leading, spacing: 5){
-                    ForEach(messages) { message in
-                        HStack(alignment: .top){
-                            VStack(alignment: .leading, spacing: 0){
-                                HStack{
-                                    Text(message.user.fullName)
-                                        .font(.body.weight(.medium))
-                                    Text("\(message.message.createdAt.date.formatted(date: .abbreviated, time: .shortened))")
-                                        .font(.system(size: 10, weight: .light))
-                                        .foregroundColor(.secondary)
-                                }
-                                Text(message.message.message ?? "")
-                                    .font(.system(size: 14, weight: .light))
-                            }
-                        }
-                    }
-                }
-                .padding(.leading, 10)
-                .overlay(alignment: .leading) {
-                    Rectangle()
-                        .fill(Color.cyan)
-                        .frame(width: 2)
-                }
+                Text(message.message.message ?? "")
+                    .lineLimit(1)
+                    .font(.system(size: 14, weight: .light))
             }
         }
+        .padding(.bottom, 2)
     }
 }
 
