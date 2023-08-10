@@ -77,7 +77,7 @@ struct DialogView_Previews: PreviewProvider {
 extension DialogView{
     
     private var messagesSection: some View{
-        LazyVStack(spacing: 10, pinnedViews: .sectionFooters){
+        LazyVStack(spacing: 0, pinnedViews: .sectionFooters){
             let chunkedMessages = viewModel.messages.chunked(by: {$0.message.createdAt.date.isSameDay(as: $1.message.createdAt.date)})
             ForEach(chunkedMessages.indices, id: \.self){ index in
                 Section {
@@ -103,6 +103,7 @@ extension DialogView{
             currentUserId: currentUserId,
             dialogMessage: dialogMessage,
             isShortMessage: isOneByOne,
+            isActiveSelection: viewModel.isActiveSelectedMode,
             onActionMessage: viewModel.messageAction)
         
         .id(dialogMessage.message.id)

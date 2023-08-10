@@ -18,7 +18,7 @@ class DialogViewModel: ObservableObject{
     @Published var pinMessageTrigger: Bool = false
     
     @Published private(set) var messages: [DialogMessage] = []
-    @Published private(set) var selectedMessages: [Message] = []
+    @Published private(set) var isActiveSelectedMode: Bool = false
     @Published private(set) var pinnedMessages: [Message] = []
     
     private let pasteboard = NSPasteboard.general
@@ -30,8 +30,6 @@ class DialogViewModel: ObservableObject{
     private var totalCountMessage: Int = 0
     private var lastDoc = FBLastDoc()
 
-
-    
     var chatData: ChatConversation
     var currentUser: User?
     
@@ -102,7 +100,7 @@ class DialogViewModel: ObservableObject{
         self.chatData = chatData
         lastDoc = FBLastDoc()
         messages = []
-        selectedMessages = []
+        isActiveSelectedMode = false
         fetchMessages(chatData.id)
         startMessageListener()
         startPinMessagesListener()
@@ -266,7 +264,7 @@ extension DialogViewModel{
         case .forward:
             forwardMessages([message], for: chatData.id)
         case .select:
-            print("Select \(message.message ?? "")")
+            toggleSelectedMessage(for: message.id)
         case .remove:
             removeMessage(message)
         }
@@ -359,6 +357,22 @@ extension DialogViewModel{
     }
 }
 
+// MARK: - Selected message logic
+extension DialogViewModel {
+    
+    private func toggleSelectedMessage(for id: String){
+        guard let index = messages.lastIndex(where: {$0.id == id}) else {return}
+        messages[index].selected.toggle()
+        isActiveSelectedMode = messages.contains(where: {$0.selected})
+    }
+    
+    private func resetSelection(){
+        for item in messages.enumerated(){
+            messages[item.offset].selected = false
+        }
+        isActiveSelectedMode = false
+    }
+}
 
 
 struct DialogMessage: Identifiable{

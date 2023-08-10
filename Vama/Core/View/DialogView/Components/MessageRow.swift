@@ -13,6 +13,7 @@ struct MessageRow: View {
     let currentUserId: String?
     let dialogMessage: DialogMessage
     let isShortMessage: Bool
+    let isActiveSelection: Bool
     let onActionMessage: (MessageContextAction, Message) -> Void
     var currentUserSender: Bool{
         sender?.id == currentUserId
@@ -32,17 +33,28 @@ struct MessageRow: View {
         }
         .foregroundColor(.white)
         .hLeading()
+        .padding(.vertical, 5)
+        .background(dialogMessage.selected ?  Color.gray.opacity(0.15).padding(.horizontal, -16) : nil)
         .contentShape(Rectangle())
         .contextMenu{contextMenuContent}
+        .onTapGesture {
+            if isActiveSelection{
+                onActionMessage(.select, dialogMessage.message)
+            }
+        }
     }
 }
 
 struct MessageRow_Previews: PreviewProvider {
     static var previews: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 0) {
             
             ForEach(Message.mocks) { message in
-                MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: message), isShortMessage: false){_, _ in}
+                MessageRow(
+                    sender: .mock,
+                    currentUserId: "1", dialogMessage: .init(message: message),
+                    isShortMessage: false,
+                    isActiveSelection: true){_, _ in}
             }
             //MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!), isShortMessage: true){_, _ in}
         }
@@ -175,11 +187,18 @@ extension MessageRow{
                     .foregroundColor(.cyan)
             }
             
-                
             Text("\(dialogMessage.message.createdAt.date.formatted(date: .omitted, time: .shortened))")
                 .font(.system(size: 10, weight: .light))
+            
+            if isActiveSelection{
+                Image(systemName: dialogMessage.selected ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(.cyan)
+            }
         }
-        
+        .animation(.easeIn(duration: 0.2), value: isActiveSelection)
+        .onTapGesture{
+            onActionMessage(.select, dialogMessage.message)
+        }
     }
 
     private var loaderStateView: some View{
