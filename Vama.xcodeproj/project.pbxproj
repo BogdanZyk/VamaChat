@@ -55,6 +55,7 @@
 		5A48729E2A7BF41400610359 /* DialogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48729D2A7BF41400610359 /* DialogViewModel.swift */; };
 		5A4872A12A7BF63400610359 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 5A4872A02A7BF63400610359 /* Algorithms */; };
 		5A4872A32A7CE7A100610359 /* ChatAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872A22A7CE7A100610359 /* ChatAction.swift */; };
+		5AADA1D02A86690C00D098E5 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1CF2A86690C00D098E5 /* Task.swift */; };
 		5ABC15882A7C4E7A0063128F /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15872A7C4E7A0063128F /* AuthView.swift */; };
 		5ABC158A2A7C4EE60063128F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15892A7C4EE60063128F /* ContentView.swift */; };
 		5ABC158C2A7C50A20063128F /* DialogView+BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */; };
@@ -113,6 +114,7 @@
 		5A48729A2A7BF2A000610359 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		5A48729D2A7BF41400610359 /* DialogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewModel.swift; sourceTree = "<group>"; };
 		5A4872A22A7CE7A100610359 /* ChatAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAction.swift; sourceTree = "<group>"; };
+		5AADA1CF2A86690C00D098E5 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		5ABC15872A7C4E7A0063128F /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		5ABC15892A7C4EE60063128F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+BottomBarView.swift"; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				5A326AB92A7D239700629066 /* Query.swift */,
 				5A326AC02A7D288400629066 /* Combine.swift */,
 				5A21B4E12A7D50C500CF00BB /* NsApp.swift */,
+				5AADA1CF2A86690C00D098E5 /* Task.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -523,6 +526,7 @@
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
 				5A4872892A7BC9BE00610359 /* User.swift in Sources */,
 				5A21B4DE2A7D454A00CF00BB /* FbFirestore.swift in Sources */,
+				5AADA1D02A86690C00D098E5 /* Task.swift in Sources */,
 				5A326AC32A7D334A00629066 /* SearchView.swift in Sources */,
 				5ABC15922A7C60860063128F /* DialogView+NavbarView.swift in Sources */,
 				5A48728B2A7BCA8D00610359 /* StorageItem.swift in Sources */,

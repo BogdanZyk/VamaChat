@@ -77,7 +77,7 @@ class DialogViewModel: ObservableObject{
     private func fetchMessages(_ chatId: String){
         Task{
             let (messages, lastDoc) = try await messageService.fetchPaginatedMessage(for: chatId, lastDocument: lastDoc.lastDocument)
-            await MainActor.run {
+            Task.main {
                 self.lastDoc.lastDocument = lastDoc
                 let dialogMessages = messages.map({DialogMessage(message: $0)})
                 self.messages.append(contentsOf: dialogMessages)
@@ -88,7 +88,7 @@ class DialogViewModel: ObservableObject{
     private func fetchTotalCountMessages(){
         Task{
             let total = try await messageService.getCountAllMessages(chatId: chatData.id)
-            await MainActor.run {
+            Task.main {
                 print("Total message", total)
                 self.totalCountMessage = total
             }
@@ -310,7 +310,7 @@ extension DialogViewModel{
             }
             
             try await messageService.removeMessage(for: chatData.id, message: message, lastMessage: lastMessage)
-            await MainActor.run {
+            Task.main {
                 removeMessageLocal(message.id)
             }
         }
