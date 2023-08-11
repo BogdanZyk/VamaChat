@@ -84,4 +84,25 @@ extension Date{
         }
         return dateString
     }
+    
+    func getLastSeenTime() -> String {
+        let time = Int(self.timeIntervalSince1970)
+        let date = Date(timeIntervalSince1970: TimeInterval(time))
+        let dateFormatter = DateFormatter()
+        
+        let difference = Date().timeIntervalSince1970 - TimeInterval(time)
+        if difference < 60 {
+            return "now"
+        } else if difference < 60 * 60 {
+            return "\(Int(difference / 60)) minutes ago"
+        } else if difference < 60 * 60 * 24 {
+            return "\(Int(difference / 60 / 60)) hours ago"
+        } else if difference < 60 * 60 * 24 * 2 {
+            dateFormatter.dateFormat = "HH:mm"
+            return "yesterday at \(dateFormatter.string(from: date))"
+        } else {
+            dateFormatter.dateFormat = "dd.MM.YY"
+            return dateFormatter.string(from: date)
+        }
+    }
 }

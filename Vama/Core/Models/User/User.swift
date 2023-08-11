@@ -89,25 +89,37 @@ extension User{
 
 struct OnlineStatus: Codable, Hashable{
     var time = FBTimestamp()
-    var isOnline: Bool = true
-    var chatStatus: Status? = Status()
-    
-    
-    struct Status: Codable, Hashable{
-        
-        var forChatId: String = ""
-        var status: Status = .empty
-        
-        enum Status: String, Codable{
-            case typing = "TYPING"
-            case empty = "EMPTY"
-            case upload = "UPLOAD"
+    var status: UserStatus = .offline
+
+    var statusStr: String{
+        switch status{
+        case .offline:
+            return "last seen \(time.date.getLastSeenTime())"
+        case .online:
+            return "online"
+        case .recently:
+            return "last seen recently"
         }
+    }
+    
+    enum UserStatus: String, Codable, Hashable{
+        case online
+        case offline
+        case recently
     }
 }
 
-
-
+struct Status: Codable, Hashable{
+    
+    var forChatId: String = ""
+    var status: Status = .empty
+    
+    enum Status: String, Codable{
+        case typing = "TYPING"
+        case empty = "EMPTY"
+        case upload = "UPLOAD"
+    }
+}
 
 struct ShortUser: Identifiable, Codable, Hashable{
     let id: String

@@ -39,10 +39,10 @@ class UserManager: ObservableObject{
         }
     }
     
-    func updateUserOnlineStatus(isOnline: Bool){
+    func updateUserOnlineStatus(_ status: OnlineStatus.UserStatus){
         Task{
             do{
-                try await userService.updateUserOnlineStatus(status: OnlineStatus(isOnline: isOnline))
+                try await userService.updateUserStatus(status)
             }catch{
                 print(error.localizedDescription)
             }

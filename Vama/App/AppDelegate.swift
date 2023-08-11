@@ -21,6 +21,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
        
     }
     
+    func applicationWillTerminate(_ notification: Notification) {
+        Task{
+           try? await UserService.share.updateUserStatus(.offline)
+        }
+    }
     
 }
 

@@ -77,9 +77,9 @@ struct MainView: View {
         .onChange(of: scenePhase) { newValue in
             switch newValue{
             case .active:
-                userManager.updateUserOnlineStatus(isOnline: true)
+                userManager.updateUserOnlineStatus(.online)
             default:
-                userManager.updateUserOnlineStatus(isOnline: false)
+                userManager.updateUserOnlineStatus(.recently)
             }
         }
     }
@@ -110,7 +110,7 @@ extension MainView{
     
     @ViewBuilder
     private var currentDialogView: some View{
-        if let chat = chatVM.selectedChat {
+        if chatVM.selectedChat != nil {
             ZStack{
                 ForEach(chatVM.chatConversations) { chat in
                     let onActive = chat.id == chatVM.selectedChat?.id

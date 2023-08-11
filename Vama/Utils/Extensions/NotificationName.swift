@@ -11,5 +11,5 @@ extension Notification.Name {
     
     static let chatDraftMessage = Self("chatDraftMessage")
     static let loggingOut = Self("loggingOut")
-
+    static let updateUserStatus = Self("updateUserStatus")
 }

@@ -59,13 +59,12 @@ final class UserService{
         try await userDocument(for: info.id).updateData(info.getDict())
     }
     
-    func updateUserOnlineStatus(status: OnlineStatus) async throws{
+    func updateUserStatus(_ status: OnlineStatus.UserStatus) async throws{
         guard let id = getFBUserId() else {
             throw AppError.custom(errorDescription: "No init firebase user")
         }
-        
-        let data = try Firestore.Encoder().encode(status)
-        
+        let onlineStatus = OnlineStatus(status: status)
+        let data = try Firestore.Encoder().encode(onlineStatus)
         let dict: [String: Any] = [
             User.CodingKeys.status.rawValue: data
         ]
@@ -134,3 +133,21 @@ struct FBListener{
     }
     
 }
+
+
+//func userStatus(_ status: UserStatus) {
+//    switch status {
+//        case .userStatusEmpty:
+//            onlineStatus = "empty"
+//        case .userStatusOnline: // (let userStatusOnline)
+//            onlineStatus = "online"
+//        case .userStatusOffline(let userStatusOffline):
+//            onlineStatus = "last seen \(getLastSeenTime(from: userStatusOffline.wasOnline))"
+//        case .userStatusRecently:
+//            onlineStatus = "last seen recently"
+//        case .userStatusLastWeek:
+//            onlineStatus = "last seen last week"
+//        case .userStatusLastMonth:
+//            onlineStatus = "last seen last month"
+//    }
+//}
