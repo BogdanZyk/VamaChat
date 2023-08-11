@@ -12,16 +12,17 @@ struct DialogView: View {
     
     @StateObject private var viewModel: DialogViewModel
     @State private var hiddenDownButton: Bool = false
-    let chatData: ChatConversation
     var onSetDraft: ((String?, String) -> Void)?
     let currentUserId: String?
+    let onAppear: Bool
     init(chatData: ChatConversation,
          currentUser: User?,
+         onAppear: Bool,
          onSetDraft: ((String?, String) -> Void)? = nil){
         self._viewModel = StateObject(wrappedValue: DialogViewModel(chatData: chatData, currentUser: currentUser))
-        self.chatData = chatData
         self.onSetDraft = onSetDraft
         self.currentUserId = currentUser?.id
+        self.onAppear = onAppear
     }
     
     var body: some View {
@@ -53,15 +54,13 @@ struct DialogView: View {
         .fileImporter(isPresented: $viewModel.showFileExporter, allowedContentTypes: [.image]){result in
             print(result.map({$0.pathExtension}))
         }
-        .onChange(of: chatData) {
-            if !viewModel.textMessage.isEmptyStrWithSpace{
-                onSetDraft?(viewModel.textMessage, viewModel.chatData.id)
-            }
-            viewModel.setChatDataAndRefetch(chatData: $0)
-        }
-        .onChange(of: viewModel.textMessage) { newValue in
-            if newValue.isEmpty, viewModel.chatData.draftMessage != nil{
-                onSetDraft?(nil, chatData.id)
+        .onChange(of: onAppear) { onAppear in
+            if onAppear{
+
+            }else{
+                if !viewModel.textMessage.isEmptyStrWithSpace{
+                    onSetDraft?(viewModel.textMessage, viewModel.chatData.id)
+                }
             }
         }
     }
@@ -69,7 +68,7 @@ struct DialogView: View {
 
 struct DialogView_Previews: PreviewProvider {
     static var previews: some View {
-        DialogView(chatData: .mocks.first!, currentUser: .mock)
+        DialogView(chatData: .mocks.first!, currentUser: .mock, onAppear: false)
     }
 }
 

@@ -59,7 +59,7 @@ final class MessageService{
         return Int(truncating: snapshot.count)
     }
     
-    func addListenerForMessages(chatId: String) -> (AnyPublisher<[(item: Message, type: DocumentChangeType)], Error>, ListenerRegistration, DocumentSnapshot?){
+    func addListenerForMessages(chatId: String) -> (AnyPublisher<([(item: Message, type: DocumentChangeType)], DocumentSnapshot?), Error>, ListenerRegistration){
         messageQuery(chatId: chatId, limit: 30)
             .addSnapshotListenerWithChangeType(as: Message.self)
     }

@@ -37,16 +37,9 @@ struct MainView: View {
                 ZStack {
                     switch router.currentTab{
                     case .chats:
-                        if let chatData = chatVM.selectedChat{
-                            DialogView(chatData: chatData,
-                                       currentUser: userManager.user,
-                                       onSetDraft: chatVM.onSetDraft)
-                        } else {
-                            Text("Choose chat")
-                        }
+                       currentDialogView
                     case .profile:
                         Text("User Profile")
-                        
                     case .settings:
                         Text("General Settings")
                     }
@@ -112,5 +105,26 @@ extension MainView{
     }
 }
 
-
-
+extension MainView{
+    
+    
+    @ViewBuilder
+    private var currentDialogView: some View{
+        if let chat = chatVM.selectedChat {
+            ZStack{
+                ForEach(chatVM.chatConversations) { chat in
+                    let onActive = chat.id == chatVM.selectedChat?.id
+                    DialogView(chatData: chat,
+                               currentUser: userManager.user,
+                               onAppear: onActive,
+                               onSetDraft: chatVM.onSetDraft)
+                    .background(Color(nsColor: .windowBackgroundColor))
+                    .zIndex(onActive ? 1 : -10)
+                }
+            }
+        }else{
+            Text("Choose chat")
+        }
+    }
+    
+}

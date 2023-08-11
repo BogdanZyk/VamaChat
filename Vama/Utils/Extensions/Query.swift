@@ -46,10 +46,10 @@ extension Query{
         return .init(publisher: publisher.eraseToAnyPublisher(), listener: listener)
     }
     
-    func addSnapshotListenerWithChangeType<T>(as type: T.Type) -> (AnyPublisher<([(item: T, type: DocumentChangeType)]), Error>, ListenerRegistration, DocumentSnapshot?) where T: Decodable, T: Hashable{
+    func addSnapshotListenerWithChangeType<T>(as type: T.Type) -> (AnyPublisher<([(item: T, type: DocumentChangeType)], DocumentSnapshot?), Error>, ListenerRegistration) where T: Decodable, T: Hashable{
         
-        let publisher = PassthroughSubject<([(item: T, type: DocumentChangeType)]), Error>()
-        var lastDoc: DocumentSnapshot?
+        let publisher = PassthroughSubject<([(item: T, type: DocumentChangeType)], DocumentSnapshot?), Error>()
+
         let listener = addSnapshotListener { querySnapshot, error in
             guard let changest = querySnapshot?.documentChanges else{
                 return
@@ -62,11 +62,9 @@ extension Query{
                 let type = $0.type
                 changeData.append((item: item, type: type))
             }
-            publisher.send(changeData)
-            lastDoc = changest.last?.document
-            
+            publisher.send((changeData, changest.last?.document))
         }
-        return (publisher.eraseToAnyPublisher(), listener, lastDoc)
+        return (publisher.eraseToAnyPublisher(), listener)
     }
     
     func startOptionally(afterDocument lastDoc: DocumentSnapshot?) -> Query{

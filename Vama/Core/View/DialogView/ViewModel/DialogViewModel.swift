@@ -60,19 +60,19 @@ class DialogViewModel: ObservableObject{
         resetBottomBarAction()
     }
           
-    func setChatDataAndRefetch(chatData: ChatConversation){
-        fbListeners.forEach({$0.cancel()})
-        bottomBarActionType = .empty
-        textMessage = chatData.draftMessage ?? ""
-        self.chatData = chatData
-        lastDoc = FBLastDoc()
-        messages = []
-        isActiveSelectedMode = false
-        fetchMessages(chatData.id)
-        startMessageListener()
-        startPinMessagesListener()
-        fetchTotalCountMessages()
-    }
+//    func setChatDataAndRefetch(chatData: ChatConversation){
+//        fbListeners.forEach({$0.cancel()})
+//        bottomBarActionType = .empty
+//        textMessage = chatData.draftMessage ?? ""
+//        self.chatData = chatData
+//        lastDoc = FBLastDoc()
+//        totalCountMessage = 0
+//        messages = []
+//        isActiveSelectedMode = false
+//        startMessageListener()
+//        startPinMessagesListener()
+//        fetchTotalCountMessages()
+//    }
     
     private func fetchMessages(_ chatId: String){
         Task{
@@ -177,7 +177,6 @@ extension DialogViewModel{
     func loadNextPage(_ messageId: String){
         if shouldNextPageLoader(messageId){
             withAnimation {
-                print("loadNextPage")
                 fetchMessages(chatData.id)
             }
         }
@@ -203,7 +202,7 @@ extension DialogViewModel{
     
     private func startMessageListener(){
         
-        let (publisher, listener, lastDoc) = messageService.addListenerForMessages(chatId: chatData.id)
+        let (publisher, listener) = messageService.addListenerForMessages(chatId: chatData.id)
         let fbListener = FBListener(listener: listener)
         fbListeners.append(fbListener)
         
@@ -214,7 +213,7 @@ extension DialogViewModel{
             case .failure(let error):
                 print(error.localizedDescription)
             }
-        } receiveValue: {[weak self] listenerData in
+        } receiveValue: {[weak self] listenerData, lastDoc in
             guard let self = self, let element = listenerData.last else {return}
             /// set messages by default
             if messages.isEmpty, self.lastDoc.lastDocument == nil{
@@ -330,8 +329,8 @@ extension DialogViewModel{
             mess.message = text
             let isUpdateLastMessage = message.id == messages.first?.id
             try await messageService.updateMessage(for: chatData.id, message: mess, isUpdateLastMessage: isUpdateLastMessage)
-//            guard let index = messages.firstIndex(where: {$0.id == message.id}) else {return}
-//            messages[index].message = mess
+            guard let index = messages.firstIndex(where: {$0.id == message.id}) else {return}
+            messages[index].message = mess
         }
     }
     

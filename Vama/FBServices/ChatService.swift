@@ -71,7 +71,7 @@ final class ChatServices{
             .first(where: {$0.participantsIds.contains(currentUserId)})
     }
     
-    func addChatListener(userId: String) ->(AnyPublisher<[(item: Chat, type: DocumentChangeType)], Error>, ListenerRegistration, DocumentSnapshot?){
+    func addChatListener(userId: String) ->(AnyPublisher<([(item: Chat, type: DocumentChangeType)], DocumentSnapshot?), Error>, ListenerRegistration){
         chatQuery(userId: userId, limit: nil)
             .addSnapshotListenerWithChangeType(as: Chat.self)
     }
