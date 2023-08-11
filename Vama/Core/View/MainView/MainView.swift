@@ -116,8 +116,7 @@ extension MainView{
                     let onActive = chat.id == chatVM.selectedChat?.id
                     DialogView(chatData: chat,
                                currentUser: userManager.user,
-                               onAppear: onActive,
-                               onSetDraft: chatVM.onSetDraft)
+                               onAppear: onActive)
                     .background(Color(nsColor: .windowBackgroundColor))
                     .zIndex(onActive ? 1 : -10)
                 }

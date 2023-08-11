@@ -23,6 +23,7 @@ final class ChatViewModel: ObservableObject{
     }
     
     init(){
+        setupPublishers()
         startChatsListener()
     }
     
@@ -30,24 +31,24 @@ final class ChatViewModel: ObservableObject{
         cancelBag.cancel()
         fbListener.cancel()
     }
+    
+    
+    private func setupPublishers(){
+        nc.publisher(for: .chatDraftMessage) { notification in
+            guard let object = notification.object as? UpdateMessageDraft else { return }
+            updateDraft(object)
+        }
+    }
 
-   private func startChatsListener(){
+    private func startChatsListener(){
         guard let currentUID else {return}
         let (pub, listener) = chatService.addChatListener(userId: currentUID)
-
+        
         self.fbListener.listener = listener
-
+        
         pub
-            .sink { completion in
-                switch completion{
-                case .finished:
-                    break
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            } receiveValue: { [weak self] listenerData, _ in
+            .sink { _ in } receiveValue: { [weak self] listenerData, _ in
                 guard let self = self else { return }
-
                 listenerData.forEach { element in
                     self.modifiedChat(chat: element.item, changeType: element.type)
                 }
@@ -146,9 +147,9 @@ extension ChatViewModel{
 //MARK: - Helpers
 extension ChatViewModel{
     
-    func onSetDraft(_ draftText: String?, id: String){
-        guard let index = chatConversations.firstIndex(where: {$0.id == id}) else {return}
-        chatConversations[index].draftMessage = draftText
+    func updateDraft(_ object: UpdateMessageDraft){
+        guard let index = chatConversations.firstIndex(where: {$0.id == object.chatId}) else {return}
+        chatConversations[index].draftMessage = object.message
     }
     
     private func removeChatLocal(for id: String){

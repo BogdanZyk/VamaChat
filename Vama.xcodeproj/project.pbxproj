@@ -57,6 +57,8 @@
 		5A4872A32A7CE7A100610359 /* ChatAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872A22A7CE7A100610359 /* ChatAction.swift */; };
 		5AADA1D02A86690C00D098E5 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1CF2A86690C00D098E5 /* Task.swift */; };
 		5AADA1D22A86697700D098E5 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1D12A86697700D098E5 /* NotificationCenter.swift */; };
+		5AADA1D42A866AC500D098E5 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1D32A866AC500D098E5 /* NotificationName.swift */; };
+		5AADA1D82A867A8D00D098E5 /* DialogViewModel+BottomActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1D72A867A8D00D098E5 /* DialogViewModel+BottomActionType.swift */; };
 		5ABC15882A7C4E7A0063128F /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15872A7C4E7A0063128F /* AuthView.swift */; };
 		5ABC158A2A7C4EE60063128F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC15892A7C4EE60063128F /* ContentView.swift */; };
 		5ABC158C2A7C50A20063128F /* DialogView+BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */; };
@@ -66,7 +68,6 @@
 		5AD635432A7E76B600FE0900 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635422A7E76B600FE0900 /* ChatService.swift */; };
 		5AD635472A7EFC7B00FE0900 /* FBTimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635462A7EFC7B00FE0900 /* FBTimestamp.swift */; };
 		5AD635492A7FB51700FE0900 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635482A7FB51700FE0900 /* MessageService.swift */; };
-		5AD6354B2A8013EC00FE0900 /* DialogViewModel+BottomActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6354A2A8013EC00FE0900 /* DialogViewModel+BottomActionType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +118,8 @@
 		5A4872A22A7CE7A100610359 /* ChatAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAction.swift; sourceTree = "<group>"; };
 		5AADA1CF2A86690C00D098E5 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		5AADA1D12A86697700D098E5 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
+		5AADA1D32A866AC500D098E5 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
+		5AADA1D72A867A8D00D098E5 /* DialogViewModel+BottomActionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DialogViewModel+BottomActionType.swift"; sourceTree = "<group>"; };
 		5ABC15872A7C4E7A0063128F /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		5ABC15892A7C4EE60063128F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+BottomBarView.swift"; sourceTree = "<group>"; };
@@ -126,7 +129,6 @@
 		5AD635422A7E76B600FE0900 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		5AD635462A7EFC7B00FE0900 /* FBTimestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTimestamp.swift; sourceTree = "<group>"; };
 		5AD635482A7FB51700FE0900 /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
-		5AD6354A2A8013EC00FE0900 /* DialogViewModel+BottomActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogViewModel+BottomActionType.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +298,7 @@
 				5A21B4E12A7D50C500CF00BB /* NsApp.swift */,
 				5AADA1CF2A86690C00D098E5 /* Task.swift */,
 				5AADA1D12A86697700D098E5 /* NotificationCenter.swift */,
+				5AADA1D32A866AC500D098E5 /* NotificationName.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -419,7 +422,7 @@
 			isa = PBXGroup;
 			children = (
 				5A48729D2A7BF41400610359 /* DialogViewModel.swift */,
-				5AD6354A2A8013EC00FE0900 /* DialogViewModel+BottomActionType.swift */,
+				5AADA1D72A867A8D00D098E5 /* DialogViewModel+BottomActionType.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -520,12 +523,12 @@
 				5A44A6862A77F64F00C04810 /* BlurView.swift in Sources */,
 				5A4872792A7BA6B100610359 /* DialogView.swift in Sources */,
 				5ABC158A2A7C4EE60063128F /* ContentView.swift in Sources */,
-				5AD6354B2A8013EC00FE0900 /* DialogViewModel+BottomActionType.swift in Sources */,
 				5A44A67D2A77EECE00C04810 /* MainView.swift in Sources */,
 				5A4872822A7BB4B800610359 /* String.swift in Sources */,
 				5ABC158C2A7C50A20063128F /* DialogView+BottomBarView.swift in Sources */,
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
 				5A326ABA2A7D239800629066 /* Query.swift in Sources */,
+				5AADA1D42A866AC500D098E5 /* NotificationName.swift in Sources */,
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
 				5A4872892A7BC9BE00610359 /* User.swift in Sources */,
 				5A21B4DE2A7D454A00CF00BB /* FbFirestore.swift in Sources */,
@@ -537,6 +540,7 @@
 				5A44A6782A77EE3600C04810 /* View.swift in Sources */,
 				5A326AC12A7D288400629066 /* Combine.swift in Sources */,
 				5A4872872A7BC98C00610359 /* Chat.swift in Sources */,
+				5AADA1D82A867A8D00D098E5 /* DialogViewModel+BottomActionType.swift in Sources */,
 				5A4872912A7BCC9F00610359 /* LazyNukeImage.swift in Sources */,
 				5A48729E2A7BF41400610359 /* DialogViewModel.swift in Sources */,
 				5A326ABD2A7D255F00629066 /* ProfileView.swift in Sources */,

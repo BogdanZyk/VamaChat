@@ -12,15 +12,12 @@ struct DialogView: View {
     
     @StateObject private var viewModel: DialogViewModel
     @State private var hiddenDownButton: Bool = false
-    var onSetDraft: ((String?, String) -> Void)?
     let currentUserId: String?
     let onAppear: Bool
     init(chatData: ChatConversation,
          currentUser: User?,
-         onAppear: Bool,
-         onSetDraft: ((String?, String) -> Void)? = nil){
+         onAppear: Bool){
         self._viewModel = StateObject(wrappedValue: DialogViewModel(chatData: chatData, currentUser: currentUser))
-        self.onSetDraft = onSetDraft
         self.currentUserId = currentUser?.id
         self.onAppear = onAppear
     }
@@ -54,14 +51,11 @@ struct DialogView: View {
         .fileImporter(isPresented: $viewModel.showFileExporter, allowedContentTypes: [.image]){result in
             print(result.map({$0.pathExtension}))
         }
+        .onAppear{
+            viewModel.onAppear = onAppear
+        }
         .onChange(of: onAppear) { onAppear in
-            if onAppear{
-
-            }else{
-                if !viewModel.textMessage.isEmptyStrWithSpace{
-                    onSetDraft?(viewModel.textMessage, viewModel.chatData.id)
-                }
-            }
+            viewModel.onAppear = onAppear
         }
     }
 }
