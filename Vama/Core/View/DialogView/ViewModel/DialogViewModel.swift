@@ -25,6 +25,7 @@ class DialogViewModel: ObservableObject {
     
     private let pasteboard = NSPasteboard.general
     private let messageService = MessageService.shared
+    private let chatService = ChatServices.shared
     private let userService = UserService.share
     private(set) var targetMessageId: String?
     private var cancelBag = CancelBag()
@@ -65,7 +66,8 @@ class DialogViewModel: ObservableObject {
             .debounce(for: 2, scheduler: DispatchQueue.main)
             .sink {[weak self] text in
                 guard let self = self else {return}
-                self.setDraft()
+                self.setDraft(remove: true)
+                self.updateChatAction()
             }
             .store(in: cancelBag)
     }
@@ -157,6 +159,14 @@ extension DialogViewModel {
             withAnimation {
                 fetchMessages(chatData.id)
             }
+        }
+    }
+    
+    func getDialogActionStr() -> String{
+        if let action = chatData.chat.action, action.status != .empty, action.fromId != currentUser?.id{
+           return action.status.title
+        }else{
+            return chatData.target?.status.statusStr ?? ""
         }
     }
     
@@ -277,6 +287,16 @@ extension DialogViewModel {
             removeMessageLocal(message.id)
         }
     }
+    
+    private func updateChatAction(){
+        guard let id = currentUser?.id else {return}
+        let isTyping = !textMessage.isEmpty
+        Task{
+            try await chatService.updateChatAction(
+                for: chatData.id,
+                action: .init(fromId: id, status: isTyping ? .typing : .empty))
+        }
+    }
 }
 
 //MARK: - Message actions
@@ -349,8 +369,10 @@ extension DialogViewModel {
         messages[index].changeStatus(status)
     }
     
-    private func setDraft() {
-        let object = UpdateMessageDraft(chatId: chatData.id, message: textMessage.isEmpty && textMessage.isEmptyStrWithSpace ? nil : textMessage)
+    private func setDraft(remove: Bool = false) {
+        let message = remove ? nil :
+        (textMessage.isEmpty && textMessage.isEmptyStrWithSpace ? nil : textMessage)
+        let object = UpdateMessageDraft(chatId: chatData.id, message: message)
         nc.post(name: .chatDraftMessage, object: object)
     }
 }

@@ -109,18 +109,6 @@ struct OnlineStatus: Codable, Hashable{
     }
 }
 
-struct Status: Codable, Hashable{
-    
-    var forChatId: String = ""
-    var status: Status = .empty
-    
-    enum Status: String, Codable{
-        case typing = "TYPING"
-        case empty = "EMPTY"
-        case upload = "UPLOAD"
-    }
-}
-
 struct ShortUser: Identifiable, Codable, Hashable{
     let id: String
     let fullName: String

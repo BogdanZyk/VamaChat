@@ -45,7 +45,7 @@ extension DialogView.NavBarView{
             VStack(alignment: .leading) {
                 Text(isPrivateChat ? (viewModel.chatData.target?.fullName ?? "") : viewModel.chatData.chat.title ?? "")
                     .font(.body.bold())
-                Text(viewModel.chatData.target?.status.statusStr ?? "")
+                Text(viewModel.getDialogActionStr())
                     .font(.system(size: 10, weight: .light))
             }
         }

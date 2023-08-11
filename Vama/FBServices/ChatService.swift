@@ -41,6 +41,16 @@ final class ChatServices{
         try await getChatDocument(for: id).updateData(dict)
     }
     
+    func updateChatAction(for id: String, action: ChatAction) async throws{
+        
+        let data = try Firestore.Encoder().encode(action)
+        
+        let dict: [String: Any] = [
+            Chat.CodingKeys.action.rawValue: data
+        ]
+        try await getChatDocument(for: id).updateData(dict)
+    }
+    
     func viewLastChatMessage(for id: String, uid: String)  async throws{
         let dict: [String: Any] = [
            "lastMessage.viewedIds": FieldValue.arrayUnion([uid])

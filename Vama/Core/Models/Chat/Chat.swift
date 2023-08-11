@@ -16,8 +16,8 @@ struct Chat: Identifiable, Codable{
     var createdAt = FBTimestamp()
     var title: String?
     var photo: String?
+    var action: ChatAction?
    
-    
     enum CodingKeys: String, CodingKey {
         case id
         case chatType
@@ -26,6 +26,7 @@ struct Chat: Identifiable, Codable{
         case createdAt
         case title
         case photo
+        case action
     }
 }
 
@@ -51,4 +52,25 @@ extension Chat{
     ]
 }
 
-
+struct ChatAction: Codable, Hashable{
+    
+    var fromId: String = ""
+    var status: Status = .empty
+    
+    enum Status: String, Codable{
+        case typing
+        case empty
+        case upload
+        
+        var title: String{
+            switch self{
+            case .typing:
+                return "typing..."
+            case .upload:
+                return "uploading photo..."
+            case .empty:
+                return ""
+            }
+        }
+    }
+}

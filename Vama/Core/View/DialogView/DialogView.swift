@@ -13,6 +13,7 @@ struct DialogView: View {
     @StateObject private var viewModel: DialogViewModel
     @State private var hiddenDownButton: Bool = false
     let currentUserId: String?
+    var chatData: ChatConversation
     let onAppear: Bool
     init(chatData: ChatConversation,
          currentUser: User?,
@@ -20,6 +21,7 @@ struct DialogView: View {
         self._viewModel = StateObject(wrappedValue: DialogViewModel(chatData: chatData, currentUser: currentUser))
         self.currentUserId = currentUser?.id
         self.onAppear = onAppear
+        self.chatData = chatData
     }
     
     var body: some View {
@@ -56,6 +58,9 @@ struct DialogView: View {
         }
         .onChange(of: onAppear) { onAppear in
             viewModel.onAppear = onAppear
+        }
+        .onChange(of: chatData) { newValue in
+            viewModel.chatData = chatData
         }
     }
 }
