@@ -36,6 +36,16 @@ extension Message{
         let usersIds = viewedIds.dropFirst()
         return usersIds.isEmpty ? false : viewedIds.contains(usersIds)
     }
+    
+    func getMessage() -> Message{
+        if let replyMessage = replyMessage?.first{
+            return replyMessage.message
+        }
+        if let forwardMessage = forwardMessages?.first{
+            return forwardMessage.message
+        }
+        return self
+    }
 }
 
 extension Message{

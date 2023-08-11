@@ -71,8 +71,7 @@ extension DialogView.BottomBarView{
                 VStack(alignment: .leading, spacing: 2) {
                     Text(isEditMode ? "Edit" : viewModel.getMessageSender(senderId: viewModel.bottomBarActionType.message?.fromId ?? "")?.fullName ?? "")
                         .font(.system(size: 14, weight: .medium))
-                    Text(viewModel.bottomBarActionType.message?.message ?? "")
-                        .font(.system(size: 14, weight: .light))
+                    message
                 }
                 
                 Spacer()
@@ -90,6 +89,15 @@ extension DialogView.BottomBarView{
             .zIndex(-1)
             .transition(.move(edge: .bottom).combined(with: .opacity))
         }
+    }
+    
+    private var message: some View{
+        Group{
+            if let message = viewModel.bottomBarActionType.message?.getMessage(){
+                Text(message.message ?? "")
+            }
+        }
+        .font(.system(size: 14, weight: .light))
     }
 }
 
