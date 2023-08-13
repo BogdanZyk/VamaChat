@@ -5,17 +5,29 @@
 //  Created by Bogdan Zykov on 03.08.2023.
 //
 
-import Foundation
+import SwiftUI
 
 struct MessageMedia: Identifiable, Codable, Hashable{
     var id: String = UUID().uuidString
     let type: MediaType
-    let path: String
+    var path: String
+    var thumbnail: NSImage?
+    
+    enum CodingKeys: CodingKey {
+        case id
+        case type
+        case path
+    }
+    
+    mutating func setPath(_ path: String){
+        self.path = path
+    }
 }
 
 
 extension MessageMedia{
-    enum MediaType: Codable{
+    enum MediaType: String, Codable{
         case image, video
     }
 }
+

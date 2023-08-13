@@ -43,7 +43,6 @@ struct MainView: View {
                     case .settings:
                         VStack {
                             Text("General Settings")
-                            MediaCollectionView()
                         }
                     }
                     

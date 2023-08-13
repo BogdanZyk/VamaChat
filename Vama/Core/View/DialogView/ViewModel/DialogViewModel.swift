@@ -107,7 +107,15 @@ extension DialogViewModel {
     private func sendMessage(replyMessage: [SubMessage]? = nil) {
         guard let currentUser else {return}
         print("Send message \(textMessage)")
-        let message = Message(id: UUID().uuidString, chatId: chatData.id, message: textMessage, fromId: currentUser.id, replyMessage: replyMessage, viewedIds: [currentUser.id])
+        
+        let message = Message(id: UUID().uuidString,
+                              chatId: chatData.id,
+                              message: textMessage,
+                              fromId: currentUser.id,
+                              replyMessage: replyMessage,
+                              media: [.init(type: .image, path: "https://www.onlygfx.com/wp-content/uploads/2017/06/pine-tree-silhouette-2-176x300.png")],
+                              viewedIds: [currentUser.id])
+        
         messages.insert(.init(message: message, loadState: .sending), at: 0)
         targetMessageId = message.id
         uploadMessage(chatId: chatData.id, message: message)

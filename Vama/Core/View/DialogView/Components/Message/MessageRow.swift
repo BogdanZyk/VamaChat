@@ -20,12 +20,11 @@ struct MessageRow: View {
     }
     
     var body: some View {
-        
         Group{
             if isShortMessage{
-                shortMessage
+                shortVersion
             }else{
-                fullMessage
+                fullVersion
             }
         }
         .foregroundColor(.white)
@@ -45,7 +44,6 @@ struct MessageRow: View {
 struct MessageRow_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 0) {
-            
             ForEach(Message.mocks) { message in
                 MessageRow(
                     sender: .mock,
@@ -53,21 +51,14 @@ struct MessageRow_Previews: PreviewProvider {
                     isShortMessage: false,
                     isActiveSelection: true){_, _ in}
             }
-            //MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!), isShortMessage: true){_, _ in}
+            MessageRow(sender: .mock, currentUserId: "1", dialogMessage: .init(message: Message.mocks.first!), isShortMessage: true, isActiveSelection: false){_, _ in}
         }
         .padding()
     }
 }
 
-
-enum RecipientType: String, Codable, Equatable {
-    case sent
-    case received
-}
-
-
 extension MessageRow{
-    private var fullMessage: some View{
+    private var fullVersion: some View{
         HStack(alignment: .top, spacing: 10) {
             AvatarView(image: sender?.image, size: .init(width: 30, height: 30))
             VStack(alignment: .leading, spacing: 3) {
@@ -75,98 +66,39 @@ extension MessageRow{
                     Text(sender?.fullName ?? "")
                         .font(.body.bold())
                     Spacer()
-                    messageTimeSection
-                    loaderStateView
+                    messageRightSection
                 }
                 if let forwardedMessage = dialogMessage.message.forwardMessages?.first{
                     forwardLabel
                     forwardMessage(message: forwardedMessage)
                 }else{
                     replyMessage
-                    messageText
+                    messageContent
                 }
             }
         }
     }
     
-    private var shortMessage: some View{
+    private var shortVersion: some View{
         HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading, spacing: 3) {
                 if let forwardedMessage = dialogMessage.message.forwardMessages?.first{
                     forwardMessage(message: forwardedMessage)
                 }else{
                     replyMessage
-                    messageText
+                    messageContent
                 }
             }
             .padding(.leading, 40)
             Spacer()
-            messageTimeSection
-            loaderStateView
+            messageRightSection
         }
-    }
-    
-    private var replyMessage: some View{
-        Group{
-            if let reply = dialogMessage.message.replyMessage?.first{
-                HStack{
-                    Rectangle()
-                        .fill(Color.cyan)
-                        .frame(width: 2, height: 30)
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(reply.user.fullName)
-                            .font(.body.weight(.medium))
-                        Text(reply.message.message ?? "")
-                            .lineLimit(1)
-                            .font(.system(size: 14, weight: .light))
-                    }
-                }
-                .padding(.bottom, 2)
-            }
-        }
-    }
-    
-    private var forwardLabel: some View{
-        Text("Forwarded messages")
-            .font(.caption)
-            .foregroundColor(.secondary)
-            .padding(.bottom, 5)
-    }
-    
-    private func forwardMessage(message: SubMessage) -> some View{
-        HStack{
-            Rectangle()
-                .fill(Color.cyan)
-                .frame(width: 2, height: 30)
-            VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    Text(message.user.fullName)
-                        .font(.body.weight(.medium))
-                    Text("\(message.message.createdAt.date.formatted(date: .abbreviated, time: .shortened))")
-                        .font(.system(size: 10, weight: .light))
-                        .foregroundColor(.secondary)
-                }
-                Text(message.message.message ?? "")
-                    .lineLimit(1)
-                    .font(.system(size: 14, weight: .light))
-            }
-        }
-        .padding(.bottom, 2)
     }
 }
 
 extension MessageRow{
-    
-    
-    @ViewBuilder
-    private var messageText: some View{
-        if let message = dialogMessage.message.message{
-            Text(message)
-                .font(.system(size: 14, weight: .light))
-        }
-    }
-    
-    private var messageTimeSection: some View{
+        
+    private var messageRightSection: some View{
         HStack(spacing: 5){
             if dialogMessage.message.pinned{
                 Image(systemName: "pin.fill")
@@ -185,6 +117,8 @@ extension MessageRow{
                 Image(systemName: dialogMessage.selected ? "checkmark.circle.fill" : "circle")
                     .foregroundColor(.cyan)
             }
+            
+            loaderStateView
         }
         .animation(.easeIn(duration: 0.2), value: isActiveSelection)
         .onTapGesture{

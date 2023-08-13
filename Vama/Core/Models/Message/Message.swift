@@ -23,11 +23,7 @@ struct Message: Identifiable, Hashable{
 }
 
 extension Message{
-    
-    func getRecipientType(currentUserId: String?) -> RecipientType{
-        fromId == currentUserId ? .sent : .received
-    }
-    
+        
     func viewMessage(for userId: String) -> Bool{
         viewedIds.contains(userId)
     }
