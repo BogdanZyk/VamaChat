@@ -41,7 +41,10 @@ struct MainView: View {
                     case .profile:
                         Text("User Profile")
                     case .settings:
-                        Text("General Settings")
+                        VStack {
+                            Text("General Settings")
+                            MediaCollectionView()
+                        }
                     }
                     
                 }
@@ -127,3 +130,5 @@ extension MainView{
     }
     
 }
+
+
