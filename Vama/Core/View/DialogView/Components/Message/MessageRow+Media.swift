@@ -18,7 +18,7 @@ extension MessageRow{
                 singleMedia(medias.first)
             }
         }
-        .frame(minWidth: 150, idealWidth: 180, maxWidth: 300, minHeight: 150, maxHeight: 800)
+        .frame(minWidth: 150, idealWidth: 180, maxWidth: 300, maxHeight: 800)
     }
     
     @ViewBuilder
@@ -55,6 +55,10 @@ extension MessageRow{
                 Image(nsImage: image)
                     .resizable()
                     .scaledToFit()
+                Color.black.opacity(0.2)
+                ProgressView()
+                    .tint(.white)
+                    .scaleEffect(1.2)
             }
         }
         .cornerRadius(5)

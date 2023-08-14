@@ -264,7 +264,6 @@ extension DialogViewModel {
                 let media = await uploadImagesIfNeeded(for: chatId, items: message.media ?? [])
                 var message = message
                 message.media = media
-                print(media)
                 try await messageService.sendMessage(for: chatData.id, message: message)
                 totalCountMessage += 1
                 changeMessageUploadStatusAndSetMedia(for: message.id, status: .completed, media: media)

@@ -46,8 +46,10 @@ struct LazyNukeImage: View {
                             .aspectRatio(contentMode: contentMode == .aspectFill ? .fill : .fit)
                     }else  if state.isLoading{
                         Color.gray
+                            .scaledToFill()
                     }else if let _ = state.error{
                         Color.gray
+                            .scaledToFill()
                     }
                 }
                 .processors([ImageProcessors.Resize.resize(size: resizeSize, unit: .points, contentMode: contentMode, crop: crop, upscale: upscale)])

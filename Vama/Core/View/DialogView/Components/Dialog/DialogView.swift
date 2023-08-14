@@ -9,7 +9,6 @@ import SwiftUI
 import Algorithms
 
 struct DialogView: View {
-    
     @State var images: [NSImage] = []
     @State var isTargeted: Bool = false
     @StateObject var viewModel: DialogViewModel
