@@ -102,6 +102,7 @@ extension DialogViewModel {
             sendMessage()
         }
         textMessage = ""
+        selectedImages = []
         resetBottomBarAction()
     }
     
@@ -225,9 +226,8 @@ extension DialogViewModel {
         selectedImages.removeAll(where: {$0.id == id})
     }
     
-    private func uploadImagesIfNeeded(for chatId: String) async -> [MessageMedia] {
-        guard !selectedImages.isEmpty else { return [] }
-        let media = try? await storageManager.uploadImagesMessage(images: selectedImages, chatId: chatId)
+    private func uploadImagesIfNeeded(for chatId: String, items: [MessageMedia]) async -> [MessageMedia] {
+        let media = try? await storageManager.uploadMessagePhotoMedia(images: items, chatId: chatId)
         return media ?? []
     }
 }
@@ -261,14 +261,13 @@ extension DialogViewModel {
         Task{
             do{
                 /// set media if needed
-                let media = await uploadImagesIfNeeded(for: chatId)
+                let media = await uploadImagesIfNeeded(for: chatId, items: message.media ?? [])
                 var message = message
                 message.media = media
                 print(media)
                 try await messageService.sendMessage(for: chatData.id, message: message)
                 totalCountMessage += 1
                 changeMessageUploadStatusAndSetMedia(for: message.id, status: .completed, media: media)
-                selectedImages = []
             }catch{
                 print(error.localizedDescription)
                 changeMessageUploadStatusAndSetMedia(for: message.id, status: .error, media: [])

@@ -13,7 +13,7 @@ struct AvatarView: View {
     var body: some View {
         Group{
             if let image{
-                LazyNukeImage(strUrl: image, resizingMode: .fill, loadPriority: .high)
+                LazyNukeImage(strUrl: image, contentMode: .aspectFill, loadPriority: .high)
             }else{
                 Image(systemName: "person.crop.circle.fill")
                     .resizable()

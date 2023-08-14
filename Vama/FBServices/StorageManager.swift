@@ -46,10 +46,11 @@ final class StorageManager {
         return storage.child(path).write(toFile: localURL)
     }
     
-    func uploadImagesMessage(images: [ImageItem], chatId: String) async throws -> [MessageMedia]{
+    func uploadMessagePhotoMedia(images: [MessageMedia], chatId: String) async throws -> [MessageMedia]{
         var medias: [MessageMedia] = []
         for try await item in SomeAsyncSequence(elements: images) {
-            let item = try await uploadImage(image: item.image, type: .messageImage, chatId: chatId)
+            guard let image = item.thumbnail else { continue }
+            let item = try await uploadImage(image: image, type: .messageImage, chatId: chatId)
             medias.append(.init(type: .image, item: item))
         }
         return medias

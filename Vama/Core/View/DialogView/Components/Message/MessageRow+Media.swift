@@ -18,7 +18,7 @@ extension MessageRow{
                 singleMedia(medias.first)
             }
         }
-        .frame(minWidth: 150, idealWidth: 180, maxWidth: 300, minHeight: 150, maxHeight: .infinity)
+        .frame(minWidth: 150, idealWidth: 180, maxWidth: 300, minHeight: 150, maxHeight: 800)
     }
     
     @ViewBuilder
@@ -49,14 +49,12 @@ extension MessageRow{
     @ViewBuilder
     private func makeMessagePhoto(media: MessageMedia, loadState: DialogMessage.LoadState) -> some View{
         ZStack{
-            if loadState == .completed{
-                Color.white
-                LazyNukeImage(strUrl: media.item?.fullPath, resizeHeight: 200, resizingMode: .fit, loadPriority: .normal)
-            }else if loadState == .sending, let image = media.thumbnail{
+            if loadState == .completed {
+                LazyNukeImage(strUrl: media.item?.fullPath, resizeSize: .init(width: 600, height: 800), contentMode: .aspectFit, loadPriority: .normal, crop: false)
+            } else if loadState == .sending, let image = media.thumbnail {
                 Image(nsImage: image)
                     .resizable()
-                    .scaledToFill()
-                    .clipped()
+                    .scaledToFit()
             }
         }
         .cornerRadius(5)
