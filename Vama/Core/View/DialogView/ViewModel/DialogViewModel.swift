@@ -19,6 +19,7 @@ class DialogViewModel: ObservableObject {
     @Published var pinMessageTrigger: Bool = false
     @Published var onAppear: Bool = false
     
+    @Published var selectedImages: [ImageItem] = []
     @Published private(set) var messages: [DialogMessage] = []
     @Published private(set) var isActiveSelectedMode: Bool = false
     @Published private(set) var pinnedMessages: [Message] = []
@@ -170,14 +171,14 @@ extension DialogViewModel {
         }
     }
     
-    func getDialogActionStr() -> String{
+    func getDialogActionStr() -> String {
         if let action = chatData.chat.action, action.status != .empty, action.fromId != currentUser?.id{
            return action.status.title
         }else{
             return chatData.target?.status.statusStr ?? ""
         }
     }
-    
+
     private func shouldNextPageLoader(_ messageId: String) -> Bool {
         (messages.last?.id == messageId) && totalCountMessage > messages.count
     }
@@ -193,6 +194,36 @@ extension DialogViewModel {
             return SubMessage(message: message, user: .init(id: user.id, fullName: user.fullName))
         }
     }
+}
+
+// MARK: - Message media logic
+extension DialogViewModel {
+    
+    func dropFiles(_ providers: [NSItemProvider]) -> Bool {
+        selectedImages = []
+        providers.forEach { provider in
+            if provider.canLoadObject(ofClass: URL.self){
+                let _ = provider.loadObject(ofClass: URL.self) { [weak self] url, error in
+                    guard let self = self else {return}
+                    if let url, let image = NSImage(contentsOf: url){
+                        DispatchQueue.main.async {
+                            self.selectedImages.append(.init(image: image))
+                        }
+                    }
+                }
+            }
+        }
+        return true
+    }
+    
+    func removeImages(){
+        selectedImages.removeAll()
+    }
+    
+    func removeImage(for id: String){
+        selectedImages.removeAll(where: {$0.id == id})
+    }
+    
 }
 
 // MARK: - Message service get, update and listener
@@ -467,4 +498,9 @@ struct DialogMessage: Identifiable {
 struct UpdateMessageDraft{
     var chatId: String
     var message: String?
+}
+
+struct ImageItem: Identifiable{
+    var id: String = UUID().uuidString
+    let image: NSImage
 }

@@ -76,6 +76,7 @@
 		5AFB72AD2A8A1A2B0032C3E1 /* DialogView+MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72AC2A8A1A2B0032C3E1 /* DialogView+MessageRow.swift */; };
 		5AFB72AF2A8A1B640032C3E1 /* DialogView+MessagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72AE2A8A1B640032C3E1 /* DialogView+MessagesList.swift */; };
 		5AFB72B12A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72B02A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift */; };
+		5AFB72B32A8A27E60032C3E1 /* DropModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72B22A8A27E60032C3E1 /* DropModalView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,6 +146,7 @@
 		5AFB72AC2A8A1A2B0032C3E1 /* DialogView+MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+MessageRow.swift"; sourceTree = "<group>"; };
 		5AFB72AE2A8A1B640032C3E1 /* DialogView+MessagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+MessagesList.swift"; sourceTree = "<group>"; };
 		5AFB72B02A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+ScrollToBottomButton.swift"; sourceTree = "<group>"; };
+		5AFB72B22A8A27E60032C3E1 /* DropModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropModalView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 				5AFB72AC2A8A1A2B0032C3E1 /* DialogView+MessageRow.swift */,
 				5AFB72AE2A8A1B640032C3E1 /* DialogView+MessagesList.swift */,
 				5AFB72B02A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift */,
+				5AFB72B22A8A27E60032C3E1 /* DropModalView.swift */,
 			);
 			path = Dialog;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				5A326ABA2A7D239800629066 /* Query.swift in Sources */,
 				5AADA1D42A866AC500D098E5 /* NotificationName.swift in Sources */,
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
+				5AFB72B32A8A27E60032C3E1 /* DropModalView.swift in Sources */,
 				5A4872892A7BC9BE00610359 /* User.swift in Sources */,
 				5A21B4DE2A7D454A00CF00BB /* FbFirestore.swift in Sources */,
 				5AADA1D02A86690C00D098E5 /* Task.swift in Sources */,

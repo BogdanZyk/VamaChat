@@ -10,6 +10,7 @@ import Algorithms
 
 struct DialogView: View {
     
+    @State var images: [NSImage] = []
     @State var isTargeted: Bool = false
     @StateObject var viewModel: DialogViewModel
     @State var hiddenDownButton: Bool = false
@@ -50,7 +51,7 @@ struct DialogView: View {
             BottomBarView()
         }
         .background(Color(nsColor: .windowBackgroundColor))
-        .overlay { dropOverlay }
+        .overlay { onDropOverlay }
         .environmentObject(viewModel)
         .animation(.easeOut(duration: 0.2), value: viewModel.bottomBarActionType.id)
         .onAppear{
@@ -65,17 +66,7 @@ struct DialogView: View {
         .fileImporter(isPresented: $viewModel.showFileExporter, allowedContentTypes: [.image]){result in
             print(result.map({$0.pathExtension}))
         }
-        .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
-            if let provider = providers.first(where: { $0.canLoadObject(ofClass: URL.self) } ) {
-                let _ = provider.loadObject(ofClass: URL.self) { object, error in
-                    if let url = object {
-                        print("url: \(url)")
-                    }
-                }
-                return true
-            }
-            return false
-        }
+        .onDrop(of: [.fileURL], isTargeted: $isTargeted, perform: viewModel.dropFiles)
     }
 }
 
@@ -88,10 +79,16 @@ struct DialogView_Previews: PreviewProvider {
 extension DialogView{
    
     @ViewBuilder
-    private var dropOverlay: some View{
-        if isTargeted{
+    private var onDropOverlay: some View {
+        if !viewModel.selectedImages.isEmpty{
+            ZStack{
+                Color.black.opacity(0.3)
+                DropModalView(viewModel: viewModel)
+            }
+        } else if isTargeted{
             Color.black.opacity(0.3)
         }
     }
     
 }
+
