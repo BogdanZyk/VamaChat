@@ -51,7 +51,7 @@ extension MessageRow{
         ZStack{
             if loadState == .completed{
                 Color.white
-                LazyNukeImage(strUrl: media.path, resizeHeight: 200, resizingMode: .fit, loadPriority: .normal)
+                LazyNukeImage(strUrl: media.item?.fullPath, resizeHeight: 200, resizingMode: .fit, loadPriority: .normal)
             }else if loadState == .sending, let image = media.thumbnail{
                 Image(nsImage: image)
                     .resizable()

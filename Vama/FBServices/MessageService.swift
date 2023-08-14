@@ -76,11 +76,19 @@ final class MessageService{
     
     func removeMessage(for chatId: String, message: Message, lastMessage: Message? = nil) async throws{
         try await getMessageCollectionRef(chatId: chatId).document(message.id).delete()
+        
         if let lastMessage{
             try await chatService.updateLastChatMessage(for: chatId, message: lastMessage)
         }
+        
         if message.pinned{
             try await unpinMessage(for: chatId, messageId: message.id, withUpdate: false)
+        }
+        
+        if let paths = message.media?.compactMap({$0.item?.path}){
+            for try await item in SomeAsyncSequence(elements: paths){
+                try? await StorageManager.shared.deleteAsset(path: item)
+            }
         }
     }
 }

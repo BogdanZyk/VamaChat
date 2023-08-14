@@ -77,6 +77,8 @@
 		5AFB72AF2A8A1B640032C3E1 /* DialogView+MessagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72AE2A8A1B640032C3E1 /* DialogView+MessagesList.swift */; };
 		5AFB72B12A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72B02A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift */; };
 		5AFB72B32A8A27E60032C3E1 /* DropModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72B22A8A27E60032C3E1 /* DropModalView.swift */; };
+		5AFB72B72A8A33D70032C3E1 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72B62A8A33D70032C3E1 /* StorageManager.swift */; };
+		5AFB72B92A8A46D90032C3E1 /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72B82A8A46D90032C3E1 /* NSImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +149,8 @@
 		5AFB72AE2A8A1B640032C3E1 /* DialogView+MessagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+MessagesList.swift"; sourceTree = "<group>"; };
 		5AFB72B02A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+ScrollToBottomButton.swift"; sourceTree = "<group>"; };
 		5AFB72B22A8A27E60032C3E1 /* DropModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropModalView.swift; sourceTree = "<group>"; };
+		5AFB72B62A8A33D70032C3E1 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		5AFB72B82A8A46D90032C3E1 /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +178,7 @@
 				5A326AB42A7D1D5500629066 /* UserManager.swift */,
 				5AD635422A7E76B600FE0900 /* ChatService.swift */,
 				5AD635482A7FB51700FE0900 /* MessageService.swift */,
+				5AFB72B62A8A33D70032C3E1 /* StorageManager.swift */,
 			);
 			path = FBServices;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				5AADA1CF2A86690C00D098E5 /* Task.swift */,
 				5AADA1D12A86697700D098E5 /* NotificationCenter.swift */,
 				5AADA1D32A866AC500D098E5 /* NotificationName.swift */,
+				5AFB72B82A8A46D90032C3E1 /* NSImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -567,6 +573,7 @@
 				5A4872792A7BA6B100610359 /* DialogView.swift in Sources */,
 				5ABC158A2A7C4EE60063128F /* ContentView.swift in Sources */,
 				5A44A67D2A77EECE00C04810 /* MainView.swift in Sources */,
+				5AFB72B92A8A46D90032C3E1 /* NSImage.swift in Sources */,
 				5A4872822A7BB4B800610359 /* String.swift in Sources */,
 				5ABC158C2A7C50A20063128F /* DialogView+BottomBarView.swift in Sources */,
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
@@ -616,6 +623,7 @@
 				5A326AC52A7D338900629066 /* SearchTextField.swift in Sources */,
 				5AD635432A7E76B600FE0900 /* ChatService.swift in Sources */,
 				5A4872A32A7CE7A100610359 /* ChatAction.swift in Sources */,
+				5AFB72B72A8A33D70032C3E1 /* StorageManager.swift in Sources */,
 				5A326AAA2A7CFA7200629066 /* UserService.swift in Sources */,
 				5A326AA22A7CF79300629066 /* AuthenticationManager.swift in Sources */,
 				5A33D9032A898EDD0084B620 /* MessageRow+Content.swift in Sources */,

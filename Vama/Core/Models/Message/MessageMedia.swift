@@ -10,17 +10,13 @@ import SwiftUI
 struct MessageMedia: Identifiable, Codable, Hashable{
     var id: String = UUID().uuidString
     let type: MediaType
-    var path: String
+    var item: StorageItem?
     var thumbnail: NSImage?
     
     enum CodingKeys: CodingKey {
         case id
         case type
-        case path
-    }
-    
-    mutating func setPath(_ path: String){
-        self.path = path
+        case item
     }
 }
 

@@ -28,6 +28,7 @@ class DialogViewModel: ObservableObject {
     private let messageService = MessageService.shared
     private let chatService = ChatServices.shared
     private let userService = UserService.share
+    private let storageManager = StorageManager.shared
     private(set) var targetMessageId: String?
     private var cancelBag = CancelBag()
     private var fbListeners: [FBListener] = []
@@ -114,7 +115,7 @@ extension DialogViewModel {
                               message: textMessage,
                               fromId: currentUser.id,
                               replyMessage: replyMessage,
-                              media: [.init(type: .image, path: "https://www.onlygfx.com/wp-content/uploads/2017/06/pine-tree-silhouette-2-176x300.png")],
+                              media: selectedImages.map({$0.getThumbnailMedia()}),
                               viewedIds: [currentUser.id])
         
         messages.insert(.init(message: message, loadState: .sending), at: 0)
@@ -216,14 +217,19 @@ extension DialogViewModel {
         return true
     }
     
-    func removeImages(){
+    func removeImages() {
         selectedImages.removeAll()
     }
     
-    func removeImage(for id: String){
+    func removeImage(for id: String) {
         selectedImages.removeAll(where: {$0.id == id})
     }
     
+    private func uploadImagesIfNeeded(for chatId: String) async -> [MessageMedia] {
+        guard !selectedImages.isEmpty else { return [] }
+        let media = try? await storageManager.uploadImagesMessage(images: selectedImages, chatId: chatId)
+        return media ?? []
+    }
 }
 
 // MARK: - Message service get, update and listener
@@ -254,12 +260,18 @@ extension DialogViewModel {
     private func uploadMessage(chatId: String, message: Message) {
         Task{
             do{
+                /// set media if needed
+                let media = await uploadImagesIfNeeded(for: chatId)
+                var message = message
+                message.media = media
+                print(media)
                 try await messageService.sendMessage(for: chatData.id, message: message)
                 totalCountMessage += 1
-                changeMessageUploadStatus(for: message.id, status: .completed)
+                changeMessageUploadStatusAndSetMedia(for: message.id, status: .completed, media: media)
+                selectedImages = []
             }catch{
                 print(error.localizedDescription)
-                changeMessageUploadStatus(for: message.id, status: .error)
+                changeMessageUploadStatusAndSetMedia(for: message.id, status: .error, media: [])
             }
         }
     }
@@ -403,9 +415,10 @@ extension DialogViewModel {
         self.totalCountMessage -= 1
     }
     
-    private func changeMessageUploadStatus(for id: String, status: DialogMessage.LoadState) {
+    private func changeMessageUploadStatusAndSetMedia(for id: String, status: DialogMessage.LoadState, media: [MessageMedia]) {
         guard let index = messages.firstIndex(where: {$0.id == id}) else {return}
         messages[index].changeStatus(status)
+        messages[index].message.media = media
     }
     
     private func setDraft(remove: Bool = false) {
@@ -500,7 +513,11 @@ struct UpdateMessageDraft{
     var message: String?
 }
 
-struct ImageItem: Identifiable{
+struct ImageItem: Identifiable, Hashable{
     var id: String = UUID().uuidString
     let image: NSImage
+    
+    func getThumbnailMedia() -> MessageMedia{
+        return .init(type: .image, item: nil, thumbnail: image)
+    }
 }
