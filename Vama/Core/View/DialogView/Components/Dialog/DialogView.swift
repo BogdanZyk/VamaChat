@@ -10,8 +10,9 @@ import Algorithms
 
 struct DialogView: View {
     
-    @StateObject private var viewModel: DialogViewModel
-    @State private var hiddenDownButton: Bool = false
+    @State var isTargeted: Bool = false
+    @StateObject var viewModel: DialogViewModel
+    @State var hiddenDownButton: Bool = false
     let currentUserId: String?
     var chatData: ChatConversation
     let onAppear: Bool
@@ -27,7 +28,7 @@ struct DialogView: View {
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(.vertical, showsIndicators: true) {
-                messagesSection
+                messagesList
                     .padding()
             }
             .flippedUpsideDown()
@@ -35,10 +36,10 @@ struct DialogView: View {
                 scrollTo(proxy, id: id)
             }
             .overlay(alignment: .bottomTrailing) {
-                downButton(proxy)
+                scrollToBottomButton(proxy)
             }
             .onChange(of: viewModel.pinMessageTrigger) { _ in
-                scrollTo(proxy, id: viewModel.pinnedMessages.last?.id ?? "")
+                scrollTo(proxy, id: viewModel.pinnedMessages.last?.id)
             }
         }
         .animation(.easeOut(duration: 0.2), value: viewModel.targetMessageId)
@@ -48,11 +49,10 @@ struct DialogView: View {
         .safeAreaInset(edge: .bottom, alignment: .center, spacing: 0) {
             BottomBarView()
         }
+        .background(Color(nsColor: .windowBackgroundColor))
+        .overlay { dropOverlay }
         .environmentObject(viewModel)
         .animation(.easeOut(duration: 0.2), value: viewModel.bottomBarActionType.id)
-        .fileImporter(isPresented: $viewModel.showFileExporter, allowedContentTypes: [.image]){result in
-            print(result.map({$0.pathExtension}))
-        }
         .onAppear{
             viewModel.onAppear = onAppear
         }
@@ -61,6 +61,20 @@ struct DialogView: View {
         }
         .onChange(of: chatData) { newValue in
             viewModel.chatData = chatData
+        }
+        .fileImporter(isPresented: $viewModel.showFileExporter, allowedContentTypes: [.image]){result in
+            print(result.map({$0.pathExtension}))
+        }
+        .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
+            if let provider = providers.first(where: { $0.canLoadObject(ofClass: URL.self) } ) {
+                let _ = provider.loadObject(ofClass: URL.self) { object, error in
+                    if let url = object {
+                        print("url: \(url)")
+                    }
+                }
+                return true
+            }
+            return false
         }
     }
 }
@@ -71,104 +85,13 @@ struct DialogView_Previews: PreviewProvider {
     }
 }
 
-
 extension DialogView{
-    
-    private var messagesSection: some View{
-        LazyVStack(spacing: 0, pinnedViews: .sectionFooters){
-            let chunkedMessages = viewModel.messages.chunked(by: {$0.message.createdAt.date.isSameDay(as: $1.message.createdAt.date)})
-            ForEach(chunkedMessages.indices, id: \.self){ index in
-                Section {
-                    let messages = chunkedMessages[index]
-                    ForEach(messages.indices, id: \.self) { index in
-                        ///One message after another from the same user
-                        let isOneByOne = isOneByOneMessages(messages, index: index)
-                        
-                        messageRow(messages[index], isOneByOne: isOneByOne)
-                    }
-                } footer: {
-                    if let date = chunkedMessages[index].first?.message.createdAt.date{
-                        messagesDateLabel(date)
-                    }
-                }
-            }
-        }
-    }
-    
-    private func messageRow(_ dialogMessage: DialogMessage, isOneByOne: Bool) -> some View{
-        MessageRow(
-            sender: viewModel.getMessageSender(senderId: dialogMessage.message.fromId),
-            currentUserId: currentUserId,
-            dialogMessage: dialogMessage,
-            isShortMessage: isOneByOne,
-            isActiveSelection: viewModel.isActiveSelectedMode,
-            onActionMessage: viewModel.messageAction)
-        
-        .id(dialogMessage.message.id)
-        .flippedUpsideDown()
-        .onAppear{
-            viewModel.viewMessage(dialogMessage.message)
-            viewModel.loadNextPage(dialogMessage.message.id)
-            hiddenOrUnhiddenDownButton(dialogMessage.message.id, hidden: true)
-        }
-        .onDisappear{
-            hiddenOrUnhiddenDownButton(dialogMessage.message.id, hidden: false)
-        }
-    }
-    
-    private func messagesDateLabel(_ date: Date) -> some View{
-        Text(date.toFormatDate().capitalized)
-            .font(.footnote.weight(.medium))
-            .foregroundColor(.secondary)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 5)
-            .background(Material.ultraThinMaterial, in: Capsule())
-            .padding(.vertical, 5)
-            .flippedUpsideDown()
-    }
-    
-    private func isOneByOneMessages(_ messages: ArraySlice<DialogMessage>, index: Int) -> Bool {
-        guard index >= 0 && index < messages.count - 1 else {
-            return false
-        }
-        return messages[index].message.fromId == messages[index + 1].message.fromId
-    }
-
-}
-
-extension DialogView{
-    private func hiddenOrUnhiddenDownButton(_ messageId: String, hidden: Bool){
-        if messageId == viewModel.messages.first?.id{
-            withAnimation {
-                hiddenDownButton = hidden
-            }
-        }
-    }
-    
+   
     @ViewBuilder
-    private func downButton(_ proxy: ScrollViewProxy) -> some View{
-        if let id = viewModel.messages.first?.id, !hiddenDownButton{
-            Button {
-                scrollTo(proxy, id: id)
-            } label: {
-                Image(systemName: "chevron.down")
-                    .padding(10)
-                    .background(Color(nsColor: .windowBackgroundColor), in: Circle())
-                    .overlay {
-                        Circle()
-                            .stroke(lineWidth: 1)
-                    }
-                    .foregroundColor(.white)
-                    .padding(.bottom, 10)
-                    .padding(.trailing, 5)
-            }
-            .buttonStyle(.plain)
+    private var dropOverlay: some View{
+        if isTargeted{
+            Color.black.opacity(0.3)
         }
     }
     
-    private func scrollTo(_ proxy: ScrollViewProxy, id: String?){
-        withAnimation {
-            proxy.scrollTo(id)
-        }
-    }
 }

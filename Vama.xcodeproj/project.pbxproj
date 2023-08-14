@@ -73,6 +73,9 @@
 		5AD635432A7E76B600FE0900 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635422A7E76B600FE0900 /* ChatService.swift */; };
 		5AD635472A7EFC7B00FE0900 /* FBTimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635462A7EFC7B00FE0900 /* FBTimestamp.swift */; };
 		5AD635492A7FB51700FE0900 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD635482A7FB51700FE0900 /* MessageService.swift */; };
+		5AFB72AD2A8A1A2B0032C3E1 /* DialogView+MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72AC2A8A1A2B0032C3E1 /* DialogView+MessageRow.swift */; };
+		5AFB72AF2A8A1B640032C3E1 /* DialogView+MessagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72AE2A8A1B640032C3E1 /* DialogView+MessagesList.swift */; };
+		5AFB72B12A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB72B02A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,6 +142,9 @@
 		5AD635422A7E76B600FE0900 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		5AD635462A7EFC7B00FE0900 /* FBTimestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTimestamp.swift; sourceTree = "<group>"; };
 		5AD635482A7FB51700FE0900 /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
+		5AFB72AC2A8A1A2B0032C3E1 /* DialogView+MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+MessageRow.swift"; sourceTree = "<group>"; };
+		5AFB72AE2A8A1B640032C3E1 /* DialogView+MessagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+MessagesList.swift"; sourceTree = "<group>"; };
+		5AFB72B02A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DialogView+ScrollToBottomButton.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +238,9 @@
 				5A4872782A7BA6B100610359 /* DialogView.swift */,
 				5ABC15912A7C60860063128F /* DialogView+NavbarView.swift */,
 				5ABC158B2A7C50A20063128F /* DialogView+BottomBarView.swift */,
+				5AFB72AC2A8A1A2B0032C3E1 /* DialogView+MessageRow.swift */,
+				5AFB72AE2A8A1B640032C3E1 /* DialogView+MessagesList.swift */,
+				5AFB72B02A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift */,
 			);
 			path = Dialog;
 			sourceTree = "<group>";
@@ -580,6 +589,7 @@
 				5A326ABD2A7D255F00629066 /* ProfileView.swift in Sources */,
 				5A326AB02A7D001500629066 /* ErrorHandler.swift in Sources */,
 				5A33D8FC2A898B7B0084B620 /* MediaAlbum.swift in Sources */,
+				5AFB72AD2A8A1A2B0032C3E1 /* DialogView+MessageRow.swift in Sources */,
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
 				5A21B4E02A7D4BBD00CF00BB /* SearchViewModel.swift in Sources */,
 				5ABC15882A7C4E7A0063128F /* AuthView.swift in Sources */,
@@ -591,6 +601,7 @@
 				5ABC15942A7C687D0063128F /* ChatConversation.swift in Sources */,
 				5A326AB52A7D1D5500629066 /* UserManager.swift in Sources */,
 				5ABC158E2A7C5A620063128F /* MessageAction.swift in Sources */,
+				5AFB72B12A8A1CAD0032C3E1 /* DialogView+ScrollToBottomButton.swift in Sources */,
 				5A326AB22A7D004A00629066 /* AuthenticationViewModel.swift in Sources */,
 				5AD635472A7EFC7B00FE0900 /* FBTimestamp.swift in Sources */,
 				5AADA1D22A86697700D098E5 /* NotificationCenter.swift in Sources */,
@@ -608,6 +619,7 @@
 				5AD635492A7FB51700FE0900 /* MessageService.swift in Sources */,
 				5A48729B2A7BF2A000610359 /* ChatViewModel.swift in Sources */,
 				5A44A6832A77F16C00C04810 /* MainTab.swift in Sources */,
+				5AFB72AF2A8A1B640032C3E1 /* DialogView+MessagesList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

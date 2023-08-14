@@ -47,32 +47,8 @@ struct MainView: View {
                     }
                     
                 }
-                .navigationDestination(for: String.self) { text in
-                    Text(verbatim: text)
-                }
             }
         }
-        
-//        NavigationView {
-//
-//            HStack(spacing: 16){
-//                tabView
-//
-//                ZStack{
-//                    switch router.currentTab{
-//                    case .chats:
-//                        ChatsView()
-//
-//                    case .profile:
-//                        Text("Profile")
-//                    case .settings:
-//                        Text("Settings")
-//                    }
-//                }
-//                .frame(maxWidth: .infinity, maxHeight: .infinity)
-//            }
-//        }
-        //.ignoresSafeArea(.all)
         .frame(minWidth: getRect().width / 3, minHeight: getRect().height / 1.8)
         .environmentObject(router)
         .environmentObject(userManager)
@@ -119,7 +95,6 @@ extension MainView{
                     DialogView(chatData: chat,
                                currentUser: userManager.user,
                                onAppear: onActive)
-                    .background(Color(nsColor: .windowBackgroundColor))
                     .zIndex(onActive ? 1 : -10)
                 }
             }
