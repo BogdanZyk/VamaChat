@@ -27,7 +27,6 @@ struct MainView: View {
                     ProfileView()
                 case .settings:
                     Text("Settings")
-                    
                 }
             }
             .navigationSplitViewColumnWidth(min: 220, ideal: 220, max: 380)
@@ -48,6 +47,7 @@ struct MainView: View {
                     
                 }
             }
+            .navigationSplitViewColumnWidth(min: 400, ideal: 600)
         }
         .frame(minWidth: getRect().width / 3, minHeight: getRect().height / 1.8)
         .environmentObject(router)

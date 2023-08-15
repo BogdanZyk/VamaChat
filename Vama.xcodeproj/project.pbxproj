@@ -60,6 +60,7 @@
 		5A48729E2A7BF41400610359 /* DialogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48729D2A7BF41400610359 /* DialogViewModel.swift */; };
 		5A4872A12A7BF63400610359 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 5A4872A02A7BF63400610359 /* Algorithms */; };
 		5A4872A32A7CE7A100610359 /* ChatAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872A22A7CE7A100610359 /* ChatAction.swift */; };
+		5A7A4D712A8BD1B10035BD20 /* ChatRowView+LastMessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4D702A8BD1B10035BD20 /* ChatRowView+LastMessagePreview.swift */; };
 		5AADA1D02A86690C00D098E5 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1CF2A86690C00D098E5 /* Task.swift */; };
 		5AADA1D22A86697700D098E5 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1D12A86697700D098E5 /* NotificationCenter.swift */; };
 		5AADA1D42A866AC500D098E5 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1D32A866AC500D098E5 /* NotificationName.swift */; };
@@ -132,6 +133,7 @@
 		5A48729A2A7BF2A000610359 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		5A48729D2A7BF41400610359 /* DialogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewModel.swift; sourceTree = "<group>"; };
 		5A4872A22A7CE7A100610359 /* ChatAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAction.swift; sourceTree = "<group>"; };
+		5A7A4D702A8BD1B10035BD20 /* ChatRowView+LastMessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatRowView+LastMessagePreview.swift"; sourceTree = "<group>"; };
 		5AADA1CF2A86690C00D098E5 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		5AADA1D12A86697700D098E5 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		5AADA1D32A866AC500D098E5 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 			children = (
 				5A4872842A7BC91300610359 /* ChatRowView.swift */,
 				5A326AC42A7D338900629066 /* SearchTextField.swift */,
+				5A7A4D702A8BD1B10035BD20 /* ChatRowView+LastMessagePreview.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -625,6 +628,7 @@
 				5A4872A32A7CE7A100610359 /* ChatAction.swift in Sources */,
 				5AFB72B72A8A33D70032C3E1 /* StorageManager.swift in Sources */,
 				5A326AAA2A7CFA7200629066 /* UserService.swift in Sources */,
+				5A7A4D712A8BD1B10035BD20 /* ChatRowView+LastMessagePreview.swift in Sources */,
 				5A326AA22A7CF79300629066 /* AuthenticationManager.swift in Sources */,
 				5A33D9032A898EDD0084B620 /* MessageRow+Content.swift in Sources */,
 				5A326ABF2A7D256500629066 /* ProfileViewModel.swift in Sources */,

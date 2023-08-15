@@ -71,41 +71,6 @@ extension ChatRowView{
         }
     }
     
-    private var chatLastMessagePreview: some View{
-        HStack(alignment: .bottom) {
-            Group{
-                if let draft = chatData.draftMessage{
-                    HStack(alignment: .top, spacing: 2){
-                        Text("Draft:")
-                            .foregroundColor(.red)
-                        Text(draft)
-                    }
-                }else{
-                    
-                    if let message = chatData.chat.lastMessage?.message{
-                        Text(message)
-                    } else if let medias = chatData.chat.lastMessage?.media{
-                        if let path = medias.first?.item?.fullPath{
-                            HStack {
-                                LazyNukeImage(strUrl: path)
-                                    .cornerRadius(5)
-                                    .frame(width: 16, height: 16)
-                                Text("\(medias.count) photo")
-                            }
-                        }
-                    }
-                }
-            }
-            .font(.caption.weight(.light))
-            Spacer()
-            if let currentUID, !(chatData.chat.lastMessage?.viewMessage(for: currentUID) ?? true){
-                Circle()
-                    .fill(Color.blue)
-                    .frame(width: 10, height: 10)
-            }
-        }
-    }
-    
     private var contextMenuContent: some View{
         ForEach(ChatContextAction.allCases, id: \.self) { type in
             Button {
