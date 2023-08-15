@@ -62,9 +62,7 @@ struct DialogView: View {
         .onChange(of: chatData) { newValue in
             viewModel.chatData = chatData
         }
-        .fileImporter(isPresented: $viewModel.showFileExporter, allowedContentTypes: [.image]){result in
-            print(result.map({$0.pathExtension}))
-        }
+        .fileImporter(isPresented: $viewModel.showFileExporter, allowedContentTypes: [.image], allowsMultipleSelection: true, onCompletion: viewModel.selectImageFromImporter)
         .onDrop(of: [.fileURL], isTargeted: $isTargeted, perform: viewModel.dropFiles)
     }
 }

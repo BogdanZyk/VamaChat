@@ -18,7 +18,7 @@ extension MessageRow{
                 singleMedia(medias.first)
             }
         }
-        .frame(minWidth: 150, idealWidth: 180, maxWidth: 300, maxHeight: 800)
+        .frame(minWidth: 150, idealWidth: 180, maxWidth: 300, maxHeight: 600)
     }
     
     @ViewBuilder

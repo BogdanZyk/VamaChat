@@ -218,6 +218,22 @@ extension DialogViewModel {
         return true
     }
     
+    func selectImageFromImporter(_ res: Result<[URL], Error>){
+        switch res {
+        case .success(let urls):
+            urls.forEach {[weak self] url in
+                guard let self = self else {return}
+                if let image = NSImage(contentsOf: url){
+                    DispatchQueue.main.async {
+                        self.selectedImages.append(.init(image: image))
+                    }
+                }
+            }
+        case .failure(let failure):
+            print(failure.localizedDescription)
+        }
+    }
+    
     func removeImages() {
         selectedImages.removeAll()
     }
@@ -410,7 +426,8 @@ extension DialogViewModel {
     
     private func removeMessageLocal(_ messageId: String) {
         messages.removeAll(where: {$0.id == messageId})
-        self.totalCountMessage -= 1
+        totalCountMessage -= 1
+        targetMessageId = messages.last?.id
     }
     
     private func changeMessageUploadStatusAndSetMedia(for id: String, status: DialogMessage.LoadState, media: [MessageMedia]) {
