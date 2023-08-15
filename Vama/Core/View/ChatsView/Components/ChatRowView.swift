@@ -81,7 +81,10 @@ extension ChatRowView{
                         Text(draft)
                     }
                 }else{
-                    if let medias = chatData.chat.lastMessage?.media{
+                    
+                    if let message = chatData.chat.lastMessage?.message{
+                        Text(message)
+                    } else if let medias = chatData.chat.lastMessage?.media{
                         if let path = medias.first?.item?.fullPath{
                             HStack {
                                 LazyNukeImage(strUrl: path)
@@ -90,8 +93,6 @@ extension ChatRowView{
                                 Text("\(medias.count) photo")
                             }
                         }
-                    }else{
-                        Text(chatData.chat.lastMessage?.message ?? "")
                     }
                 }
             }
