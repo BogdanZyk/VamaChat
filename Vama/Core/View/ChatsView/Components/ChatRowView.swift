@@ -20,34 +20,8 @@ struct ChatRowView: View {
         HStack(alignment: .top, spacing: 10){
             chatPhoto
             VStack(alignment: .leading, spacing: 3){
-                HStack {
-                    chatTitle
-                    Spacer()
-                    if let date = chatData.chat.lastMessage?.createdAt.date{
-                        Text("\(date.formatted(date: .omitted, time: .shortened))")
-                            .font(.system(size: 10, weight: .light))
-                    }
-                }
-                HStack(alignment: .bottom) {
-                    Group{
-                        if let draft = chatData.draftMessage{
-                            HStack(alignment: .top, spacing: 2){
-                                Text("Draft:")
-                                    .foregroundColor(.red)
-                                Text(draft)
-                            }
-                        }else{
-                            Text(chatData.chat.lastMessage?.message ?? "")
-                        }
-                    }
-                    .font(.caption.weight(.light))
-                    Spacer()
-                    if let currentUID, !(chatData.chat.lastMessage?.viewMessage(for: currentUID) ?? false){
-                        Circle()
-                            .fill(Color.blue)
-                            .frame(width: 10, height: 10)
-                    }
-                }
+                chatInfo
+                chatLastMessagePreview
             }
         }
         .hLeading()
@@ -86,6 +60,50 @@ extension ChatRowView{
             .font(.body.bold())
     }
     
+    private var chatInfo: some View{
+        HStack {
+            chatTitle
+            Spacer()
+            if let date = chatData.chat.lastMessage?.createdAt.date{
+                Text("\(date.formatted(date: .omitted, time: .shortened))")
+                    .font(.system(size: 10, weight: .light))
+            }
+        }
+    }
+    
+    private var chatLastMessagePreview: some View{
+        HStack(alignment: .bottom) {
+            Group{
+                if let draft = chatData.draftMessage{
+                    HStack(alignment: .top, spacing: 2){
+                        Text("Draft:")
+                            .foregroundColor(.red)
+                        Text(draft)
+                    }
+                }else{
+                    if let medias = chatData.chat.lastMessage?.media{
+                        if let path = medias.first?.item?.fullPath{
+                            HStack {
+                                LazyNukeImage(strUrl: path)
+                                    .cornerRadius(5)
+                                    .frame(width: 16, height: 16)
+                                Text("\(medias.count) photo")
+                            }
+                        }
+                    }else{
+                        Text(chatData.chat.lastMessage?.message ?? "")
+                    }
+                }
+            }
+            .font(.caption.weight(.light))
+            Spacer()
+            if let currentUID, !(chatData.chat.lastMessage?.viewMessage(for: currentUID) ?? true){
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 10, height: 10)
+            }
+        }
+    }
     
     private var contextMenuContent: some View{
         ForEach(ChatContextAction.allCases, id: \.self) { type in
