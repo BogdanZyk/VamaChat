@@ -45,10 +45,10 @@ final class AuthenticationViewModel: ObservableObject{
 
 extension AuthenticationViewModel{
     
-    func singUpWithEmail(email: String, pass: String, nickname: String) async{
+    func singUpWithEmail(email: String, pass: String, firstName: String) async{
         showLoader = true
         do{
-            try await manager.createUser(email: email, pass: pass, nickname: "@\(nickname)")
+            try await manager.createUser(email: email, pass: pass, firstName: firstName)
             handleResult()
         }catch{
             print("ERROR", error)

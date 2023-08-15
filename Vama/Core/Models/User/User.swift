@@ -13,11 +13,11 @@ import Foundation
 struct User: Identifiable, Codable, Hashable{
     
     let id: String
-    let username: String
+    let firstName: String
+    var username: String?
     let email: String?
     var createdAt = FBTimestamp()
     var profileImage: StorageItem?
-    var firstName: String?
     var lastName: String?
     var bio: String?
     var status = OnlineStatus()
@@ -39,10 +39,10 @@ struct User: Identifiable, Codable, Hashable{
 
 extension User{
     static let mock = User(id: "fTSwHTmYHkeYvfsWASMpEDlwGmg2",
+                           firstName:"Alex",
                            username: "@Tester",
                            email: "test@test.cpm",
                            profileImage: .init(path: "", fullPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_KIEkMvsIZEmzG7Og_h3SJ4T3HsE2rqm3_w&usqp=CAU"),
-                           firstName:"Alex",
                            lastName: "Tsimikas",
                            bio: "Writer by Profession. Artist by Passion!")
 }
@@ -70,7 +70,7 @@ extension User{
 
 
     func getInfo() -> UserInfo{
-        .init(id: id, username: username, firstName: firstName ?? "", lastName: lastName ?? "", bio: bio ?? "")
+        .init(id: id, username: username ?? "", firstName: firstName, lastName: lastName ?? "", bio: bio ?? "")
     }
 }
 
@@ -112,14 +112,14 @@ struct OnlineStatus: Codable, Hashable{
 struct ShortUser: Identifiable, Codable, Hashable{
     let id: String
     let fullName: String
-    let username: String
+    var username: String?
     let image: String?
     var status: OnlineStatus
     
     
     init(user: User){
         self.id = user.id
-        self.fullName = (user.firstName ?? user.username) + " " + (user.lastName ?? "")
+        self.fullName = user.firstName + " " + (user.lastName ?? "")
         self.username = user.username
         self.image = user.profileImage?.fullPath
         self.status = user.status

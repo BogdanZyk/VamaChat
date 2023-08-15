@@ -34,10 +34,11 @@ final class AuthenticationManager{
 extension AuthenticationManager{
     
     @discardableResult
-    func createUser(email: String, pass: String, nickname: String) async throws -> AuthResult{
+    func createUser(email: String, pass: String, firstName: String) async throws -> AuthResult{
         let result = try await Auth.auth().createUser(withEmail: email, password: pass)
         let authDataResult = AuthResult(user: result.user)
-        try await createUser(authDataResult.getUser(username: nickname))
+        let user = User(id: authDataResult.uid, firstName: firstName, email: authDataResult.email)
+        try await createUser(user)
         return authDataResult
     }
     
@@ -61,10 +62,6 @@ struct AuthResult{
         self.uid = user.uid
         self.email = user.email
         self.photoUrl = user.photoURL?.absoluteString
-    }
-    
-    func getUser(username: String) -> User{
-        .init(id: uid, username: username, email: email)
     }
 }
 

@@ -47,7 +47,7 @@ extension SearchListView{
             VStack(alignment: .leading){
                 Text(user.fullName)
                     .font(.system(size: 12, weight: .medium))
-                Text(user.username)
+                Text(user.username ?? "")
                     .font(.system(size: 10, weight: .light))
                     .foregroundColor(.blue)
             }

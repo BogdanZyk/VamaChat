@@ -12,7 +12,7 @@ struct AuthView: View {
     @State private var showSingIn: Bool = true
     @State private var email: String = ""
     @State private var pass: String = ""
-    @State private var nickname: String = ""
+    @State private var firstName: String = ""
 
     var body: some View {
         
@@ -21,7 +21,13 @@ struct AuthView: View {
                 .font(.largeTitle.bold())
             Text("\(showSingIn ? "Sign In" : "Sing Up") with Email")
                 .font(.title3)
-            LoginForm(email: $email, pass: $pass, nickname: $nickname, showSingIn: $showSingIn, showLoader: authVM.showLoader, isDisabledButton: !isValid, onTabButton: onTapButton)
+            LoginForm(email: $email,
+                      pass: $pass,
+                      firstName: $firstName,
+                      showSingIn: $showSingIn,
+                      showLoader: authVM.showLoader,
+                      isDisabledButton: !isValid,
+                      onTabButton: onTapButton)
                 .padding(.top, 10)
         }
         .padding()
@@ -42,7 +48,7 @@ extension AuthView{
     private var isValid: Bool{
         showSingIn ? (
             !email.isEmpty && !pass.isEmpty
-        ) : (!email.isEmpty && !pass.isEmpty && !nickname.isEmpty)
+        ) : (!email.isEmpty && !pass.isEmpty && !firstName.isEmpty)
     }
     
     private func onTapButton(){
@@ -53,7 +59,7 @@ extension AuthView{
             if showSingIn{
                 await authVM.singInWithEmail(email: email, pass: pass)
             }else{
-                await authVM.singUpWithEmail(email: email, pass: pass, nickname: nickname)
+                await authVM.singUpWithEmail(email: email, pass: pass, firstName: firstName)
             }
         }
     }
@@ -63,11 +69,10 @@ extension AuthView{
 
 extension AuthView{
     
-    
     struct LoginForm: View{
         @Binding var email: String
         @Binding var pass: String
-        @Binding var nickname: String
+        @Binding var firstName: String
         @Binding var showSingIn: Bool
         var showLoader: Bool
         var isDisabledButton: Bool
@@ -77,7 +82,7 @@ extension AuthView{
             VStack{
                 Group{
                     if !showSingIn{
-                        TextField("Nickname", text: $nickname)
+                        TextField("First name", text: $firstName)
                     }
                     TextField("Email", text: $email)
                     SecureField("Password", text: $pass)

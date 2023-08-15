@@ -12,7 +12,21 @@ struct ProfileView: View {
     @EnvironmentObject var userManager: UserManager
     var body: some View {
         VStack {
-            Text(userManager.user?.username ?? "No name")
+            
+            Label {
+                Text(userManager.user?.firstName ?? "Non")
+            } icon: {
+                Text("firstName")
+               
+            }
+            
+            Label {
+                Text(userManager.user?.username ?? "Non")
+            } icon: {
+                Text("username")
+               
+            }
+
             Button("Sing Out") {
                 authManager.singOut()
             }
