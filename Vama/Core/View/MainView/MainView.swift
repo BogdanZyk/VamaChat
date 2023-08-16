@@ -19,16 +19,7 @@ struct MainView: View {
                 .navigationSplitViewColumnWidth(80)
                 .toolbar(.hidden, for: .windowToolbar)
         } content: {
-            Group {
-                switch router.currentTab{
-                case .chats:
-                    ChatsView(chatVM: chatVM)
-                case .profile:
-                    ProfileView()
-                case .settings:
-                    Text("Settings")
-                }
-            }
+            ChatsView(chatVM: chatVM)
             .navigationSplitViewColumnWidth(min: 220, ideal: 220, max: 380)
             
         } detail: {
@@ -38,13 +29,12 @@ struct MainView: View {
                     case .chats:
                        currentDialogView
                     case .profile:
-                        Text("User Profile")
+                        ProfileView()
                     case .settings:
                         VStack {
                             Text("General Settings")
                         }
                     }
-                    
                 }
             }
             .navigationSplitViewColumnWidth(min: 400, ideal: 600)
