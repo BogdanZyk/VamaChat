@@ -57,7 +57,7 @@ extension ChatsView{
                             currentUID: chatVM.currentUID,
                             chatData: chatData,
                             isSelected: chatData == chatVM.selectedChat,
-                            onTap: {chatVM.selectChatConversation($0)},
+                            onTap: setChat,
                             onContextAction: {chatVM.setChatAction($0, $1)})
                     }
                 }
@@ -70,5 +70,12 @@ extension ChatsView{
             searchVM.resetSearch()
             chatVM.createChatConversation(for: user)
         }
+    }
+    
+    private func setChat(_ chat: ChatConversation) {
+        if router.currentTab != .chats{
+            router.setTab(.chats)
+        }
+        chatVM.selectChatConversation(chat)
     }
 }
