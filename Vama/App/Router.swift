@@ -10,7 +10,10 @@ import Foundation
 final class MainRouter: ObservableObject {
     
     @Published var currentTab: MainTab = .chats
-
+    
+    func setTab(_ tab: MainTab) {
+        currentTab = tab
+    }
     
 }
 

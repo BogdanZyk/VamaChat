@@ -64,6 +64,7 @@
 		5A8371E12A8D04B00018ABEA /* ProfileView+NicknameEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8371E02A8D04B00018ABEA /* ProfileView+NicknameEditView.swift */; };
 		5A8371E42A8D04EF0018ABEA /* NavigationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8371E32A8D04EF0018ABEA /* NavigationHeaderView.swift */; };
 		5A8371E72A8D05B30018ABEA /* CustomForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8371E62A8D05B30018ABEA /* CustomForm.swift */; };
+		5A8371E92A8D1DF30018ABEA /* AppCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8371E82A8D1DF30018ABEA /* AppCommands.swift */; };
 		5AADA1D02A86690C00D098E5 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1CF2A86690C00D098E5 /* Task.swift */; };
 		5AADA1D22A86697700D098E5 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1D12A86697700D098E5 /* NotificationCenter.swift */; };
 		5AADA1D42A866AC500D098E5 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1D32A866AC500D098E5 /* NotificationName.swift */; };
@@ -140,6 +141,7 @@
 		5A8371E02A8D04B00018ABEA /* ProfileView+NicknameEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView+NicknameEditView.swift"; sourceTree = "<group>"; };
 		5A8371E32A8D04EF0018ABEA /* NavigationHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHeaderView.swift; sourceTree = "<group>"; };
 		5A8371E62A8D05B30018ABEA /* CustomForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomForm.swift; sourceTree = "<group>"; };
+		5A8371E82A8D1DF30018ABEA /* AppCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommands.swift; sourceTree = "<group>"; };
 		5AADA1CF2A86690C00D098E5 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		5AADA1D12A86697700D098E5 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		5AADA1D32A866AC500D098E5 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				5A44A6802A77F0F300C04810 /* Router.swift */,
 				5ABC15892A7C4EE60063128F /* ContentView.swift */,
 				5A326A9E2A7CF58400629066 /* AppDelegate.swift */,
+				5A8371E82A8D1DF30018ABEA /* AppCommands.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				5A8371E42A8D04EF0018ABEA /* NavigationHeaderView.swift in Sources */,
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
 				5A326ABA2A7D239800629066 /* Query.swift in Sources */,
+				5A8371E92A8D1DF30018ABEA /* AppCommands.swift in Sources */,
 				5AADA1D42A866AC500D098E5 /* NotificationName.swift in Sources */,
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
 				5AFB72B32A8A27E60032C3E1 /* DropModalView.swift in Sources */,

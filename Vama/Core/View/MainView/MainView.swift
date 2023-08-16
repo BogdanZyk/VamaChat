@@ -10,8 +10,8 @@ import SwiftUI
 struct MainView: View {
     @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject var authManager: AuthenticationViewModel
+    @EnvironmentObject var router: MainRouter
     @StateObject var userManager = UserManager()
-    @StateObject var router = MainRouter()
     @StateObject var chatVM = ChatViewModel()
     var body: some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
@@ -21,7 +21,6 @@ struct MainView: View {
         } content: {
             ChatsView(chatVM: chatVM)
             .navigationSplitViewColumnWidth(min: 220, ideal: 220, max: 380)
-            
         } detail: {
             NavigationStack {
                 ZStack {

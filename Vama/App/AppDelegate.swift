@@ -19,6 +19,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ notification: Notification) {
        
+        // Remove unused Multiple Menus
+        ["Edit", "View", "Help", "Window", "File", "Vama"].forEach { name in
+            NSApp.mainMenu?.item(withTitle: name).map { NSApp.mainMenu?.removeItem($0) }
+        }
     }
     
     func applicationWillTerminate(_ notification: Notification) {

@@ -10,11 +10,17 @@ import Firebase
 
 @main
 struct VamaApp: App {
+    @StateObject var router = MainRouter()
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(router)
         }
-        //.windowStyle(.hiddenTitleBar)
+        .commands {
+            AppCommands(router: router)
+        }
     }
 }
+
+
