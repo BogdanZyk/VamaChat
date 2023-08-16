@@ -427,7 +427,6 @@ extension DialogViewModel {
     private func removeMessageLocal(_ messageId: String) {
         messages.removeAll(where: {$0.id == messageId})
         totalCountMessage -= 1
-        targetMessageId = messages.last?.id
     }
     
     private func changeMessageUploadStatusAndSetMedia(for id: String, status: DialogMessage.LoadState, media: [MessageMedia]) {

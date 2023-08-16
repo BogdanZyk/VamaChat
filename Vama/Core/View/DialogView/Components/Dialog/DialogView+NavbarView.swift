@@ -70,9 +70,22 @@ extension DialogView.NavBarView{
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Pin message")
                                 .font(.system(size: 12, weight: .medium))
-                            Text(last.message ?? "")
-                                .font(.system(size: 12, weight: .light))
-                                .lineLimit(1)
+                        
+                            if let media = last.media, !media.isEmpty, let first = media.first?.item {
+                                HStack {
+                                    LazyNukeImage(strUrl: first.fullPath, resizeSize: .init(width: 100, height: 100), contentMode: .aspectFit, loadPriority: .high)
+                                        .frame(width: 20, height: 20)
+                                        .cornerRadius(1)
+                                    Text("Photo \(media.count)")
+                                        .font(.system(size: 12, weight: .light))
+                                        .foregroundColor(.secondary)
+                                }
+                            } else if let message = last.message{
+                                Text(message)
+                                    .font(.system(size: 12, weight: .light))
+                                    .lineLimit(1)
+                            }
+                           
                         }
                         Spacer()
                         Button {
