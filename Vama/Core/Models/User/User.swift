@@ -57,6 +57,7 @@ extension User{
         var firstName: String
         var lastName: String
         var bio: String
+        var imagePath: String?
 
         func getDict() -> [String: Any]{
             [
@@ -66,11 +67,14 @@ extension User{
                 User.CodingKeys.bio.rawValue: bio,
             ]
         }
+        
+        static func empty() -> UserInfo{
+            .init(id: "", username: "", firstName: "", lastName: "", bio: "")
+        }
     }
 
-
     func getInfo() -> UserInfo{
-        .init(id: id, username: username ?? "", firstName: firstName, lastName: lastName ?? "", bio: bio ?? "")
+        .init(id: id, username: username ?? "No username", firstName: firstName, lastName: lastName ?? "", bio: bio ?? "", imagePath: profileImage?.path)
     }
 }
 

@@ -59,6 +59,22 @@ final class UserService{
         try await userDocument(for: info.id).updateData(info.getDict())
     }
     
+    func updateUserPhoto(image: NSImage, lastImagePath: String?) async throws {
+        
+        guard let id = getFBUserId() else {
+            throw AppError.custom(errorDescription: "No init firebase user")
+        }
+        
+        let manager = StorageManager.shared
+        let newImage = try await manager.uploadImage(image: image, type: .avatar, id: id)
+        let dict = [User.CodingKeys.profileImage.rawValue: try newImage.getData()]
+        try await userDocument(for: id).updateData(dict)
+        
+        if let lastImagePath {
+            try await manager.deleteAsset(path: lastImagePath)
+        }
+    }
+    
     func updateUserStatus(_ status: OnlineStatus.UserStatus) async throws{
         guard let id = getFBUserId() else {
             throw AppError.custom(errorDescription: "No init firebase user")

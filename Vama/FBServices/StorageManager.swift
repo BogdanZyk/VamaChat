@@ -50,13 +50,13 @@ final class StorageManager {
         var medias: [MessageMedia] = []
         for try await item in SomeAsyncSequence(elements: images) {
             guard let image = item.thumbnail else { continue }
-            let item = try await uploadImage(image: image, type: .messageImage, chatId: chatId)
+            let item = try await uploadImage(image: image, type: .messageImage, id: chatId)
             medias.append(.init(type: .image, item: item))
         }
         return medias
     }
     
-    func uploadImage(image: NSImage, type: ImageType, chatId: String, lastImagePath: String? = nil) async throws -> StorageItem {
+    func uploadImage(image: NSImage, type: ImageType, id: String, lastImagePath: String? = nil) async throws -> StorageItem {
         //let resizeImage = image.aspectFittedToHeight(type.size)
         guard let data = image.imageDataRepresentation(compressionFactor: type.quality) else {
             throw AppError.custom(errorDescription: "Failed compression image")
@@ -66,7 +66,7 @@ final class StorageManager {
             try? await deleteAsset(path: lastImagePath)
         }
         
-        return try await uploadImage(data as Data, type: type, id: chatId)
+        return try await uploadImage(data as Data, type: type, id: id)
     }
     
     func deleteAsset(path: String) async throws {
@@ -103,16 +103,16 @@ extension StorageManager {
     }
 }
 
-struct StoreImage: Identifiable, Codable, Hashable{
-    let path: String
-    let fullPath: String
-    
-    func getData() throws -> [String : Any]{
-        try Firestore.Encoder().encode(self)
-    }
-    
-    var id: String{ path }
-}
+//struct StoreImage: Identifiable, Codable, Hashable{
+//    let path: String
+//    let fullPath: String
+//    
+//    func getData() throws -> [String : Any]{
+//        try Firestore.Encoder().encode(self)
+//    }
+//    
+//    var id: String{ path }
+//}
 
 
 struct SomeAsyncSequence<T: Hashable>: AsyncSequence {

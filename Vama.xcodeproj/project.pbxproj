@@ -61,6 +61,9 @@
 		5A4872A12A7BF63400610359 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 5A4872A02A7BF63400610359 /* Algorithms */; };
 		5A4872A32A7CE7A100610359 /* ChatAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4872A22A7CE7A100610359 /* ChatAction.swift */; };
 		5A7A4D712A8BD1B10035BD20 /* ChatRowView+LastMessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4D702A8BD1B10035BD20 /* ChatRowView+LastMessagePreview.swift */; };
+		5A8371E12A8D04B00018ABEA /* ProfileView+NicknameEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8371E02A8D04B00018ABEA /* ProfileView+NicknameEditView.swift */; };
+		5A8371E42A8D04EF0018ABEA /* NavigationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8371E32A8D04EF0018ABEA /* NavigationHeaderView.swift */; };
+		5A8371E72A8D05B30018ABEA /* CustomForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8371E62A8D05B30018ABEA /* CustomForm.swift */; };
 		5AADA1D02A86690C00D098E5 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1CF2A86690C00D098E5 /* Task.swift */; };
 		5AADA1D22A86697700D098E5 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1D12A86697700D098E5 /* NotificationCenter.swift */; };
 		5AADA1D42A866AC500D098E5 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AADA1D32A866AC500D098E5 /* NotificationName.swift */; };
@@ -134,6 +137,9 @@
 		5A48729D2A7BF41400610359 /* DialogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewModel.swift; sourceTree = "<group>"; };
 		5A4872A22A7CE7A100610359 /* ChatAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAction.swift; sourceTree = "<group>"; };
 		5A7A4D702A8BD1B10035BD20 /* ChatRowView+LastMessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatRowView+LastMessagePreview.swift"; sourceTree = "<group>"; };
+		5A8371E02A8D04B00018ABEA /* ProfileView+NicknameEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView+NicknameEditView.swift"; sourceTree = "<group>"; };
+		5A8371E32A8D04EF0018ABEA /* NavigationHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHeaderView.swift; sourceTree = "<group>"; };
+		5A8371E62A8D05B30018ABEA /* CustomForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomForm.swift; sourceTree = "<group>"; };
 		5AADA1CF2A86690C00D098E5 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		5AADA1D12A86697700D098E5 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		5AADA1D32A866AC500D098E5 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
@@ -225,6 +231,7 @@
 			children = (
 				5A326ABC2A7D255F00629066 /* ProfileView.swift */,
 				5A326ABE2A7D256500629066 /* ProfileViewModel.swift */,
+				5A8371E02A8D04B00018ABEA /* ProfileView+NicknameEditView.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -379,6 +386,8 @@
 		5A44A6842A77F63C00C04810 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				5A8371E52A8D05AE0018ABEA /* Form */,
+				5A8371E22A8D04DA0018ABEA /* Navbar */,
 				5A4872922A7BCE8B00610359 /* ImageView */,
 				5A48728F2A7BCC8500610359 /* NulkeUIImage */,
 				5A44A6852A77F64F00C04810 /* BlurView.swift */,
@@ -477,6 +486,22 @@
 				5AADA1D72A867A8D00D098E5 /* DialogViewModel+BottomActionType.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5A8371E22A8D04DA0018ABEA /* Navbar */ = {
+			isa = PBXGroup;
+			children = (
+				5A8371E32A8D04EF0018ABEA /* NavigationHeaderView.swift */,
+			);
+			path = Navbar;
+			sourceTree = "<group>";
+		};
+		5A8371E52A8D05AE0018ABEA /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				5A8371E62A8D05B30018ABEA /* CustomForm.swift */,
+			);
+			path = Form;
 			sourceTree = "<group>";
 		};
 		5ABC15862A7C4E2C0063128F /* AuthView */ = {
@@ -578,7 +603,9 @@
 				5A44A67D2A77EECE00C04810 /* MainView.swift in Sources */,
 				5AFB72B92A8A46D90032C3E1 /* NSImage.swift in Sources */,
 				5A4872822A7BB4B800610359 /* String.swift in Sources */,
+				5A8371E72A8D05B30018ABEA /* CustomForm.swift in Sources */,
 				5ABC158C2A7C50A20063128F /* DialogView+BottomBarView.swift in Sources */,
+				5A8371E42A8D04EF0018ABEA /* NavigationHeaderView.swift in Sources */,
 				5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */,
 				5A326ABA2A7D239800629066 /* Query.swift in Sources */,
 				5AADA1D42A866AC500D098E5 /* NotificationName.swift in Sources */,
@@ -610,6 +637,7 @@
 				5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */,
 				5A326A9F2A7CF58400629066 /* AppDelegate.swift in Sources */,
 				5A326AB82A7D22F100629066 /* AppError.swift in Sources */,
+				5A8371E12A8D04B00018ABEA /* ProfileView+NicknameEditView.swift in Sources */,
 				5A44A6892A77FF7300C04810 /* ChatsView.swift in Sources */,
 				5A48727D2A7BA9B400610359 /* Message.swift in Sources */,
 				5ABC15942A7C687D0063128F /* ChatConversation.swift in Sources */,

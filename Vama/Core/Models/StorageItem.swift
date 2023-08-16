@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct StorageItem: Identifiable, Codable, Hashable{
     
@@ -18,8 +19,7 @@ struct StorageItem: Identifiable, Codable, Hashable{
     }
     
     func getData() throws -> [String : Any]{
-        [:]
-      //  try Firestore.Encoder().encode(self)
+        try Firestore.Encoder().encode(self)
     }
     
 }
