@@ -10,13 +10,13 @@ import SwiftUI
 extension MessageRow {
     
     @ViewBuilder
-    var messageContent: some View{
+    func makeMessageContent(_ message: Message) -> some View {
         
-        if let medias = dialogMessage.message.media{
+        if let medias = message.media, !medias.isEmpty {
            makeMedia(medias)
         }
         
-        if let message = dialogMessage.message.message {
+        if let message = message.message {
             Text(message)
                 .font(.system(size: 14, weight: .light))
         }

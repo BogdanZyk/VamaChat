@@ -73,7 +73,7 @@ extension MessageRow{
                     forwardMessage(message: forwardedMessage)
                 }else{
                     replyMessage
-                    messageContent
+                    makeMessageContent(dialogMessage.message)
                 }
             }
         }
@@ -86,7 +86,7 @@ extension MessageRow{
                     forwardMessage(message: forwardedMessage)
                 }else{
                     replyMessage
-                    messageContent
+                    makeMessageContent(dialogMessage.message)
                 }
             }
             .padding(.leading, 40)
