@@ -25,7 +25,7 @@ extension MessageRow{
     private func singleMedia(_ media: MessageMedia?) -> some View{
         if let media{
             if media.type == .image{
-                makeMessagePhoto(media: media, loadState: dialogMessage.loadState)
+                makeMessagePhoto(media: media, loadState: dialogMessage.loadState, isAlbum: false)
             }else{
                 Text("Video")
             }
@@ -36,7 +36,7 @@ extension MessageRow{
         MediaAlbum {
             ForEach(medias) { item in
                 if item.type == .image{
-                    makeMessagePhoto(media: item, loadState: dialogMessage.loadState)
+                    makeMessagePhoto(media: item, loadState: dialogMessage.loadState, isAlbum: true)
                 }else{
                     Text("Video")
                 }
@@ -47,9 +47,12 @@ extension MessageRow{
     
     
     @ViewBuilder
-    private func makeMessagePhoto(media: MessageMedia, loadState: DialogMessage.LoadState) -> some View{
+    private func makeMessagePhoto(media: MessageMedia, loadState: DialogMessage.LoadState, isAlbum: Bool) -> some View{
         ZStack{
             if loadState == .completed {
+                if !isAlbum{
+                    Color.white.opacity(0.8)
+                }
                 LazyNukeImage(strUrl: media.item?.fullPath, resizeSize: .init(width: 600, height: 800), contentMode: .aspectFit, loadPriority: .normal, crop: false)
             } else if loadState == .sending, let image = media.thumbnail {
                 Image(nsImage: image)
@@ -58,10 +61,11 @@ extension MessageRow{
                 Color.black.opacity(0.2)
                 ProgressView()
                     .tint(.white)
-                    .scaleEffect(1.2)
+                    .scaleEffect(1.1)
             }
         }
         .cornerRadius(5)
         .padding(2)
     }
 }
+

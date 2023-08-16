@@ -9,9 +9,11 @@ import SwiftUI
 
 struct BlurView: NSViewRepresentable {
    
+    var blendingMode: NSVisualEffectView.BlendingMode = .behindWindow
+    
     func makeNSView(context: Context) -> NSVisualEffectView {
         let view = NSVisualEffectView()
-        view.blendingMode = .behindWindow
+        view.blendingMode = blendingMode
         return view
     }
     
