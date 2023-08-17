@@ -60,8 +60,9 @@ extension User{
         var imagePath: String?
 
         func getDict() -> [String: Any]{
-            [
-                User.CodingKeys.username.rawValue: username,
+            let usernameWithChar = username.first != "@" ? ("@" + username) : username
+            return [
+                User.CodingKeys.username.rawValue: usernameWithChar,
                 User.CodingKeys.firstName.rawValue: firstName,
                 User.CodingKeys.lastName.rawValue: lastName,
                 User.CodingKeys.bio.rawValue: bio,
@@ -74,7 +75,7 @@ extension User{
     }
 
     func getInfo() -> UserInfo{
-        .init(id: id, username: username ?? "No username", firstName: firstName, lastName: lastName ?? "", bio: bio ?? "", imagePath: profileImage?.path)
+        .init(id: id, username: username ?? "Non", firstName: firstName, lastName: lastName ?? "", bio: bio ?? "", imagePath: profileImage?.path)
     }
 }
 

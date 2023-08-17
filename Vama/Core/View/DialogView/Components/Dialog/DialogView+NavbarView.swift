@@ -9,6 +9,7 @@ import SwiftUI
 
 extension DialogView{
     struct NavBarView: View {
+        @EnvironmentObject var router: MainRouter
         @EnvironmentObject var viewModel: DialogViewModel
         private var isPrivateChat: Bool{
             viewModel.chatData.chat.chatType == .chatPrivate
@@ -40,8 +41,14 @@ extension DialogView.NavBarView{
     
     private var chatInfoView: some View{
         Group{
+            let photo = isPrivateChat ? viewModel.chatData.target?.image : viewModel.chatData.chat.photo
             AvatarView(image: isPrivateChat ? viewModel.chatData.target?.image : viewModel.chatData.chat.photo, size: .init(width: 30, height: 30))
-            
+                .onTapGesture {
+                    if let photo, !photo.isEmpty{
+                        let image = StorageItem(path: "", fullPath: photo)
+                        router.imageViewer.set(selectedImage: image, images: [image])
+                    }
+                }
             VStack(alignment: .leading) {
                 Text(isPrivateChat ? (viewModel.chatData.target?.fullName ?? "") : viewModel.chatData.chat.title ?? "")
                     .font(.body.bold())

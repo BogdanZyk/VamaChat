@@ -47,7 +47,7 @@ extension ChatRowView {
     private var imagePreview: some View {
         if let path = chatData.chat.lastMessage?.media?.first?.item?.fullPath {
             LazyNukeImage(strUrl: path)
-                .cornerRadius(5)
+                .cornerRadius(2)
                 .frame(width: 16, height: 16)
         }
     }
