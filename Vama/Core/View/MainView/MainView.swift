@@ -29,10 +29,10 @@ struct MainView: View {
                        currentDialogView
                     case .profile:
                         ProfileView()
-                    case .settings:
-                        VStack {
-                            Text("General Settings")
-                        }
+//                    case .settings:
+//                        VStack {
+//                            Text("General Settings")
+//                        }
                     }
                 }
             }
@@ -91,7 +91,6 @@ extension MainView{
             Text("Choose chat")
         }
     }
-    
 }
 
 

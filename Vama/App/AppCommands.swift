@@ -13,9 +13,9 @@ struct AppCommands: Commands {
         CommandMenu("Vama") {
             Button("About Vama", action: {})
             Divider()
-            Button("Settings"){
-                router.setTab(.settings)
-            }
+//            Button("Settings"){
+//                router.setTab(.settings)
+//            }
             Divider()
             Button("Profile"){
                 router.setTab(.profile)

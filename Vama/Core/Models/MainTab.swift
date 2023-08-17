@@ -10,13 +10,13 @@ import SwiftUI
 enum MainTab: String, CaseIterable{
     case chats = "Chats"
     case profile = "Profile"
-    case settings = "Settings"
+//    case settings = "Settings"
     
     var image: String{
         switch self {
         case .chats: return "message"
         case .profile: return "person"
-        case .settings: return "gear"
+//        case .settings: return "gear"
         }
     }
 }
