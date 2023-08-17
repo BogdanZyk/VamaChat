@@ -33,6 +33,8 @@
 		5A33D9012A898E5E0084B620 /* MessageRow+ForwardMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A33D9002A898E5E0084B620 /* MessageRow+ForwardMessage.swift */; };
 		5A33D9032A898EDD0084B620 /* MessageRow+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A33D9022A898EDD0084B620 /* MessageRow+Content.swift */; };
 		5A33D9052A8992DD0084B620 /* MessageRow+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A33D9042A8992DD0084B620 /* MessageRow+Media.swift */; };
+		5A3B148E2A8E506400AE5278 /* FloatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B148D2A8E506400AE5278 /* FloatingPanel.swift */; };
+		5A3B14902A8E529A00AE5278 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3B148F2A8E529A00AE5278 /* ImageViewer.swift */; };
 		5A44A6642A77ED0E00C04810 /* VamaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44A6632A77ED0E00C04810 /* VamaApp.swift */; };
 		5A44A6682A77ED1000C04810 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A6672A77ED1000C04810 /* Assets.xcassets */; };
 		5A44A66B2A77ED1000C04810 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A44A66A2A77ED1000C04810 /* Preview Assets.xcassets */; };
@@ -110,6 +112,8 @@
 		5A33D9002A898E5E0084B620 /* MessageRow+ForwardMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageRow+ForwardMessage.swift"; sourceTree = "<group>"; };
 		5A33D9022A898EDD0084B620 /* MessageRow+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageRow+Content.swift"; sourceTree = "<group>"; };
 		5A33D9042A8992DD0084B620 /* MessageRow+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageRow+Media.swift"; sourceTree = "<group>"; };
+		5A3B148D2A8E506400AE5278 /* FloatingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanel.swift; sourceTree = "<group>"; };
+		5A3B148F2A8E529A00AE5278 /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		5A44A6602A77ED0E00C04810 /* Vama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A44A6632A77ED0E00C04810 /* VamaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VamaApp.swift; sourceTree = "<group>"; };
 		5A44A6672A77ED1000C04810 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -264,6 +268,14 @@
 			path = Dialog;
 			sourceTree = "<group>";
 		};
+		5A3B148C2A8E505600AE5278 /* Panel */ = {
+			isa = PBXGroup;
+			children = (
+				5A3B148D2A8E506400AE5278 /* FloatingPanel.swift */,
+			);
+			path = Panel;
+			sourceTree = "<group>";
+		};
 		5A44A6572A77ED0E00C04810 = {
 			isa = PBXGroup;
 			children = (
@@ -389,11 +401,13 @@
 		5A44A6842A77F63C00C04810 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				5A3B148C2A8E505600AE5278 /* Panel */,
 				5A8371E52A8D05AE0018ABEA /* Form */,
 				5A8371E22A8D04DA0018ABEA /* Navbar */,
 				5A4872922A7BCE8B00610359 /* ImageView */,
 				5A48728F2A7BCC8500610359 /* NulkeUIImage */,
 				5A44A6852A77F64F00C04810 /* BlurView.swift */,
+				5A3B148F2A8E529A00AE5278 /* ImageViewer.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -613,6 +627,7 @@
 				5A326ABA2A7D239800629066 /* Query.swift in Sources */,
 				5A8371E92A8D1DF30018ABEA /* AppCommands.swift in Sources */,
 				5AADA1D42A866AC500D098E5 /* NotificationName.swift in Sources */,
+				5A3B14902A8E529A00AE5278 /* ImageViewer.swift in Sources */,
 				5A48727B2A7BA6DE00610359 /* MessageRow.swift in Sources */,
 				5AFB72B32A8A27E60032C3E1 /* DropModalView.swift in Sources */,
 				5A4872892A7BC9BE00610359 /* User.swift in Sources */,
@@ -638,6 +653,7 @@
 				5A44A6812A77F0F300C04810 /* Router.swift in Sources */,
 				5A21B4E02A7D4BBD00CF00BB /* SearchViewModel.swift in Sources */,
 				5ABC15882A7C4E7A0063128F /* AuthView.swift in Sources */,
+				5A3B148E2A8E506400AE5278 /* FloatingPanel.swift in Sources */,
 				5A4872942A7BCEA600610359 /* AvatarView.swift in Sources */,
 				5A326A9F2A7CF58400629066 /* AppDelegate.swift in Sources */,
 				5A326AB82A7D22F100629066 /* AppError.swift in Sources */,

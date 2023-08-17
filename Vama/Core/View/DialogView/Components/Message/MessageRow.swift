@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct MessageRow: View {
+    @EnvironmentObject var router: MainRouter
     let sender: ShortUser?
     let currentUserId: String?
     let dialogMessage: DialogMessage

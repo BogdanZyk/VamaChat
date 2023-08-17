@@ -49,6 +49,10 @@ struct MainView: View {
                 userManager.updateUserOnlineStatus(.recently)
             }
         }
+        .floatingPanel(isPresented: $router.imageViewer.show, contentRect: .init(x: 0, y: 0, width: getRect().width, height: getRect().height)) {
+            ImageViewerView()
+                .environmentObject(router)
+        }
     }
 }
 

@@ -10,10 +10,13 @@ import Foundation
 final class MainRouter: ObservableObject {
     
     @Published var currentTab: MainTab = .chats
+    @Published var imageViewer = ImageViewer()
+
     
     func setTab(_ tab: MainTab) {
         currentTab = tab
     }
+    
     
 }
 

@@ -15,17 +15,20 @@ extension MessageRow{
             if medias.count > 1{
                 messageMediaAlbum(medias)
             }else{
-                singleMedia(medias.first)
+                singleMedia(medias)
             }
         }
         .frame(minWidth: 150, idealWidth: 180, maxWidth: 300, maxHeight: 600)
     }
     
     @ViewBuilder
-    private func singleMedia(_ media: MessageMedia?) -> some View{
-        if let media{
+    private func singleMedia(_ medias: [MessageMedia]) -> some View{
+        if let media = medias.first{
             if media.type == .image{
                 makeMessagePhoto(media: media, loadState: dialogMessage.loadState, isAlbum: false)
+                    .onTapGesture {
+                        router.imageViewer.set(selectedImage: media.item, images: medias.compactMap({$0.item}))
+                    }
             }else{
                 Text("Video")
             }
@@ -37,6 +40,9 @@ extension MessageRow{
             ForEach(medias) { item in
                 if item.type == .image{
                     makeMessagePhoto(media: item, loadState: dialogMessage.loadState, isAlbum: true)
+                        .onTapGesture {
+                            router.imageViewer.set(selectedImage: item.item, images: medias.compactMap({$0.item}))
+                        }
                 }else{
                     Text("Video")
                 }
