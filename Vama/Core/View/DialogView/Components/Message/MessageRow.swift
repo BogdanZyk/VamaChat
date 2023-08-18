@@ -71,7 +71,7 @@ extension MessageRow{
                 }
                 if let forwardedMessage = dialogMessage.message.forwardMessages?.first{
                     forwardLabel
-                    forwardMessage(message: forwardedMessage)
+                    makeForwardMessage(message: forwardedMessage)
                 }else{
                     replyMessage
                     makeMessageContent(dialogMessage.message)
@@ -84,7 +84,7 @@ extension MessageRow{
         HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading, spacing: 3) {
                 if let forwardedMessage = dialogMessage.message.forwardMessages?.first{
-                    forwardMessage(message: forwardedMessage)
+                    makeForwardMessage(message: forwardedMessage)
                 }else{
                     replyMessage
                     makeMessageContent(dialogMessage.message)
