@@ -160,7 +160,7 @@ extension DialogViewModel {
                                   forwardMessages: [forwardMessage],
                                   viewedIds: [currentUser.id])
             
-            uploadMessage(chatId: chatData.id, message: message)
+            uploadMessage(chatId: chatId, message: message)
             
             if chatId == chatData.id{
                 self.messages.insert(.init(message: message, loadState: .sending), at: 0)
@@ -287,7 +287,7 @@ extension DialogViewModel {
                 let media = await uploadImagesIfNeeded(for: chatId, items: message.media ?? [])
                 var message = message
                 message.media = media
-                try await messageService.sendMessage(for: chatData.id, message: message)
+                try await messageService.sendMessage(for: chatId, message: message)
                 totalCountMessage += 1
                 changeMessageUploadStatusAndSetMedia(for: message.id, status: .completed, media: media)
             }catch{
@@ -390,13 +390,12 @@ extension DialogViewModel {
         case .forward:
             toggleSelectedMessage(for: message.id)
         case .select:
-            isActiveSelectedMode = true
-            toggleSelectedMessage(for: message.id)
+            toggleSelectedMessage(for: message.id, switchSelectionMode: true)
         case .remove:
             removeMessage(message)
         }
     }
-    
+        
     private func copyMessage(message: String?) {
         guard let message else {return}
         pasteboard.clearContents()
@@ -501,16 +500,27 @@ extension DialogViewModel {
 // MARK: - Selected message logic
 extension DialogViewModel {
     
-    private func toggleSelectedMessage(for id: String){
-        guard let index = messages.lastIndex(where: {$0.id == id}) else {return}
-        messages[index].selected.toggle()
+    func removeSelectedMessages() {
+        let messages = messages.filter({ $0.selected }).map({ $0.message })
+        messages.forEach { message in
+            removeMessage(message)
+        }
+        isActiveSelectedMode = false
     }
     
-    private func resetSelection(){
+    func resetSelection(){
         for item in messages.enumerated(){
             messages[item.offset].selected = false
         }
         isActiveSelectedMode = false
+    }
+    
+    private func toggleSelectedMessage(for id: String, switchSelectionMode: Bool = false){
+        guard let index = messages.lastIndex(where: {$0.id == id}) else {return}
+        messages[index].selected.toggle()
+        if switchSelectionMode{
+            isActiveSelectedMode = messages.contains(where: {$0.selected})
+        }
     }
 }
 

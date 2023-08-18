@@ -18,11 +18,12 @@ extension DialogView{
             VStack(alignment: .leading) {
                 HStack{
                     chatInfoView
+                    Spacer()
+                    rightButton
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
                 Divider()
-                
                 pinMessageSection
             }
         }
@@ -69,7 +70,6 @@ extension DialogView.NavBarView{
                             Rectangle()
                                 .fill(Color.cyan)
                                 .frame(width: 2)
-                            
                         }
                     }
                     .frame(height: 32)
@@ -111,5 +111,27 @@ extension DialogView.NavBarView{
             .contentShape(Rectangle())
             .onTapGesture(perform: viewModel.onTapPinMessage)
         }
+    }
+}
+
+extension DialogView.NavBarView {
+    
+    private var rightButton: some View {
+        Group {
+            if viewModel.isActiveSelectedMode{
+                Button("Done") {
+                    viewModel.resetSelection()
+                }
+            } else {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "ellipsis")
+                }
+            }
+        }
+        .padding(.vertical, 5)
+        .foregroundColor(.cyan)
+        .buttonStyle(.plain)
     }
 }

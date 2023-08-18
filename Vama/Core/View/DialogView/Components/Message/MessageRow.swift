@@ -144,17 +144,20 @@ extension MessageRow{
         .font(.caption)
     }
     
-    private var contextMenuContent: some View{
-        ForEach(MessageContextAction.getAllCases(isPin: dialogMessage.message.pinned, isCurrentUser: currentUserSender), id: \.self) { type in
-            Button {
-                onActionMessage(type, dialogMessage.message)
-            } label: {
-                HStack {
-                    Image(systemName: type.image)
-                    Text(type.title)
+    @ViewBuilder
+    private var contextMenuContent: some View {
+        if !isActiveSelection {
+            ForEach(MessageContextAction.getAllCases(isPin: dialogMessage.message.pinned, isCurrentUser: currentUserSender), id: \.self) { type in
+                Button {
+                    onActionMessage(type, dialogMessage.message)
+                } label: {
+                    HStack {
+                        Image(systemName: type.image)
+                        Text(type.title)
+                    }
+                    .foregroundColor(type == .remove ? .red : .primary)
+                    .padding()
                 }
-                .foregroundColor(type == .remove ? .red : .primary)
-                .padding()
             }
         }
     }
