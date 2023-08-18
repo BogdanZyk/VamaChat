@@ -30,22 +30,36 @@ extension ChatRowView {
     
     @ViewBuilder
     private var lastMessageContent: some View {
-        if let message = chatData.chat.lastMessage?.message {
-            HStack {
-                imagePreview
-                Text(message)
+        if let forwardMessage = chatData.chat.lastMessage?.forwardMessages?.first{
+            HStack(spacing: 5) {
+                Image(systemName: "arrowshape.turn.up.left.fill")
+                    .font(.caption)
+                messageContent(forwardMessage.message)
             }
-        } else if let medias = chatData.chat.lastMessage?.media {
+        } else if let message = chatData.chat.lastMessage {
+            messageContent(message)
+        }
+    }
+    
+    @ViewBuilder
+    private func messageContent(_ message: Message) -> some View {
+        if let text = message.message {
+            HStack {
+                makeImagePreview(message)
+                Text(text)
+            }
+        } else if let medias = message.media, !medias.isEmpty {
             HStack{
-                imagePreview
+                makeImagePreview(message)
                 Text("\(medias.count) photo")
             }
         }
     }
     
+    
     @ViewBuilder
-    private var imagePreview: some View {
-        if let path = chatData.chat.lastMessage?.media?.first?.item?.fullPath {
+    private func makeImagePreview(_ message: Message) -> some View {
+        if let path = message.media?.first?.item?.fullPath {
             LazyNukeImage(strUrl: path)
                 .cornerRadius(2)
                 .frame(width: 16, height: 16)
