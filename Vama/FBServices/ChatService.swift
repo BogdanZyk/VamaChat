@@ -85,5 +85,9 @@ final class ChatServices{
         chatQuery(userId: userId, limit: nil)
             .addSnapshotListenerWithChangeType(as: Chat.self)
     }
+    
+    func addChatDocumentListener(for chatId: String) -> (AnyPublisher<Chat?, any Error>, any ListenerRegistration) {
+       return getChatDocument(for: chatId).addSnapshotListener(as: Chat.self)
+    }
 }
 

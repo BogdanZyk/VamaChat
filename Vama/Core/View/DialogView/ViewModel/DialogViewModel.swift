@@ -13,6 +13,7 @@ import Combine
 
 class DialogViewModel: ObservableObject {
     
+    @Published var chatData: ChatConversation
     @Published var bottomBarActionType: BottomBarActionType = .empty
     @Published var showFileExporter: Bool = false
     @Published var textMessage: String = ""
@@ -36,7 +37,6 @@ class DialogViewModel: ObservableObject {
     private var lastDoc = FBLastDoc()
     private var setupCancellable: AnyCancellable?
     
-    var chatData: ChatConversation
     var currentUser: User?
     
     init(chatData: ChatConversation, currentUser: User?) {
@@ -79,6 +79,7 @@ class DialogViewModel: ObservableObject {
         startMessageListener()
         startPinMessagesListener()
         fetchTotalCountMessages()
+        startChatListener()
     }
     
     private func cancelAll() {
@@ -368,6 +369,21 @@ extension DialogViewModel {
                 for: chatData.id,
                 action: .init(fromId: id, status: isTyping ? .typing : .empty))
         }
+    }
+    
+    private func startChatListener() {
+        let (pub, listener) = chatService.addChatDocumentListener(for: chatData.id)
+        let fbListener: FBListener = .init(listener: listener)
+        self.fbListeners.append(fbListener)
+
+        pub
+            .sink { _ in } receiveValue: { [weak self] chat in
+                guard let self = self else { return }
+                if let chat{
+                    self.chatData.chat = chat
+                }
+            }
+            .store(in: cancelBag)
     }
 }
 
