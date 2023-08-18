@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A1CB5132A8F605E004BB300 /* ChatModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1CB5122A8F605E004BB300 /* ChatModalView.swift */; };
 		5A21B4DE2A7D454A00CF00BB /* FbFirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B4DD2A7D454A00CF00BB /* FbFirestore.swift */; };
 		5A21B4E02A7D4BBD00CF00BB /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B4DF2A7D4BBD00CF00BB /* SearchViewModel.swift */; };
 		5A21B4E22A7D50C500CF00BB /* NsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B4E12A7D50C500CF00BB /* NsApp.swift */; };
@@ -89,6 +90,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A1CB5122A8F605E004BB300 /* ChatModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModalView.swift; sourceTree = "<group>"; };
 		5A21B4DD2A7D454A00CF00BB /* FbFirestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbFirestore.swift; sourceTree = "<group>"; };
 		5A21B4DF2A7D4BBD00CF00BB /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		5A21B4E12A7D50C500CF00BB /* NsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NsApp.swift; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 				5A4872842A7BC91300610359 /* ChatRowView.swift */,
 				5A326AC42A7D338900629066 /* SearchTextField.swift */,
 				5A7A4D702A8BD1B10035BD20 /* ChatRowView+LastMessagePreview.swift */,
+				5A1CB5122A8F605E004BB300 /* ChatModalView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -682,6 +685,7 @@
 				5A326ABF2A7D256500629066 /* ProfileViewModel.swift in Sources */,
 				5AD635492A7FB51700FE0900 /* MessageService.swift in Sources */,
 				5A48729B2A7BF2A000610359 /* ChatViewModel.swift in Sources */,
+				5A1CB5132A8F605E004BB300 /* ChatModalView.swift in Sources */,
 				5A44A6832A77F16C00C04810 /* MainTab.swift in Sources */,
 				5AFB72AF2A8A1B640032C3E1 /* DialogView+MessagesList.swift in Sources */,
 			);

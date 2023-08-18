@@ -107,6 +107,13 @@ extension DialogViewModel {
     }
     
     @MainActor
+    func forwardMessages(for chatId: String) {
+        let selectedMessages = messages.filter({ $0.selected }).map({ $0.message })
+        forwardMessages(selectedMessages, for: chatId)
+        resetSelection()
+    }
+    
+    @MainActor
     private func sendMessage(replyMessage: [SubMessage]? = nil) {
         guard let currentUser else {return}
         print("Send message \(textMessage)")
@@ -367,7 +374,8 @@ extension DialogViewModel {
 //MARK: - Message actions
 extension DialogViewModel {
     
-    @MainActor func messageAction(_ action: MessageContextAction, _ message: Message) {
+    @MainActor
+    func messageAction(_ action: MessageContextAction, _ message: Message) {
         switch action {
         case .answer:
             setBottomBarAction(.reply(message))
@@ -380,8 +388,9 @@ extension DialogViewModel {
         case .unpin:
             pinOrUnpinMessage(message: message, onPinned: false)
         case .forward:
-            forwardMessages([message], for: chatData.id)
+            toggleSelectedMessage(for: message.id)
         case .select:
+            isActiveSelectedMode = true
             toggleSelectedMessage(for: message.id)
         case .remove:
             removeMessage(message)
@@ -495,7 +504,6 @@ extension DialogViewModel {
     private func toggleSelectedMessage(for id: String){
         guard let index = messages.lastIndex(where: {$0.id == id}) else {return}
         messages[index].selected.toggle()
-        isActiveSelectedMode = messages.contains(where: {$0.selected})
     }
     
     private func resetSelection(){
