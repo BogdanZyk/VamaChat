@@ -133,7 +133,6 @@ extension DialogView.BottomBarView {
                 }
                 .buttonStyle(.plain)
             }
-            .padding(.horizontal)
             .padding(.top, -5)
             .zIndex(-1)
             .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -143,7 +142,15 @@ extension DialogView.BottomBarView {
     private var message: some View{
         Group{
             if let message = viewModel.bottomBarActionType.message?.getMessage(){
-                Text(message.message ?? "")
+                HStack{
+                    if let image = message.media?.first?.item{
+                        LazyNukeImage(strUrl: image.fullPath, resizeSize: .init(width: 100, height: 100), contentMode: .aspectFit, loadPriority: .low)
+                            .frame(width: 20, height: 20)
+                    }
+                    if let text = message.message{
+                        Text(message.message ?? "")
+                    }
+                }
             }
         }
         .font(.system(size: 14, weight: .light))
