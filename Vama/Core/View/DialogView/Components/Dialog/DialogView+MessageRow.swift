@@ -16,7 +16,7 @@ extension DialogView {
             dialogMessage: dialogMessage,
             isShortMessage: isOneByOne,
             isActiveSelection: viewModel.isActiveSelectedMode,
-            onActionMessage: viewModel.messageAction)
+            onActionMessage: onActionMessage)
         
         .id(dialogMessage.message.id)
         .flippedUpsideDown()
@@ -35,6 +35,14 @@ extension DialogView {
             withAnimation {
                 hiddenDownButton = hidden
             }
+        }
+    }
+    
+    func onActionMessage(_ action: MessageContextAction, _ message: Message) {
+        viewModel.messageAction(action, message)
+        if action == .forward{
+            let setter: ChatModalSetter = .init(onTapChat: viewModel.forwardMessages)
+            router.sheetDestination = .chatListModal(setter)
         }
     }
 }

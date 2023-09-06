@@ -14,11 +14,12 @@ extension MessageRow{
         Group{
             if medias.count > 1{
                 messageMediaAlbum(medias)
+                    .frame(maxWidth: 300, maxHeight: 450)
             }else{
                 singleMedia(medias)
+                    .frame(maxWidth: 200, maxHeight: 300)
             }
         }
-        .frame(minWidth: 150, idealWidth: 180, maxWidth: 300, maxHeight: 600)
     }
     
     @ViewBuilder
@@ -36,7 +37,7 @@ extension MessageRow{
     }
     
     private func messageMediaAlbum(_ medias: [MessageMedia]) -> some View{
-        MediaAlbum {
+        VStack(alignment: .leading, spacing: 2) {
             ForEach(medias) { item in
                 if item.type == .image{
                     makeMessagePhoto(media: item, loadState: dialogMessage.loadState, isAlbum: true)

@@ -13,6 +13,7 @@ import Combine
 
 class DialogViewModel: ObservableObject {
     
+    @Published var chatData: ChatConversation
     @Published var bottomBarActionType: BottomBarActionType = .empty
     @Published var showFileExporter: Bool = false
     @Published var textMessage: String = ""
@@ -36,7 +37,6 @@ class DialogViewModel: ObservableObject {
     private var lastDoc = FBLastDoc()
     private var setupCancellable: AnyCancellable?
     
-    var chatData: ChatConversation
     var currentUser: User?
     
     init(chatData: ChatConversation, currentUser: User?) {
@@ -79,6 +79,7 @@ class DialogViewModel: ObservableObject {
         startMessageListener()
         startPinMessagesListener()
         fetchTotalCountMessages()
+        startChatListener()
     }
     
     private func cancelAll() {
@@ -104,6 +105,13 @@ extension DialogViewModel {
         textMessage = ""
         selectedImages = []
         resetBottomBarAction()
+    }
+    
+    @MainActor
+    func forwardMessages(for chatId: String) {
+        let selectedMessages = messages.filter({ $0.selected }).map({ $0.message })
+        forwardMessages(selectedMessages, for: chatId)
+        resetSelection()
     }
     
     @MainActor
@@ -153,7 +161,7 @@ extension DialogViewModel {
                                   forwardMessages: [forwardMessage],
                                   viewedIds: [currentUser.id])
             
-            uploadMessage(chatId: chatData.id, message: message)
+            uploadMessage(chatId: chatId, message: message)
             
             if chatId == chatData.id{
                 self.messages.insert(.init(message: message, loadState: .sending), at: 0)
@@ -280,7 +288,7 @@ extension DialogViewModel {
                 let media = await uploadImagesIfNeeded(for: chatId, items: message.media ?? [])
                 var message = message
                 message.media = media
-                try await messageService.sendMessage(for: chatData.id, message: message)
+                try await messageService.sendMessage(for: chatId, message: message)
                 totalCountMessage += 1
                 changeMessageUploadStatusAndSetMedia(for: message.id, status: .completed, media: media)
             }catch{
@@ -362,12 +370,28 @@ extension DialogViewModel {
                 action: .init(fromId: id, status: isTyping ? .typing : .empty))
         }
     }
+    
+    private func startChatListener() {
+        let (pub, listener) = chatService.addChatDocumentListener(for: chatData.id)
+        let fbListener: FBListener = .init(listener: listener)
+        self.fbListeners.append(fbListener)
+
+        pub
+            .sink { _ in } receiveValue: { [weak self] chat in
+                guard let self = self else { return }
+                if let chat{
+                    self.chatData.chat = chat
+                }
+            }
+            .store(in: cancelBag)
+    }
 }
 
 //MARK: - Message actions
 extension DialogViewModel {
     
-    @MainActor func messageAction(_ action: MessageContextAction, _ message: Message) {
+    @MainActor
+    func messageAction(_ action: MessageContextAction, _ message: Message) {
         switch action {
         case .answer:
             setBottomBarAction(.reply(message))
@@ -380,14 +404,14 @@ extension DialogViewModel {
         case .unpin:
             pinOrUnpinMessage(message: message, onPinned: false)
         case .forward:
-            forwardMessages([message], for: chatData.id)
-        case .select:
             toggleSelectedMessage(for: message.id)
+        case .select:
+            toggleSelectedMessage(for: message.id, switchSelectionMode: true)
         case .remove:
             removeMessage(message)
         }
     }
-    
+        
     private func copyMessage(message: String?) {
         guard let message else {return}
         pasteboard.clearContents()
@@ -492,17 +516,27 @@ extension DialogViewModel {
 // MARK: - Selected message logic
 extension DialogViewModel {
     
-    private func toggleSelectedMessage(for id: String){
-        guard let index = messages.lastIndex(where: {$0.id == id}) else {return}
-        messages[index].selected.toggle()
-        isActiveSelectedMode = messages.contains(where: {$0.selected})
+    func removeSelectedMessages() {
+        let messages = messages.filter({ $0.selected }).map({ $0.message })
+        messages.forEach { message in
+            removeMessage(message)
+        }
+        isActiveSelectedMode = false
     }
     
-    private func resetSelection(){
+    func resetSelection(){
         for item in messages.enumerated(){
             messages[item.offset].selected = false
         }
         isActiveSelectedMode = false
+    }
+    
+    private func toggleSelectedMessage(for id: String, switchSelectionMode: Bool = false){
+        guard let index = messages.lastIndex(where: {$0.id == id}) else {return}
+        messages[index].selected.toggle()
+        if switchSelectionMode{
+            isActiveSelectedMode = messages.contains(where: {$0.selected})
+        }
     }
 }
 

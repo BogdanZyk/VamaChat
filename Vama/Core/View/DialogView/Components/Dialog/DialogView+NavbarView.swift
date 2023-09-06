@@ -18,11 +18,12 @@ extension DialogView{
             VStack(alignment: .leading) {
                 HStack{
                     chatInfoView
+                    Spacer()
+                    rightButton
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
                 Divider()
-                
                 pinMessageSection
             }
         }
@@ -61,7 +62,7 @@ extension DialogView.NavBarView{
     
     @ViewBuilder
     private var pinMessageSection: some View{
-        if !viewModel.pinnedMessages.isEmpty, let last = viewModel.pinnedMessages.last{
+        if !viewModel.pinnedMessages.isEmpty, let lastPinMessage = viewModel.pinnedMessages.last{
             VStack{
                 HStack{
                     VStack(spacing: 2){
@@ -69,40 +70,24 @@ extension DialogView.NavBarView{
                             Rectangle()
                                 .fill(Color.cyan)
                                 .frame(width: 2)
-                            
                         }
                     }
                     .frame(height: 32)
                     
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Pin message")
-                                .font(.system(size: 12, weight: .medium))
-                        
-                            if let media = last.media, !media.isEmpty, let first = media.first?.item {
-                                HStack {
-                                    LazyNukeImage(strUrl: first.fullPath, resizeSize: .init(width: 100, height: 100), contentMode: .aspectFit, loadPriority: .high)
-                                        .frame(width: 20, height: 20)
-                                        .cornerRadius(1)
-                                    Text("Photo \(media.count)")
-                                        .font(.system(size: 12, weight: .light))
-                                        .foregroundColor(.secondary)
-                                }
-                            } else if let message = last.message{
-                                Text(message)
-                                    .font(.system(size: 12, weight: .light))
-                                    .lineLimit(1)
-                            }
-                           
-                        }
-                        Spacer()
-                        Button {
-                            viewModel.pinOrUnpinMessage(message: last, onPinned: false)
-                        } label: {
-                            Image(systemName: "xmark.circle")
-                                .font(.title3)
-                                .foregroundColor(Color.cyan)
-                        }
-                        .buttonStyle(.plain)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Pin message")
+                            .font(.system(size: 12, weight: .medium))
+                        makeMessageContent(lastPinMessage.getMessage())
+                    }
+                    Spacer()
+                    Button {
+                        viewModel.pinOrUnpinMessage(message: lastPinMessage, onPinned: false)
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                            .font(.title3)
+                            .foregroundColor(Color.cyan)
+                    }
+                    .buttonStyle(.plain)
                     
                 }
                 .padding(.horizontal)
@@ -111,5 +96,45 @@ extension DialogView.NavBarView{
             .contentShape(Rectangle())
             .onTapGesture(perform: viewModel.onTapPinMessage)
         }
+    }
+    
+    @ViewBuilder
+    private func makeMessageContent(_ message: Message) -> some View {
+        if let media = message.media, !media.isEmpty, let firstItem = media.first?.item {
+            HStack {
+                LazyNukeImage(strUrl: firstItem.fullPath, resizeSize: .init(width: 100, height: 100), contentMode: .aspectFit, loadPriority: .high)
+                    .frame(width: 20, height: 20)
+                    .cornerRadius(1)
+                Text("Photo \(media.count)")
+                    .font(.system(size: 12, weight: .light))
+                    .foregroundColor(.secondary)
+            }
+        } else if let text = message.message{
+            Text(text)
+                .font(.system(size: 12, weight: .light))
+                .lineLimit(1)
+        }
+    }
+}
+
+extension DialogView.NavBarView {
+    
+    private var rightButton: some View {
+        Group {
+            if viewModel.isActiveSelectedMode{
+                Button("Done") {
+                    viewModel.resetSelection()
+                }
+            } else {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "ellipsis")
+                }
+            }
+        }
+        .padding(.vertical, 5)
+        .foregroundColor(.cyan)
+        .buttonStyle(.plain)
     }
 }

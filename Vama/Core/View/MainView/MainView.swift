@@ -53,6 +53,12 @@ struct MainView: View {
             ImageViewerView()
                 .environmentObject(router)
         }
+        .sheet(item: $router.sheetDestination) { type in
+            switch type{
+            case .chatListModal(let setter):
+                ChatModalView(setter: setter, conversations: chatVM.chatConversations)
+            }
+        }
     }
 }
 

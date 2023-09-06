@@ -11,7 +11,7 @@ final class MainRouter: ObservableObject {
     
     @Published var currentTab: MainTab = .chats
     @Published var imageViewer = ImageViewer()
-
+    @Published var sheetDestination: SheetDestination?
     
     func setTab(_ tab: MainTab) {
         currentTab = tab
@@ -22,3 +22,15 @@ final class MainRouter: ObservableObject {
 
 
 
+
+
+enum SheetDestination: Identifiable{
+    
+    case chatListModal(ChatModalSetter)
+    
+    var id: Int{
+        switch self {
+        case .chatListModal: return 0
+        }
+    }
+}
